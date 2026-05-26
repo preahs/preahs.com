@@ -1,3 +1,1 @@
-# preahs.com
-
-My personal website for a centralized identity. Includes my work portfolio, blog, writing, and contact info.
+My personal website that hosts my centralized identity, including my blog and portfolio.
