@@ -1,11 +1,384 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// --- placeholder data (swap for a content-collection query) ---
+// e.g.  const recentPosts = (await getCollection("blog"))
+//          .sort((a, b) => b.data.ts - a.data.ts).slice(0, 3);
+const recentPosts = [
+  {
+    title: "Self-hosting an LLM behind Traefik",
+    desc: "Adding a private model endpoint to the homelab stack — Docker networking and reverse-proxy labels.",
+    folder: "Homelab",
+    href: "/blog/self-hosting-llm-traefik",
+    date: "Fri May 09, 2026",
+    read: "12 min read",
+  },
+  {
+    title: "A small ritual: brewing gongfu before class",
+    desc: "Why ten minutes with a gaiwan beats another cup of drip coffee on a long study day.",
+    folder: "Tea",
+    href: "/blog/gongfu-before-class",
+    date: "Tue Apr 28, 2026",
+    read: "4 min read",
+  },
+  {
+    title: "Pleasant passwords",
+    desc: "A method for making passwords that you won't hate to use.",
+    folder: "Security",
+    href: "/blog/pleasant-passwords",
+    date: "Sun Apr 14, 2026",
+    read: "6 min read",
+  },
+];
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Current rotation — edit freely. `note` is optional.
+const games = [
+  { name: "Skyrim", note: "Since forever! And I mod it too" },
+  { name: "Kingdom: Two Crowns", note: "New!" },
+  { name: "Oblivion Remastered", note: null },
+  { name: "Spelunky 2", note: null },
+  { name: "Minecraft", note: "Custom fantasy-focused modpack" },
+];
+
+const elsewhere = [
+  { label: "GitHub", href: "https://github.com" },
+  { label: "RSS", href: "/rss.xml" },
+  { label: "Email", href: "mailto:hello@example.com" },
+];
+
+const year = new Date().getFullYear();
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hi, I'm Preah</title>
+    <meta
+      name="description"
+      content="Personal updates, rants, and thoughts. An amateur web developer, infosec tinkerer, tea enthusiast, and homelab enjoyer in Central Texas."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ---------- site header (shared with blog) ---------- -->
+      <header class="site-head">
+        <a class="rss" href="/rss.xml" aria-label="RSS feed">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.3" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="brand" href="/">Preah</a>
+        <nav class="nav">
+          <a href="/" class="active">home</a>
+          <a href="/blog">blog</a>
+          <a href="/projects">projects</a>
+          <a href="/about">about</a>
+        </nav>
+      </header>
+
+      <!-- ---------- hero ---------- -->
+      <section class="hero">
+        <h1>Hi, I'm Preah.</h1>
+        <p class="hero-sub">
+          I'm a university student living in
+          <span class="hl">Central Texas</span>. I'm an amateur web developer
+          and information-security-obsessed
+          <span class="hl">tinkerer</span> who loves making little projects, an
+          occasional gamer (when I'm not doing school or reading), an
+          eastern-style <span class="hl">tea</span> enthusiast, and a
+          homelab / self-host enjoyer.
+        </p>
+        <p class="hero-sub">
+          Expect short personal updates, rants, and other thoughts — possibly
+          the odd game review, although I don't try new games often&nbsp;:)
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="/blog">Read the blog</a>
+          <a class="btn ghost" href="/about">More about me</a>
+        </div>
+      </section>
+
+      <!-- ---------- recent writing ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Recent writing</h2>
+          <a class="more" href="/blog">all posts &#8594;</a>
+        </div>
+
+        <div class="posts">
+          {recentPosts.map((p) => (
+            <article class="preview">
+              <a class="title" href={p.href}>{p.title}</a>
+              <p class="desc">{p.desc}</p>
+              <div class="meta">
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+                </span>
+                <span>{p.date}</span>
+                <span class="gap"></span>
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </span>
+                <span>{p.read}</span>
+                <span class="gap"></span>
+                <span class="folder-pill">{p.folder}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- ---------- currently playing ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>What I'm playing</h2>
+          <span class="more-static">current rotation</span>
+        </div>
+
+        <ul class="games">
+          {games.map((g) => (
+            <li class="game">
+              <span class="game-ficon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4"/><circle cx="15.5" cy="10.5" r="0.6" fill="currentColor"/><circle cx="17.5" cy="12.5" r="0.6" fill="currentColor"/><path d="M17.5 5.5H6.5A4.5 4.5 0 0 0 2 10v4a3 3 0 0 0 5.4 1.8l.5-.7a2 2 0 0 1 1.6-.8h5a2 2 0 0 1 1.6.8l.5.7A3 3 0 0 0 22 14v-4a4.5 4.5 0 0 0-4.5-4.5Z"/></svg>
+              </span>
+              <span class="game-name">{g.name}</span>
+              {g.note && <span class="game-note">{g.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- ---------- elsewhere ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Find me elsewhere</h2>
+        </div>
+        <p class="elsewhere-intro">
+          The slow web is alive and well. Subscribe by
+          <a href="/rss.xml">RSS</a>, or wander over to one of these:
+        </p>
+        <div class="links">
+          {elsewhere.map((l) => (
+            <a class="ext" href={l.href}>
+              {l.label}
+              <span class="arr" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- ---------- footer ---------- -->
+      <footer class="site-foot">
+        <span class="foot-brand">Preah</span>
+        <span class="foot-dot">&middot;</span>
+        <span>built by hand, {year}</span>
+        <span class="foot-spacer"></span>
+        <a href="/rss.xml">rss</a>
+        <a href="/sitemap-index.xml">sitemap</a>
+      </footer>
+    </div>
+
+    <style is:global>
+      /* ============================================================
+         PAPER / SKETCHBOOK — light theme (shared with blog)
+         ============================================================ */
+      :root {
+        --paper:        oklch(97.5% 0.012 90);
+        --paper-card:   oklch(99% 0.008 90);
+        --ink:          oklch(28% 0.02 80);
+        --ink-soft:     oklch(45% 0.02 80);
+        --ink-faint:    oklch(60% 0.015 80);
+        --rule:         oklch(78% 0.015 85);
+        --rule-strong:  oklch(68% 0.02 85);
+        --accent:       oklch(48% 0.10 200);
+        --accent-soft:  oklch(93% 0.04 200);
+        --folder:       oklch(58% 0.07 95);
+
+        --font-display: "Newsreader", Georgia, serif;
+        --font-body:    "Source Serif 4", Georgia, serif;
+        --font-quote:   "Crimson Pro", Georgia, serif;
+        --font-mono:    "Spline Sans Mono", ui-monospace, monospace;
+
+        --radius: 6px;
+        --maxw: 1040px;
+      }
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        background-color: var(--paper);
+        background-image: radial-gradient(oklch(0% 0 0 / 0.015) 1px, transparent 1px);
+        background-size: 4px 4px;
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1.06rem;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        min-height: 100vh;
+      }
+      .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+
+      /* ---------- site header ---------- */
+      .site-head { display: flex; align-items: center; gap: 0.7rem; padding: 1.75rem 0 1.5rem; }
+      .site-head .rss { color: var(--accent); line-height: 0; display: flex; }
+      .brand {
+        font-family: var(--font-display); font-size: 2rem; font-weight: 500;
+        letter-spacing: -0.01em; color: var(--ink); text-decoration: none;
+      }
+      .nav { margin-left: auto; display: flex; gap: 1.4rem; font-family: var(--font-mono); font-size: 0.8rem; }
+      .nav a {
+        color: var(--ink-soft); text-decoration: none; padding-bottom: 2px;
+        border-bottom: 1.5px dashed transparent; transition: 0.15s;
+      }
+      .nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+      .nav a.active { color: var(--ink); border-bottom-color: var(--rule-strong); }
+
+      /* ---------- hero ---------- */
+      .hero { padding: 2rem 0 1rem; max-width: 760px; }
+      .kicker {
+        font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
+        color: var(--ink-faint); margin-bottom: 1rem;
+      }
+      .hero h1 {
+        font-family: var(--font-display); font-weight: 500;
+        font-size: clamp(2.1rem, 5vw, 3.1rem); line-height: 1.08;
+        letter-spacing: -0.025em; color: var(--ink); margin-bottom: 1.25rem;
+      }
+      .hero h1 .hl {
+        color: var(--accent);
+        border-bottom: 1.5px dashed var(--rule-strong);
+        padding-bottom: 1px;
+      }
+      .hero-sub { font-size: 1.18rem; color: var(--ink-soft); line-height: 1.6; max-width: 620px; }
+      .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.75rem; }
+      .btn {
+        font-family: var(--font-mono); font-size: 0.85rem; text-decoration: none;
+        color: var(--accent); padding: 0.55rem 1.1rem;
+        border: 1.5px dashed var(--rule); border-radius: var(--radius);
+        background: var(--paper-card);
+        transition: border-color 0.15s, background 0.15s, color 0.15s;
+      }
+      .btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+      .btn.ghost { color: var(--ink-soft); background: none; }
+      .btn.ghost:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+      /* ---------- generic content block ---------- */
+      .block {
+        padding-top: 2.5rem; margin-top: 2.5rem;
+        border-top: 1.5px dashed var(--rule);
+      }
+      .block-head {
+        display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem;
+      }
+      .block-head h2 {
+        font-family: var(--font-display); font-weight: 500;
+        font-size: 1.6rem; letter-spacing: -0.015em; color: var(--ink);
+      }
+      .more {
+        margin-left: auto; font-family: var(--font-mono); font-size: 0.78rem;
+        color: var(--accent); text-decoration: none; white-space: nowrap;
+        border-bottom: 1.5px dashed transparent; transition: 0.15s;
+      }
+      .more:hover { border-bottom-color: var(--accent); }
+
+      /* ---------- post previews (same look as blog feed) ---------- */
+      .preview { padding-bottom: 1.4rem; margin-bottom: 1.4rem; border-bottom: 1.5px dashed var(--rule); }
+      .preview:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+      .preview a.title {
+        display: inline-block; text-decoration: none;
+        font-family: var(--font-display); font-weight: 500;
+        font-size: 1.85rem; line-height: 1.12; letter-spacing: -0.015em;
+        color: var(--accent); margin-bottom: 0.5rem; transition: color 0.15s;
+      }
+      .preview a.title:hover { color: var(--ink); }
+      .preview .desc { color: var(--ink-soft); font-size: 1.02rem; line-height: 1.5; margin-bottom: 0.6rem; }
+      .preview .meta {
+        display: flex; align-items: center; gap: 0.45rem;
+        font-size: 0.92rem; color: var(--ink-soft); flex-wrap: wrap;
+      }
+      .preview .meta .mi { flex: none; color: var(--ink-faint); display: flex; width: 1.05rem; }
+      .preview .meta .mi svg { width: 1rem; height: 1rem; display: block; }
+      .preview .meta .gap { width: 0.4rem; }
+      .folder-pill {
+        font-family: var(--font-mono); font-size: 0.72rem; color: var(--folder);
+        border: 1.5px dashed var(--rule); border-radius: 4px; padding: 0.05em 0.45em;
+      }
+      .more-static {
+        margin-left: auto; font-family: var(--font-mono); font-size: 0.72rem;
+        color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      /* ---------- currently playing ---------- */
+      .games {
+        list-style: none;
+        border: 1.5px dashed var(--rule); border-radius: var(--radius);
+        background: var(--paper-card); padding: 0.4rem 0.6rem;
+      }
+      .game {
+        display: flex; align-items: center; gap: 0.6rem;
+        padding: 0.55rem 0.6rem;
+        border-bottom: 1.5px dashed var(--rule);
+      }
+      .game:last-child { border-bottom: none; }
+      .game-ficon { flex: none; color: var(--folder); display: flex; width: 1.3rem; }
+      .game-ficon svg { width: 1.3rem; height: 1.3rem; display: block; }
+      .game-name {
+        font-family: var(--font-display); font-weight: 500; font-size: 1.1rem;
+        color: var(--ink); letter-spacing: -0.01em;
+      }
+      .game-note {
+        margin-left: auto; font-family: var(--font-mono); font-size: 0.74rem;
+        color: var(--accent); text-align: right;
+        border: 1.5px dashed var(--rule); border-radius: 4px; padding: 0.1em 0.45em;
+        white-space: nowrap;
+      }
+      @media (max-width: 520px) {
+        .game { flex-wrap: wrap; }
+        .game-note { margin-left: 1.9rem; }
+      }
+
+      /* ---------- elsewhere / external links ---------- */
+      .elsewhere-intro { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 1.2rem; max-width: 620px; }
+      .elsewhere-intro a {
+        color: var(--accent); text-decoration: underline;
+        text-decoration-thickness: 1.5px; text-underline-offset: 3px;
+        text-decoration-color: var(--accent-soft); transition: text-decoration-color 0.15s;
+      }
+      .elsewhere-intro a:hover { text-decoration-color: var(--accent); }
+      .links { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+      a.ext {
+        text-decoration: none; color: var(--accent);
+        border: 1.5px dashed var(--rule); border-radius: 4px;
+        padding: 0.3em 0.55em 0.3em 0.7em; font-family: var(--font-mono);
+        font-size: 0.85rem; white-space: nowrap;
+        transition: border-color 0.15s, background 0.15s;
+      }
+      a.ext:hover { border-color: var(--accent); background: var(--accent-soft); }
+      a.ext .arr { display: inline-block; width: 0.85em; height: 0.85em; vertical-align: -1px; margin-left: 0.25em; }
+      a.ext .arr svg { width: 100%; height: 100%; display: block; }
+
+      /* ---------- footer ---------- */
+      .site-foot {
+        display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;
+        margin-top: 3rem; padding: 1.5rem 0 3rem;
+        border-top: 1.5px dashed var(--rule);
+        font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint);
+      }
+      .site-foot .foot-brand { color: var(--ink-soft); }
+      .site-foot .foot-dot { color: var(--rule-strong); }
+      .site-foot .foot-spacer { flex: 1; }
+      .site-foot a {
+        color: var(--ink-soft); text-decoration: none;
+        border-bottom: 1.5px dashed transparent; transition: 0.15s;
+      }
+      .site-foot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    </style>
+  </body>
+</html>
