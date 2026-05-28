@@ -69,6 +69,10 @@ body {
   padding-bottom: 1px;
 }
 .hero-sub { font-size: 1.18rem; color: var(--ink-soft); line-height: 1.6; max-width: 620px; margin-bottom: 0.75rem; }
+.hero-callout {
+  background: var(--paper-card); border: 1.5px dashed var(--accent);
+  border-radius: var(--radius); padding: 0.75rem 1rem;
+}
 .hero-sub a {
   color: var(--accent); text-decoration: none;
   border-bottom: 1.5px dashed var(--rule-strong); transition: 0.15s;
