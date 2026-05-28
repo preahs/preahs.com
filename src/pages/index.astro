@@ -40,9 +40,9 @@ const games = [
 ];
 
 const elsewhere = [
-  { label: "GitHub", href: "https://github.com" },
+  { label: "Forgejo", href: "https://git.preahs.com/preah" },
   { label: "RSS", href: "/rss.xml" },
-  { label: "Email", href: "mailto:hello@example.com" },
+  { label: "Email", href: "contact@preahs.com" },
 ];
 
 const year = new Date().getFullYear();
@@ -76,7 +76,7 @@ const year = new Date().getFullYear();
         <nav class="nav">
           <a href="/" class="active">home</a>
           <a href="/blog">blog</a>
-          <a href="/projects">projects</a>
+          <a href="/portfolio">portfolio</a>
           <a href="/about">about</a>
         </nav>
       </header>
@@ -86,20 +86,18 @@ const year = new Date().getFullYear();
         <h1>Hi, I'm Preah.</h1>
         <p class="hero-sub">
           I'm a university student living in
-          <span class="hl">Central Texas</span>. I'm an amateur web developer
-          and information-security-obsessed
-          <span class="hl">tinkerer</span> who loves making little projects, an
-          occasional gamer (when I'm not doing school or reading), an
-          eastern-style <span class="hl">tea</span> enthusiast, and a
+          <span class="hl">Central Texas</span>. I'm an information-security-obsessed tinkerer and amateur web developer who loves making little projects, an
+          occasional gamer (when I'm not doing school or reading), a gong fu tea enthusiast, and a
           homelab / self-host enjoyer.
         </p>
         <p class="hero-sub">
-          Expect short personal updates, rants, and other thoughts — possibly
+          Expect short personal updates, rants, and other thoughts, possibly
           the odd game review, although I don't try new games often&nbsp;:)
         </p>
+        <p class="hero-sub">If you're intrigued by my professional work, write-ups, resume, or career goals, visit my <a href="/portfolio">portfolio</a> and definitely read my <a href="/blog">blog</a>!</p>
         <div class="hero-cta">
           <a class="btn" href="/blog">Read the blog</a>
-          <a class="btn ghost" href="/about">More about me</a>
+          <a class="btn" href="/about">More about me</a>
         </div>
       </section>
 
@@ -159,8 +157,7 @@ const year = new Date().getFullYear();
           <h2>Find me elsewhere</h2>
         </div>
         <p class="elsewhere-intro">
-          The slow web is alive and well. Subscribe by
-          <a href="/rss.xml">RSS</a>, or wander over to one of these:
+          Wander over to one of these:
         </p>
         <div class="links">
           {elsewhere.map((l) => (
