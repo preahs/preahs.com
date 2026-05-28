@@ -9,8 +9,8 @@
   --ink-faint:    oklch(60% 0.015 80);
   --rule:         oklch(78% 0.015 85);
   --rule-strong:  oklch(68% 0.02 85);
-  --accent:       oklch(48% 0.10 200);
-  --accent-soft:  oklch(93% 0.04 200);
+  --accent:       oklch(52% 0.16 38);
+  --accent-soft:  oklch(94% 0.06 38);
   --folder:       oklch(58% 0.07 95);
 
   --font-display: "Newsreader", Georgia, serif;
