@@ -46,13 +46,13 @@ const year = new Date().getFullYear();
       <!-- ---------- photo + intro ---------- -->
       <section class="about-intro">
         <div class="about-photo-wrap">
-          <div class="about-photo-placeholder" aria-label="Photo of Preah — placeholder">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M10 72c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            <span class="photo-label">photo coming soon</span>
-          </div>
+          <img
+            src="/images/ireland.webp"
+            alt="Preah in Ireland"
+            width="160"
+            height="160"
+            class="about-photo"
+          />
         </div>
 
         <div class="about-lead">
@@ -143,7 +143,7 @@ const year = new Date().getFullYear();
             <h3>Reading</h3>
             <p>
               Mostly non-fiction: memoirs, theology, and the occasional dense technical book.
-              Fiction gets in there too, as I have a huge soft spot for fantasy. See my <a href="/reading-list">reading list</a> to learn more (WIP).
+              Fiction gets in there too, as I have a huge soft spot for fantasy. See my <a href="/reading-list" class="card-link">reading list</a> to learn more (WIP).
             </p>
           </div>
 
@@ -160,13 +160,31 @@ const year = new Date().getFullYear();
 
           <div class="interest-card">
             <div class="interest-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" y1="17" x2="18" y2="17"/><line x1="6" y1="13" x2="18" y2="13"/></svg>
             </div>
-            <h3>Web Development</h3>
+            <h3>Cooking &amp; Baking</h3>
             <p>
-              I like building things that are fast, readable, and actually mine. Astro, vanilla CSS,
-              and a healthy skepticism of JavaScript frameworks.
+              I love making food for people I care about. I bake bread, and I make elaborate meals for my fiancé and friends. It shows love and care, and it's also a fun creative outlet for me. I also brew my own kombucha, which is a fun process that allows me to experiment with different flavors and techniques.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- gallery ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>A few snapshots</h2>
+        </div>
+        <div class="gallery">
+          <div class="gallery-row gallery-row--landscape">
+            <img class="gallery-img" src="/images/beachside.webp" alt="Beachside view" width="400" height="300" loading="lazy" />
+            <img class="gallery-img" src="/images/renfaire.webp" alt="Renaissance faire" width="400" height="300" loading="lazy" />
+            <img class="gallery-img" src="/images/tower.webp" alt="Tower" width="400" height="300" loading="lazy" />
+          </div>
+          <div class="gallery-row gallery-row--landscape">
+            <img class="gallery-img" src="/images/beachdrink.webp" alt="Drink at the beach" width="400" height="300" loading="lazy" />
+            <img class="gallery-img" src="/images/tikiparty.webp" alt="Tiki party" width="400" height="300" loading="lazy" />
+            <img class="gallery-img" src="/images/birdwatching.webp" alt="Birdwatching" width="400" height="300" loading="lazy" />
           </div>
         </div>
       </section>
@@ -227,32 +245,13 @@ const year = new Date().getFullYear();
     flex: none;
   }
 
-  .about-photo-placeholder {
-    width: 160px;
-    height: 160px;
-    border: 1.5px dashed var(--rule-strong);
+  .about-photo {
+    width: 220px;
+    height: 260px;
+    object-fit: cover;
     border-radius: var(--radius);
-    background: var(--paper-card);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    color: var(--ink-faint);
-  }
-
-  .about-photo-placeholder svg {
-    width: 3rem;
-    height: 3rem;
-    color: var(--rule-strong);
-  }
-
-  .photo-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--ink-faint);
-    text-align: center;
-    letter-spacing: 0.03em;
+    border: 1.5px dashed var(--rule-strong);
+    display: block;
   }
 
   .about-lead {
@@ -352,5 +351,49 @@ const year = new Date().getFullYear();
     font-size: 0.95rem;
     color: var(--ink-soft);
     line-height: 1.6;
+  }
+
+  .card-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+    transition: border-color 0.15s;
+  }
+
+  .card-link:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---------- gallery ---------- */
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .gallery-row {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1.5px dashed var(--rule);
+    display: block;
+    transition: border-color 0.15s;
+  }
+
+  .gallery-row--landscape .gallery-img { aspect-ratio: 4 / 3; }
+  .gallery-row--portrait  .gallery-img { aspect-ratio: 3 / 4; }
+
+  .gallery-img:hover {
+    border-color: var(--rule-strong);
+  }
+
+  @media (max-width: 540px) {
+    .gallery-row { grid-template-columns: 1fr 1fr; }
   }
 </style>
