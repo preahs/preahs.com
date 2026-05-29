@@ -1,0 +1,356 @@
+---
+import "../styles/global.css";
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — Preah</title>
+    <meta
+      name="description"
+      content="A bit more about Preah — a university student, infosec tinkerer, tea enthusiast, and homelab enjoyer in Central Texas."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ---------- site header ---------- -->
+      <header class="site-head">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 1 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+        </span>
+        <a class="brand" href="/">Preah</a>
+        <nav class="nav">
+          <a href="/">home</a>
+          <a href="/blog">blog</a>
+          <a href="/portfolio">portfolio</a>
+          <a href="/about" class="active">about</a>
+        </nav>
+      </header>
+
+      <!-- ---------- page header ---------- -->
+      <section class="hero">
+        <h1>About me</h1>
+      </section>
+
+      <!-- ---------- photo + intro ---------- -->
+      <section class="about-intro">
+        <div class="about-photo-wrap">
+          <div class="about-photo-placeholder" aria-label="Photo of Preah — placeholder">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="40" cy="30" r="16" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 72c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="photo-label">photo coming soon</span>
+          </div>
+        </div>
+
+        <div class="about-lead">
+          <p class="hero-sub">
+            Hey! I'm <strong>Preah</strong>, a university student studying cyber security based in the <a href="https://en.wikipedia.org/wiki/Texas_Hill_Country" target="_blank" rel="noopener noreferrer">Texas Hill Country</a>.
+            I spend most of my time with my head down solving a weird puzzle that interests me, reading in-between work breaks and on weekends, studying something intellectually stimulating, and traveling as much as I can. Mostly the beach :p
+          </p>
+          <p>
+            When I'm not studying or hacking on a side project, you'll probably find me brewing a pot of tea, tending my homelab, traveling with my friends or fiancé, or getting distracted by a video game I've played a hundred times before.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- the longer version ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>The longer version</h2>
+        </div>
+
+        <div class="prose">
+          <p>
+            I got into computers as a young child. My brothers love technology and video games. I would watch my brother Karl play on his Minecraft server shared with his wife, and wish I could join. I eventually did, and played in unique ways: making my house random pits in the ground with only a bed or a giant house in the sky. I would make structures by studying mobs block by block and rebuilding them at a large scale, with house interiors for some reason.
+          </p>
+          <p>
+            My brother Christer would play with industrial mods, and I would watch him build complex factories and automated farms. He would distract me all day with riddles to avoid giving up the PC. I would lie about how long I had been on the computer, and Christer would effortlessly pull up the amount of time the computer had been on to disprove me. My brothers did countless things like this that made me want to know more about how computers work and what I could do with them.
+          </p>
+          <p>
+            This curiosity eventually led me to start learning programming in middle school, and I thought it was boring at first. I didn't have a project I cared about, and I didn't understand how to make the things I wanted to make. I gave up for a while, but eventually found my way back to it through game modding and cybersecurity. I found it much more engaging to learn by making things I cared about, and I was fascinated by the idea of being able to create something out of nothing but code. I also loved the problem-solving aspect of programming, and the feeling of satisfaction that came with finally figuring out how to make something work.
+          </p>
+          <p>
+            Inevitably for me, I started hosting servers and learning Linux on my computers. By this point, I was the only kid left in the house and had my own computer. I started hosting Minecraft servers for my friends and family, and eventually branched out into hosting other things like websites, and self-hosted services. I loved the idea of being able to create and control my own little corner of the internet, and I enjoyed the challenge of learning how to set up and maintain a server. This eventually evolved into a full-blown homelab, which is still a work in progress but has been a great learning experience for me.
+          </p>
+          <p>
+            My homelab is my sandbox. It's a small cluster of machines running a mix of self-hosted
+            services, monitoring stacks, and whatever experiment I'm currently obsessing over. It has
+            taught me more practical infrastructure knowledge than any course I've taken.
+          </p>
+          <p>
+            My fiancé doesn't understand this side of me as much, but he loves the results: a fast, ad-free, and personalized internet experience, and a partner who is always learning and tinkering with new things. He is also very supportive of my interests and hobbies, even if he doesn't always understand them. We both share a love of travel and adventure, and we enjoy exploring new places together whenever we can. We love tea and often have a pot brewing while we hang out, and we enjoy trying new blends and flavors, especially when we started investing in gongfu tea. Overall, I feel very lucky to have such a supportive and loving partner, and by extension family, who accepts me for who I am and encourages me to pursue my passions.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- interests ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Things I care about</h2>
+        </div>
+
+        <div class="interests">
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Information Security</h3>
+            <p>
+              Log analysis, SIEM, detection engineering, and CTFs. I lean defensive but I think
+              you can't defend what you don't understand how to attack.
+            </p>
+          </div>
+
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <h3>Homelab &amp; Self-Hosting</h3>
+            <p>
+              Running my own services because I'd rather own my data. Also because it's a great excuse
+              to learn networking, monitoring, and whatever else I decide to throw at it.
+            </p>
+          </div>
+
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <h3>Gong Fu Tea</h3>
+            <p>
+              A slow, deliberate way to brew tea that rewards patience. I'm particularly fond of
+              aged oolongs and ripe pu-erh. It's meditative in the best way.
+            </p>
+          </div>
+
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3>Reading</h3>
+            <p>
+              Mostly non-fiction: memoirs, theology, and the occasional dense technical book.
+              Fiction gets in there too, as I have a huge soft spot for fantasy. See my <a href="/reading-list">reading list</a> to learn more (WIP).
+            </p>
+          </div>
+
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4"/><circle cx="15.5" cy="10.5" r="0.6" fill="currentColor"/><circle cx="17.5" cy="12.5" r="0.6" fill="currentColor"/><path d="M17.5 5.5H6.5A4.5 4.5 0 0 0 2 10v4a3 3 0 0 0 5.4 1.8l.5-.7a2 2 0 0 1 1.6-.8h5a2 2 0 0 1 1.6.8l.5.7A3 3 0 0 0 22 14v-4a4.5 4.5 0 0 0-4.5-4.5Z"/></svg>
+            </div>
+            <h3>Gaming</h3>
+            <p>
+              I don't play new releases often, but I replay the same favorites obsessively.
+              Skyrim, Minecraft, Spelunky, and a few others have permanent residence on my hard drive.
+            </p>
+          </div>
+
+          <div class="interest-card">
+            <div class="interest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Web Development</h3>
+            <p>
+              I like building things that are fast, readable, and actually mine. Astro, vanilla CSS,
+              and a healthy skepticism of JavaScript frameworks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- contact ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Get in touch</h2>
+        </div>
+        <p class="elsewhere-intro">
+          The best way to reach me is by email. I'm also findable at a few other spots:
+        </p>
+        <div class="links">
+          <a class="ext" href="mailto:contact@preahs.com">
+            Email
+            <span class="arr" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+          <a class="ext" href="https://git.preahs.com/preah">
+            Forgejo
+            <span class="arr" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+          <a class="ext" href="/rss.xml">
+            RSS
+            <span class="arr" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ---------- footer ---------- -->
+      <footer class="site-foot">
+        <span class="foot-brand">Preah</span>
+        <span class="foot-dot">&middot;</span>
+        <span>{year}</span>
+        <span class="foot-spacer"></span>
+        <a href="/rss.xml">rss</a>
+        <a href="/sitemap-index.xml">sitemap</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  /* ---------- about intro layout ---------- */
+  .about-intro {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .about-photo-wrap {
+    flex: none;
+  }
+
+  .about-photo-placeholder {
+    width: 160px;
+    height: 160px;
+    border: 1.5px dashed var(--rule-strong);
+    border-radius: var(--radius);
+    background: var(--paper-card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    color: var(--ink-faint);
+  }
+
+  .about-photo-placeholder svg {
+    width: 3rem;
+    height: 3rem;
+    color: var(--rule-strong);
+  }
+
+  .photo-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  .about-lead {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .about-lead p {
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 580px;
+  }
+
+  .about-lead strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .hl {
+    color: var(--accent);
+    border-bottom: 1.5px dashed var(--rule-strong);
+    padding-bottom: 1px;
+  }
+
+  @media (max-width: 540px) {
+    .about-intro {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .about-lead p {
+      text-align: left;
+    }
+  }
+
+  /* ---------- prose ---------- */
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 680px;
+  }
+
+  .prose p {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .prose strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- interests grid ---------- */
+  .interests {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .interest-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .interest-icon {
+    color: var(--accent);
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .interest-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .interest-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .interest-card p {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+</style>
