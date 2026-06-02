@@ -39,12 +39,6 @@ const games = [
   { name: "Minecraft", note: "Custom fantasy-focused modpack" },
 ];
 
-const elsewhere = [
-  { label: "Forgejo", href: "https://git.preahs.com/preah" },
-  { label: "RSS", href: "/rss.xml" },
-  { label: "Email", href: "contact@preahs.com" },
-];
-
 const year = new Date().getFullYear();
 ---
 
@@ -150,34 +144,17 @@ const year = new Date().getFullYear();
         </ul>
       </section>
 
-      <!-- ---------- elsewhere ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Find me elsewhere</h2>
-        </div>
-        <p class="elsewhere-intro">
-          Wander over to one of these:
-        </p>
-        <div class="links">
-          {elsewhere.map((l) => (
-            <a class="ext" href={l.href}>
-              {l.label}
-              <span class="arr" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-              </span>
-            </a>
-          ))}
-        </div>
-      </section>
-
       <!-- ---------- footer ---------- -->
       <footer class="site-foot">
         <span class="foot-brand">Preah</span>
         <span class="foot-dot">&middot;</span>
         <span>{year}</span>
         <span class="foot-spacer"></span>
-        <a href="/rss.xml">rss</a>
-        <a href="/sitemap-index.xml">sitemap</a>
+        <a href="https://git.preahs.com/preah">Forgejo</a>
+        <a href="mailto:contact@preahs.com">Email</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="https://signal.me/#eu/7FQaEphPdhSrlUCPuqr8awsHVYUSiJ9CGua_YktOEMge3oIT-itMcKuS2r3k6x8Q">Signal</a>
+        <a href="https://matrix.to/#/@preshavocado:snowberry.social">Matrix</a>
       </footer>
     </div>
   </body>
