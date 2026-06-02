@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { formatDate, readingTime } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const sorted = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return sorted.map((post, i) => {
+    const slug = post.id.replace(/\.mdx?$/, '');
+    const prev = sorted[i + 1]; // older
+    const next = sorted[i - 1]; // newer
+
+    return {
+      params: { slug },
+      props: {
+        post,
+        prev: prev
+          ? { title: prev.data.title, href: `/blog/${prev.id.replace(/\.mdx?$/, '')}` }
+          : undefined,
+        next: next
+          ? { title: next.data.title, href: `/blog/${next.id.replace(/\.mdx?$/, '')}` }
+          : undefined,
+      },
+    };
+  });
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={formatDate(post.data.date)}
+  category={post.data.category}
+  readingTime={readingTime(post.body ?? '')}
+  prev={prev}
+  next={next}
+>
+  <Content />
+</BlogPostLayout>

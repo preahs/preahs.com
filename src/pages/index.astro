@@ -1,36 +1,21 @@
 ---
 import "../styles/global.css";
-// --- placeholder data (swap for a content-collection query) ---
-// e.g.  const recentPosts = (await getCollection("blog"))
-//          .sort((a, b) => b.data.ts - a.data.ts).slice(0, 3);
-const recentPosts = [
-  {
-    title: "Placeholder Title",
-    desc: "Hello world, this is a placeholder description for a blog post. It should be replaced with an actual summary of the post content.",
-    folder: "Homelab",
-    href: "/blog/placeholder",
-    date: "Fri May 09, 2026",
-    read: "12 min read",
-  },
-  {
-    title: "Placeholder Title 2",
-    desc: "Hello world, this is a placeholder description for a blog post. It should be replaced with an actual summary of the post content.",
-    folder: "Tea",
-    href: "/blog/placeholder-2",
-    date: "Tue Apr 28, 2026",
-    read: "4 min read",
-  },
-  {
-    title: "Placeholder Title 3",
-    desc: "Hello world, this is a placeholder description for a blog post. It should be replaced with an actual summary of the post content.",
-    folder: "Security",
-    href: "/blog/placeholder-3",
-    date: "Sun Apr 14, 2026",
-    read: "6 min read",
-  },
-];
+import { getCollection } from "astro:content";
+import { formatDate, readingTime, categoryLabel } from "../lib/blog";
 
-// Current rotation — edit freely. `note` is optional.
+const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+  .map((p) => ({
+    title: p.data.title,
+    desc: p.data.description,
+    folder: categoryLabel(p.data.category),
+    href: `/blog/${p.id.replace(/\.mdx?$/, "")}`,
+    date: formatDate(p.data.date),
+    read: readingTime(p.body ?? ""),
+  }));
+
+// Current rotation. `note` is optional.
 const games = [
   { name: "Skyrim", note: "Since forever! And I mod it too" },
   { name: "Kingdom: Two Crowns", note: "New!" },

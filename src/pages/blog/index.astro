@@ -1,0 +1,332 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORIES, formatDate, readingTime, categoryLabel } from '../../lib/blog';
+import '../../styles/global.css';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Serialise to plain objects for the client-side tree script
+const POSTS_JSON = JSON.stringify(
+  allPosts.map((p) => ({
+    title: p.data.title,
+    desc: p.data.description,
+    category: p.data.category,
+    date: formatDate(p.data.date),
+    ts: p.data.date.valueOf(),
+    read: readingTime(p.body ?? ''),
+    href: `/blog/${p.id.replace(/\.mdx?$/, '')}`,
+  }))
+);
+
+// Only include categories that actually have posts (or are ancestors of them)
+const usedCategories = new Set(allPosts.map((p) => p.data.category));
+function hasPostsInSubtree(catId: string): boolean {
+  if (usedCategories.has(catId)) return true;
+  return CATEGORIES.filter((c) => c.parent === catId).some((c) => hasPostsInSubtree(c.id));
+}
+const visibleCategories = CATEGORIES.filter((c) => hasPostsInSubtree(c.id));
+
+const FOLDERS_JSON = JSON.stringify(visibleCategories);
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Preah</title>
+    <meta name="description" content="Notes, writeups, and the occasional rambling or essay." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="alternate" type="application/rss+xml" title="Preah's Blog" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+
+      <!-- ---------- site header ---------- -->
+      <header class="site-head">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 1 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+        </span>
+        <a class="brand" href="/">Preah</a>
+        <nav class="nav">
+          <a href="/">home</a>
+          <a href="/blog" class="active">blog</a>
+          <a href="/portfolio">portfolio</a>
+          <a href="/about">about</a>
+        </nav>
+      </header>
+
+      <!-- ---------- two-column landing ---------- -->
+      <div class="landing">
+
+        <!-- LEFT RAIL: folder tree -->
+        <aside>
+          <div class="tree-box">
+            <ul class="tree" id="tree"></ul>
+          </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: previews -->
+        <main>
+          <div class="feed-intro">
+            <p>Notes, writeups, and the occasional rambling or essay.</p>
+          </div>
+          <div class="feed-here" id="here">Showing <b>most recent</b> posts</div>
+          <div id="previews"></div>
+        </main>
+      </div>
+
+      <!-- ---------- footer ---------- -->
+      <footer class="site-foot">
+        <span class="foot-brand">Preah</span>
+        <span class="foot-dot">&middot;</span>
+        <span>{year}</span>
+        <span class="foot-spacer"></span>
+        <a href="https://git.preahs.com/preah">Forgejo</a>
+        <a href="mailto:contact@preahs.com">Email</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="https://signal.me/#eu/7FQaEphPdhSrlUCPuqr8awsHVYUSiJ9CGua_YktOEMge3oIT-itMcKuS2r3k6x8Q">Signal</a>
+        <a href="https://matrix.to/#/@preshavocado:snowberry.social">Matrix</a>
+      </footer>
+    </div>
+
+    <script define:vars={{ POSTS_JSON, FOLDERS_JSON }}>
+      // ---- data ----
+      var POSTS   = JSON.parse(POSTS_JSON);
+      var FOLDERS = JSON.parse(FOLDERS_JSON);
+
+      // ---- icons ----
+      var openIcon   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h4l2 2h7a1 1 0 0 1 1 1v1"/><path d="M3 9h16.5a1 1 0 0 1 .96 1.27l-1.4 6A1 1 0 0 1 18.1 17H5a1 1 0 0 1-1-1V7"/></svg>';
+      var closedIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h4l2 2h9a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z"/></svg>';
+      var calIcon    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>';
+      var clockIcon  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+      // ---- helpers ----
+      function childrenOf(id) {
+        return FOLDERS.filter(function(f) { return f.parent === id; });
+      }
+      function descendants(id) {
+        var out = [id];
+        childrenOf(id).forEach(function(c) { out = out.concat(descendants(c.id)); });
+        return out;
+      }
+      function labelOf(id) {
+        if (id === '__root__') return 'Blog';
+        var f = FOLDERS.find(function(x) { return x.id === id; });
+        return f ? f.label : id;
+      }
+
+      // ---- state ----
+      var collapsed = {};
+      var selected  = '__root__';
+
+      // Pre-collapse folders that have children, matching the mockup feel
+      FOLDERS.forEach(function(f) {
+        if (childrenOf(f.id).length > 0) collapsed[f.id] = true;
+      });
+
+      // ---- tree rendering ----
+      function buildTree() {
+        var root = document.getElementById('tree');
+        root.innerHTML = '';
+        root.appendChild(renderNode({ id: '__root__', label: 'Blog', parent: null }, true));
+      }
+
+      function renderNode(node, isRoot) {
+        var li = document.createElement('li');
+        var kids = childrenOf(node.id);
+        var expandable = kids.length > 0 || node.id === '__root__';
+
+        // Root node children are top-level FOLDERS (those with parent === null)
+        if (node.id === '__root__') {
+          kids = FOLDERS.filter(function(f) { return f.parent === null; });
+          expandable = kids.length > 0;
+        }
+
+        if (expandable && collapsed[node.id]) li.classList.add('collapsed');
+
+        var isCol  = !!collapsed[node.id];
+        var isLeaf = !expandable;
+
+        var row = document.createElement('a');
+        row.className = 'row' +
+          (isRoot   ? ' root'     : '') +
+          (isLeaf   ? ' leaf'     : '') +
+          (selected === node.id ? ' selected' : '');
+        row.dataset.id = node.id;
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+
+        var twist = expandable ? (isCol ? '+' : '−') : '';
+        var icon  = expandable ? (isCol ? closedIcon : openIcon) : closedIcon;
+
+        row.innerHTML =
+          '<span class="twist">' + twist + '</span>' +
+          '<span class="ficon">' + icon + '</span>' +
+          '<span class="name">' + node.label + '</span>';
+
+        function activate() {
+          selected = node.id;
+          if (expandable) collapsed[node.id] = !collapsed[node.id];
+          buildTree();
+          renderPreviews();
+        }
+
+        row.addEventListener('click', function(e) { e.preventDefault(); activate(); });
+        row.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+        });
+
+        li.appendChild(row);
+
+        if (expandable) {
+          var ul = document.createElement('ul');
+          ul.className = 'children';
+          kids.forEach(function(k) { ul.appendChild(renderNode(k, false)); });
+          li.appendChild(ul);
+        }
+        return li;
+      }
+
+      // ---- preview rendering ----
+      function renderPreviews() {
+        var scope = selected === '__root__'
+          ? POSTS.map(function(p) { return p.category; }) // all
+          : descendants(selected);
+
+        var list = POSTS.filter(function(p) { return scope.indexOf(p.category) > -1; })
+                        .sort(function(a, b) { return b.ts - a.ts; });
+
+        var here = document.getElementById('here');
+        if (selected === '__root__') {
+          here.innerHTML = 'Showing <b>most recent</b> posts';
+        } else {
+          here.innerHTML = 'In <b>' + labelOf(selected) + '</b> &middot; ' +
+            list.length + ' post' + (list.length === 1 ? '' : 's');
+        }
+
+        var box = document.getElementById('previews');
+        if (list.length === 0) {
+          box.innerHTML = '<p class="empty">No posts in this folder yet.</p>';
+          return;
+        }
+
+        box.innerHTML = list.map(function(p) {
+          return '<article class="preview">' +
+            '<a class="title" href="' + p.href + '">' + escHtml(p.title) + '</a>' +
+            '<p class="desc">' + escHtml(p.desc) + '</p>' +
+            '<div class="meta">' +
+              '<span class="mi" aria-hidden="true">' + calIcon + '</span>' +
+              '<span>' + escHtml(p.date) + '</span>' +
+              '<span class="gap"></span>' +
+              '<span class="mi" aria-hidden="true">' + clockIcon + '</span>' +
+              '<span>' + escHtml(p.read) + '</span>' +
+              '<span class="gap"></span>' +
+              '<span class="folder-pill">' + escHtml(labelOf(p.category)) + '</span>' +
+            '</div>' +
+          '</article>';
+        }).join('');
+      }
+
+      function escHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      // ---- init ----
+      // Read ?folder= param to pre-select a folder when linking from a post breadcrumb
+      var params = new URLSearchParams(window.location.search);
+      var folderParam = params.get('folder');
+      if (folderParam) {
+        selected = folderParam;
+        // Expand ancestors
+        FOLDERS.forEach(function(f) {
+          if (descendants(f.id).indexOf(folderParam) > -1) {
+            collapsed[f.id] = false;
+          }
+        });
+      }
+
+      buildTree();
+      renderPreviews();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .landing {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    padding-bottom: 3rem;
+  }
+  @media (max-width: 760px) {
+    .landing { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+
+  /* ---- feed intro ---- */
+  .feed-intro p { color: var(--ink); font-size: 1.1rem; margin-bottom: 0.6rem; }
+  .feed-here {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--ink-faint); margin-bottom: 1.4rem;
+  }
+  .feed-here b { color: var(--accent); font-weight: 500; }
+  .empty { color: var(--ink-faint); font-style: italic; padding: 1rem 0; }
+
+  /* ---- folder tree ---- */
+  .tree-box {
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+    background: var(--paper-card);
+  }
+
+  .tree, .tree ul { list-style: none; }
+  .tree li { position: relative; }
+
+  .row {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.28rem 0.45rem; border-radius: 4px;
+    cursor: pointer; text-decoration: none;
+    color: var(--accent); font-size: 1rem;
+    transition: background 0.15s; user-select: none;
+  }
+  .row:hover  { background: var(--accent-soft); }
+  .row.selected { background: var(--accent-soft); font-weight: 500; }
+  .row.selected .name { text-decoration: underline; text-underline-offset: 3px; }
+  .row .twist { width: 0.85rem; flex: none; font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-faint); text-align: center; line-height: 1; }
+  .row.leaf .twist { visibility: hidden; }
+  .row .ficon { flex: none; color: var(--folder); display: flex; width: 1.2rem; }
+  .row .ficon svg { width: 1.2rem; height: 1.2rem; display: block; }
+  .row .name { line-height: 1.2; }
+  .row.root { font-weight: 500; }
+
+  .tree .children {
+    margin-left: 1.05rem;
+    padding-left: 0.85rem;
+    border-left: 1.5px dashed var(--rule);
+  }
+  .tree .children > li > .row::before {
+    content: '';
+    position: absolute;
+    left: -0.85rem; top: 1rem;
+    width: 0.65rem;
+    border-top: 1.5px dashed var(--rule);
+  }
+  .tree .children > li { position: relative; }
+  .tree li.collapsed > .children { display: none; }
+</style>
