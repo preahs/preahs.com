@@ -59,6 +59,25 @@ Subscript: H~2~O and superscript: X^2^ (extension-dependent).
 
 ---
 
+## 3b. Alerts (GitHub-style)
+
+> [!NOTE]
+> Useful information that users should know, even when skimming.
+
+> [!TIP]
+> Helpful advice for doing things better.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
+---
+
 ## 4. Blockquotes
 
 > This is a blockquote.

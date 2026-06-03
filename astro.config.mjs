@@ -1,9 +1,73 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import remarkGithubAlerts from 'remark-github-alerts';
+import remarkMath from 'remark-math';
+import remarkEmoji from 'remark-emoji';
+import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
+import remarkSupersub from 'remark-supersub';
+import remarkFlexibleMarkers from 'remark-flexible-markers';
+import rehypeKatex from 'rehype-katex';
+import rehypeMermaid from 'rehype-mermaid';
+import rehypeExternalLinks from 'rehype-external-links';
 
-// https://astro.build/config
+// SVG icon appended after external link text
+const externalLinkIcon = {
+  type: 'element',
+  tagName: 'svg',
+  properties: {
+    xmlns: 'http://www.w3.org/2000/svg',
+    width: '13',
+    height: '13',
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: '2',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    class: 'ext-link-icon',
+    ariaHidden: 'true',
+  },
+  children: [
+    { type: 'element', tagName: 'path', properties: { d: 'M15 3h6v6' }, children: [] },
+    { type: 'element', tagName: 'path', properties: { d: 'M10 14 21 3' }, children: [] },
+    { type: 'element', tagName: 'path', properties: { d: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' }, children: [] },
+  ],
+};
+
 export default defineConfig({
   site: 'https://preahs.com',
   integrations: [sitemap()],
+  markdown: {
+    // Exclude 'math' (handled by rehype-katex) and 'mermaid' (handled by rehype-mermaid)
+    // from Shiki syntax highlighting so those code blocks pass through unmodified.
+    syntaxHighlight: {
+      type: 'shiki',
+      excludeLangs: ['math', 'mermaid'],
+    },
+    remarkPlugins: [
+      remarkGithubAlerts,
+      remarkMath,
+      [remarkEmoji, { accessible: true }],
+      remarkDefinitionList,
+      remarkSupersub,
+      remarkFlexibleMarkers,
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      [rehypeMermaid, { strategy: 'inline-svg' }],
+      [rehypeExternalLinks, {
+        target: '_blank',
+        rel: ['noopener', 'noreferrer'],
+        content: externalLinkIcon,
+        contentProperties: {},
+      }],
+    ],
+    shikiConfig: {
+      theme: 'github-light',
+    },
+    remarkRehype: {
+      handlers: { ...defListHastHandlers },
+    },
+  },
 });

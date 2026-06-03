@@ -33,6 +33,7 @@ const year = new Date().getFullYear();
       href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   </head>
   <body>
     <div class="wrap" style="max-width: 720px;">
@@ -125,6 +126,33 @@ const year = new Date().getFullYear();
     </div>
   </body>
 </html>
+
+<script>
+  // Copy button for code blocks
+  document.querySelectorAll('.prose pre').forEach((pre) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block-wrap';
+    pre.parentNode?.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('aria-label', 'Copy code');
+    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+    wrapper.appendChild(btn);
+
+    btn.addEventListener('click', async () => {
+      const code = pre.querySelector('code')?.innerText ?? pre.innerText;
+      await navigator.clipboard.writeText(code);
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+        btn.classList.remove('copied');
+      }, 1800);
+    });
+  });
+</script>
 
 <style>
   /* ---------- article header ---------- */
@@ -308,4 +336,199 @@ const year = new Date().getFullYear();
 
   .post-nav-item:hover .ttl { color: var(--accent); }
   .post-nav-item.next { text-align: right; }
+
+  /* ---------- tables ---------- */
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-top: 1.35rem;
+  }
+  .prose :global(th) {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: var(--paper-card);
+    padding: 0.55rem 0.85rem;
+    border: 1.5px dashed var(--rule);
+    text-align: left;
+  }
+  .prose :global(td) {
+    padding: 0.5rem 0.85rem;
+    border: 1.5px dashed var(--rule);
+    vertical-align: top;
+  }
+  .prose :global(tr:nth-child(even) td) {
+    background: oklch(97.5% 0.006 85);
+  }
+
+  /* ---------- images ---------- */
+  .prose :global(img) {
+    max-width: 100%;
+    border-radius: var(--radius);
+    border: 1.5px dashed var(--rule);
+    display: block;
+    margin: 1.35rem auto;
+  }
+  .prose :global(figure) { margin: 1.75rem 0; text-align: center; }
+  .prose :global(figcaption) {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+
+  /* ---------- mark / highlight ==text== ---------- */
+  .prose :global(mark) {
+    background: oklch(90% 0.12 85);
+    color: var(--ink);
+    padding: 0.05em 0.25em;
+    border-radius: 3px;
+  }
+
+  /* ---------- definition lists ---------- */
+  .prose :global(dl) { margin-top: 1.35rem; }
+  .prose :global(dt) {
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 0.85rem;
+  }
+  .prose :global(dd) {
+    margin-left: 1.5rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  .prose :global(dd + dd) { margin-top: 0.1rem; }
+
+  /* ---------- superscript / subscript ---------- */
+  .prose :global(sup),
+  .prose :global(sub) {
+    font-size: 0.75em;
+    line-height: 0;
+  }
+
+  /* ---------- external link icon ---------- */
+  .prose :global(.ext-link-icon) {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.2em;
+    margin-bottom: 0.1em;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ---------- copy button ---------- */
+  .prose :global(.code-block-wrap) {
+    position: relative;
+    margin-top: 1.35rem;
+  }
+  .prose :global(.code-block-wrap pre) {
+    margin-top: 0;
+  }
+  .prose :global(.copy-btn) {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.55rem;
+    background: var(--paper);
+    border: 1.5px dashed var(--rule);
+    border-radius: 5px;
+    padding: 0.3rem 0.4rem;
+    cursor: pointer;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+  }
+  .prose :global(.code-block-wrap:hover .copy-btn) { opacity: 1; }
+  .prose :global(.copy-btn:hover) { color: var(--ink); }
+  .prose :global(.copy-btn.copied) { color: oklch(55% 0.14 145); opacity: 1; }
+
+  /* ---------- GitHub-style alerts ---------- */
+  .prose :global(.markdown-alert) {
+    border-left: 3px solid;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.75rem 1.1rem;
+    margin-top: 1.35rem;
+    background: var(--paper-card);
+  }
+  .prose :global(.markdown-alert-title) {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .prose :global(.markdown-alert-note) { border-color: oklch(60% 0.14 250); }
+  .prose :global(.markdown-alert-note .markdown-alert-title) { color: oklch(52% 0.16 250); }
+  .prose :global(.markdown-alert-tip) { border-color: oklch(58% 0.16 145); }
+  .prose :global(.markdown-alert-tip .markdown-alert-title) { color: oklch(48% 0.18 145); }
+  .prose :global(.markdown-alert-important) { border-color: oklch(58% 0.18 295); }
+  .prose :global(.markdown-alert-important .markdown-alert-title) { color: oklch(50% 0.20 295); }
+  .prose :global(.markdown-alert-warning) { border-color: oklch(70% 0.15 75); }
+  .prose :global(.markdown-alert-warning .markdown-alert-title) { color: oklch(55% 0.16 65); }
+  .prose :global(.markdown-alert-caution) { border-color: oklch(60% 0.18 25); }
+  .prose :global(.markdown-alert-caution .markdown-alert-title) { color: oklch(52% 0.20 25); }
+
+  /* ---------- mermaid SVG ---------- */
+  .prose :global(.mermaid-diagram-wrapper),
+  .prose :global(figure.mermaid-diagram-wrapper) {
+    text-align: center;
+    margin-top: 1.35rem;
+  }
+  .prose :global(.mermaid-diagram-wrapper svg) {
+    max-width: 100%;
+    height: auto;
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1rem;
+    background: var(--paper-card);
+  }
+
+  /* ---------- KaTeX ---------- */
+  .prose :global(.katex-display) {
+    overflow-x: auto;
+    padding: 0.5rem 0;
+  }
+  .prose :global(.katex) { font-size: 1.05em; }
+
+  /* ---------- task list checkboxes ---------- */
+  .prose :global(li:has(> input[type="checkbox"])) { list-style: none; margin-left: -1rem; }
+  .prose :global(li > input[type="checkbox"]) {
+    margin-right: 0.45rem;
+    accent-color: var(--accent);
+  }
+
+  /* ---------- kbd ---------- */
+  .prose :global(kbd) {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    padding: 0.1em 0.45em;
+    border: 1.5px solid var(--rule);
+    border-bottom-width: 2.5px;
+    border-radius: 4px;
+    background: var(--paper-card);
+    color: var(--ink-soft);
+  }
+
+  /* ---------- footnotes ---------- */
+  .prose :global(.footnotes) {
+    border-top: 1.5px dashed var(--rule);
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    font-size: 0.9em;
+    color: var(--ink-soft);
+  }
+  .prose :global(.footnote-ref a),
+  .prose :global(.footnotes a) {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+  }
 </style>
