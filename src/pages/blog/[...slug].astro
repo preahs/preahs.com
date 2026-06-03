@@ -29,6 +29,8 @@ export async function getStaticPaths() {
 
 const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
+const slug = post.id.replace(/\.mdx?$/, '');
+const rawHref = post.data.rawSource ? `/blog/${slug}.md` : undefined;
 ---
 
 <BlogPostLayout
@@ -39,6 +41,7 @@ const { Content } = await render(post);
   readingTime={readingTime(post.body ?? '')}
   prev={prev}
   next={next}
+  rawHref={rawHref}
 >
   <Content />
 </BlogPostLayout>

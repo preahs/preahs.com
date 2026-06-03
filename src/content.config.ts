@@ -10,6 +10,7 @@ const blog = defineCollection({
     /** Must match one of the category ids defined in src/lib/blog.ts */
     category: z.string(),
     draft: z.boolean().optional().default(false),
+    rawSource: z.boolean().optional().default(false),
   }),
 });
 
