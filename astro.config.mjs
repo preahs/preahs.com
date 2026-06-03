@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import remarkGfm from 'remark-gfm';
 import remarkGithubAlerts from 'remark-github-alerts';
 import remarkMath from 'remark-math';
 import remarkEmoji from 'remark-emoji';
@@ -45,7 +46,11 @@ export default defineConfig({
       type: 'shiki',
       excludeLangs: ['math', 'mermaid'],
     },
+    // Disable built-in GFM so we can configure singleTilde: false,
+    // which prevents ~text~ from being consumed as strikethrough before remark-supersub sees it.
+    gfm: false,
     remarkPlugins: [
+      [remarkGfm, { singleTilde: false }],
       remarkGithubAlerts,
       remarkMath,
       [remarkEmoji, { accessible: true }],
@@ -64,7 +69,7 @@ export default defineConfig({
       }],
     ],
     shikiConfig: {
-      theme: 'github-light',
+      theme: 'one-dark-pro',
     },
     remarkRehype: {
       handlers: { ...defListHastHandlers },

@@ -239,42 +239,57 @@ const year = new Date().getFullYear();
   .prose :global(a:hover) { text-decoration-color: var(--accent); }
 
   .prose :global(blockquote) {
+    position: relative;
     font-family: var(--font-quote);
     font-style: italic;
-    font-size: 1.18rem;
+    font-size: 1.15rem;
     color: var(--ink-soft);
-    line-height: 1.5;
-    padding: 1rem 1.3rem;
-    border: 1.5px dashed var(--rule);
-    border-radius: var(--radius);
+    line-height: 1.6;
+    padding: 1.1rem 1.4rem 1.1rem 3rem;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: oklch(96% 0.01 70);
     margin-top: 1.35rem;
   }
+  .prose :global(blockquote::before) {
+    content: '\201C';
+    position: absolute;
+    left: 0.6rem;
+    top: 0.2rem;
+    font-family: var(--font-quote);
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+  .prose :global(blockquote p) { margin-top: 0.6rem; }
+  .prose :global(blockquote p:first-child) { margin-top: 0; }
 
   .prose :global(code) {
     font-family: var(--font-mono);
-    font-size: 0.86em;
-    color: oklch(48% 0.10 40);
-    padding: 0.08em 0.4em;
+    font-size: 0.83em;
+    color: oklch(42% 0.14 25);
+    padding: 0.15em 0.45em;
     border-radius: 4px;
-    border: 1.5px dashed var(--rule);
-    background: oklch(96% 0.012 85);
+    background: oklch(92% 0.025 60);
+    border: none;
   }
 
   .prose :global(pre) {
-    border: 1.5px dashed var(--rule);
     border-radius: var(--radius);
-    padding: 1rem 1.2rem;
+    padding: 1.1rem 1.3rem;
     overflow-x: auto;
-    background: var(--paper-card);
     margin-top: 1.35rem;
+    /* background comes from Shiki's dark theme */
+    box-shadow: 0 2px 12px oklch(0% 0 0 / 0.18);
   }
 
   .prose :global(pre code) {
     border: none;
     padding: 0;
     background: none;
-    font-size: 0.9em;
-    color: var(--ink);
+    font-size: 0.88em;
+    color: inherit;
   }
 
   .prose :global(ul),
@@ -432,50 +447,71 @@ const year = new Date().getFullYear();
     position: absolute;
     top: 0.5rem;
     right: 0.55rem;
-    background: var(--paper);
-    border: 1.5px dashed var(--rule);
+    background: oklch(30% 0.02 240 / 0.7);
+    border: 1px solid oklch(55% 0.04 240 / 0.5);
     border-radius: 5px;
     padding: 0.3rem 0.4rem;
     cursor: pointer;
-    color: var(--ink-faint);
+    color: oklch(75% 0.04 240);
     display: flex;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.15s, color 0.15s;
+    transition: opacity 0.15s, color 0.15s, background 0.15s;
   }
   .prose :global(.code-block-wrap:hover .copy-btn) { opacity: 1; }
-  .prose :global(.copy-btn:hover) { color: var(--ink); }
-  .prose :global(.copy-btn.copied) { color: oklch(55% 0.14 145); opacity: 1; }
+  .prose :global(.copy-btn:hover) { color: oklch(95% 0.02 240); background: oklch(38% 0.03 240 / 0.9); }
+  .prose :global(.copy-btn.copied) { color: oklch(75% 0.16 145); opacity: 1; }
 
   /* ---------- GitHub-style alerts ---------- */
   .prose :global(.markdown-alert) {
-    border-left: 3px solid;
+    border-left: 4px solid;
     border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 0.75rem 1.1rem;
+    padding: 0.9rem 1.2rem;
     margin-top: 1.35rem;
-    background: var(--paper-card);
   }
   .prose :global(.markdown-alert-title) {
     font-family: var(--font-mono);
-    font-size: 0.82em;
-    font-weight: 600;
+    font-size: 0.8em;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.4rem;
+    gap: 0.45rem;
+    margin-bottom: 0.5rem;
   }
-  .prose :global(.markdown-alert-note) { border-color: oklch(60% 0.14 250); }
-  .prose :global(.markdown-alert-note .markdown-alert-title) { color: oklch(52% 0.16 250); }
-  .prose :global(.markdown-alert-tip) { border-color: oklch(58% 0.16 145); }
-  .prose :global(.markdown-alert-tip .markdown-alert-title) { color: oklch(48% 0.18 145); }
-  .prose :global(.markdown-alert-important) { border-color: oklch(58% 0.18 295); }
-  .prose :global(.markdown-alert-important .markdown-alert-title) { color: oklch(50% 0.20 295); }
-  .prose :global(.markdown-alert-warning) { border-color: oklch(70% 0.15 75); }
-  .prose :global(.markdown-alert-warning .markdown-alert-title) { color: oklch(55% 0.16 65); }
-  .prose :global(.markdown-alert-caution) { border-color: oklch(60% 0.18 25); }
-  .prose :global(.markdown-alert-caution .markdown-alert-title) { color: oklch(52% 0.20 25); }
+  .prose :global(.markdown-alert p) { margin-top: 0.4rem; }
+  .prose :global(.markdown-alert p:first-of-type) { margin-top: 0; }
+
+  .prose :global(.markdown-alert-note) {
+    border-color: oklch(58% 0.16 250);
+    background: oklch(96% 0.025 250);
+  }
+  .prose :global(.markdown-alert-note .markdown-alert-title) { color: oklch(48% 0.18 250); }
+
+  .prose :global(.markdown-alert-tip) {
+    border-color: oklch(56% 0.18 145);
+    background: oklch(96% 0.03 145);
+  }
+  .prose :global(.markdown-alert-tip .markdown-alert-title) { color: oklch(44% 0.20 145); }
+
+  .prose :global(.markdown-alert-important) {
+    border-color: oklch(56% 0.20 295);
+    background: oklch(96% 0.025 295);
+  }
+  .prose :global(.markdown-alert-important .markdown-alert-title) { color: oklch(46% 0.22 295); }
+
+  .prose :global(.markdown-alert-warning) {
+    border-color: oklch(68% 0.17 70);
+    background: oklch(97% 0.03 80);
+  }
+  .prose :global(.markdown-alert-warning .markdown-alert-title) { color: oklch(50% 0.18 60); }
+
+  .prose :global(.markdown-alert-caution) {
+    border-color: oklch(58% 0.20 25);
+    background: oklch(96% 0.03 25);
+  }
+  .prose :global(.markdown-alert-caution .markdown-alert-title) { color: oklch(48% 0.22 25); }
 
   /* ---------- mermaid SVG ---------- */
   .prose :global(.mermaid-diagram-wrapper),
@@ -500,10 +536,27 @@ const year = new Date().getFullYear();
   .prose :global(.katex) { font-size: 1.05em; }
 
   /* ---------- task list checkboxes ---------- */
-  .prose :global(li:has(> input[type="checkbox"])) { list-style: none; margin-left: -1rem; }
+  .prose :global(li:has(> input[type="checkbox"])) {
+    list-style: none;
+    margin-left: -1rem;
+  }
+  /* Restore normal indent for nested task items — only top-level pulls back */
+  .prose :global(li li:has(> input[type="checkbox"])) {
+    margin-left: 0;
+  }
   .prose :global(li > input[type="checkbox"]) {
-    margin-right: 0.45rem;
+    width: 1em;
+    height: 1em;
     accent-color: var(--accent);
+    cursor: default;
+    margin-right: 0.45rem;
+    position: relative;
+    top: 0.12em;
+  }
+  .prose :global(li:has(> input[type="checkbox"]:checked) > :not(ul):not(ol)) {
+    text-decoration: line-through;
+    text-decoration-color: var(--accent);
+    color: var(--ink-soft);
   }
 
   /* ---------- kbd ---------- */
