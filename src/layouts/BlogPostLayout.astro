@@ -137,6 +137,36 @@ const year = new Date().getFullYear();
 </html>
 
 <script>
+  // Mermaid — client-side rendering (avoids Playwright dependency in build environments)
+  // Only loads mermaid.js when the page actually contains diagrams.
+  const mermaidBlocks = document.querySelectorAll('code.language-mermaid');
+  if (mermaidBlocks.length > 0) {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.textContent = `
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      const blocks = document.querySelectorAll('code.language-mermaid');
+      for (const code of blocks) {
+        const pre = code.parentElement;
+        const source = code.textContent ?? '';
+        const id = 'mermaid-' + Math.random().toString(36).slice(2);
+        try {
+          const { svg } = await mermaid.render(id, source);
+          const wrapper = document.createElement('div');
+          wrapper.className = 'mermaid-diagram-wrapper';
+          wrapper.innerHTML = svg;
+          pre.replaceWith(wrapper);
+        } catch (e) {
+          console.warn('Mermaid render failed:', e);
+        }
+      }
+    `;
+    document.head.appendChild(script);
+  }
+</script>
+
+<script>
   // Copy button for code blocks
   document.querySelectorAll('.prose pre').forEach((pre) => {
     const wrapper = document.createElement('div');
@@ -535,9 +565,15 @@ const year = new Date().getFullYear();
   }
   .prose :global(.markdown-alert-caution .markdown-alert-title) { color: oklch(48% 0.22 25); }
 
-  /* ---------- mermaid SVG ---------- */
-  .prose :global(.mermaid-diagram-wrapper),
-  .prose :global(figure.mermaid-diagram-wrapper) {
+  /* ---------- mermaid ---------- */
+  /* While JS loads, the raw <pre> placeholder gets a subtle unrendered style */
+  .prose :global(pre:has(> code.language-mermaid)) {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    box-shadow: none;
+    opacity: 0.5;
+  }
+  .prose :global(.mermaid-diagram-wrapper) {
     text-align: center;
     margin-top: 1.35rem;
   }

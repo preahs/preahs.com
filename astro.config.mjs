@@ -9,7 +9,6 @@ import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-lis
 import remarkSupersub from 'remark-supersub';
 import remarkFlexibleMarkers from 'remark-flexible-markers';
 import rehypeKatex from 'rehype-katex';
-import rehypeMermaid from 'rehype-mermaid';
 import rehypeExternalLinks from 'rehype-external-links';
 
 // SVG icon appended after external link text
@@ -40,8 +39,9 @@ export default defineConfig({
   site: 'https://preahs.com',
   integrations: [sitemap()],
   markdown: {
-    // Exclude 'math' (handled by rehype-katex) and 'mermaid' (handled by rehype-mermaid)
-    // from Shiki syntax highlighting so those code blocks pass through unmodified.
+    // Exclude 'math' (handled by rehype-katex) and 'mermaid' (rendered client-side)
+    // from Shiki so those code blocks stay as plain <code class="language-*"> for
+    // their respective renderers to process.
     syntaxHighlight: {
       type: 'shiki',
       excludeLangs: ['math', 'mermaid'],
@@ -60,7 +60,6 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeKatex,
-      [rehypeMermaid, { strategy: 'inline-svg' }],
       [rehypeExternalLinks, {
         target: '_blank',
         rel: ['noopener', 'noreferrer'],
