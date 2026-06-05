@@ -20,6 +20,7 @@ export const CATEGORIES: CategoryNode[] = [
   { id: 'tea',      label: 'Tea',      parent: null },
   { id: 'travel',   label: 'Travel',   parent: null },
   { id: 'guides',   label: 'Guides',   parent: null },
+  { id: 'personal', label: 'Personal', parent: null },
 ];
 
 /** Returns the display label for a category id, falling back to the id itself. */
