@@ -15,15 +15,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24.4.1'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Cloudflare Pages
+      - name: Build and deploy
         run: |
+          npm run build
           npx wrangler pages deploy ./dist \
             --project-name=preahs-com \
             --branch=main
