@@ -15,12 +15,16 @@ export const CATEGORIES: CategoryNode[] = [
   { id: 'tech',     label: 'Tech',     parent: null },
   { id: 'recipes',  label: 'Recipes',  parent: null },
   { id: 'essays',   label: 'Essays',   parent: null },
+  { id: 'notes',    label: 'Notes',    parent: null },
   { id: 'homelab',  label: 'Homelab',  parent: null },
-  { id: 'security', label: 'Security', parent: null },
+  { id: 'tech/security', label: 'Security', parent: 'tech' },
   { id: 'tea',      label: 'Tea',      parent: null },
   { id: 'travel',   label: 'Travel',   parent: null },
   { id: 'guides',   label: 'Guides',   parent: null },
-  { id: 'personal', label: 'Personal', parent: null },
+  { id: 'personal',           label: 'Personal',  parent: null },
+  { id: 'personal/greetings', label: 'Greetings', parent: 'personal' },
+  { id: 'gaming',             label: 'Gaming',    parent: null },
+  { id: 'tech/labs',          label: 'Labs',      parent: 'tech' },
 ];
 
 /** Returns the display label for a category id, falling back to the id itself. */
