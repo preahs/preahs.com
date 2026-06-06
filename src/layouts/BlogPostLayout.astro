@@ -101,6 +101,14 @@ const year = new Date().getFullYear();
           <slot />
         </div>
 
+        <!-- ---------- reply ---------- -->
+        <div class="reply-line">
+          <a class="reply-btn" href={`mailto:contact@preahs.com?subject=Re%3A%20${encodeURIComponent(title)}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Reply via email
+          </a>
+        </div>
+
         <!-- ---------- prev / next ---------- -->
         <footer class="article-foot">
           <nav class="post-nav" aria-label="Post navigation">
@@ -360,6 +368,28 @@ const year = new Date().getFullYear();
     border-top: 1.5px dashed var(--rule);
     margin: 1.75rem 0;
   }
+
+  /* ---------- reply ---------- */
+  .reply-line {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1.5px dashed var(--rule);
+  }
+  .reply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--accent);
+    padding: 0.6rem 1.25rem;
+    border: 1.5px dashed var(--rule-strong);
+    border-radius: var(--radius);
+    background: var(--paper-card);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .reply-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
 
   /* ---------- post nav ---------- */
   .article-foot {
