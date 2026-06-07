@@ -1,0 +1,387 @@
+---
+import "../styles/global.css";
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio — Preah</title>
+    <meta
+      name="description"
+      content="Preah Smith's professional portfolio — cybersecurity student, technical support advisor, and homelab builder in Central Texas."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ---------- site header ---------- -->
+      <header class="site-head">
+        <div class="brand-row">
+          <span class="brand-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 1 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+          </span>
+          <a class="brand" href="/">Preah</a>
+        </div>
+        <nav class="nav">
+          <a href="/">home</a>
+          <a href="/blog">blog</a>
+          <a href="/portfolio" class="active">portfolio</a>
+          <a href="/about">about</a>
+        </nav>
+      </header>
+
+      <!-- ---------- page header ---------- -->
+      <section class="hero">
+        <h1>Portfolio</h1>
+        <p class="hero-sub">
+          A summary of my professional background. Support work, security projects,
+          and the infrastructure I build and maintain. For the full story, see my
+          <a href="/files/preah_smith_resume.pdf" target="_blank" rel="noopener noreferrer">resume</a>
+          or get in touch at <a href="mailto:contact@preahs.com">contact@preahs.com</a>.
+        </p>
+      </section>
+
+      <!-- ---------- summary ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Summary</h2>
+        </div>
+        <div class="prose">
+          <p>
+            Cybersecurity student at UTSA with hands-on experience delivering technical support at scale,
+            administering Linux systems, and building self-hosted infrastructure. Proven ability to resolve
+            complex hardware, software, and networking issues across multiple platforms, with a track record
+            of high customer satisfaction. I bring strong documentation habits, a security-minded approach to
+            troubleshooting, and a passion for continuous learning.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- skills ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Technical skills</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Systems</h3>
+            <p>Windows, macOS, Linux (Ubuntu, Debian), iOS, Docker, Proxmox, Git</p>
+          </div>
+          <div class="skill-card">
+            <h3>Networking</h3>
+            <p>TCP/IP, DNS, DHCP, VPN, Firewalls, LAN/WAN, Cloudflare, Network Troubleshooting</p>
+          </div>
+          <div class="skill-card">
+            <h3>Security</h3>
+            <p>Wazuh SIEM, MITRE ATT&amp;CK, Active Directory, Nmap, Wireshark</p>
+          </div>
+          <div class="skill-card">
+            <h3>Programming</h3>
+            <p>Python, Bash, HTML/CSS</p>
+          </div>
+          <div class="skill-card">
+            <h3>Tools</h3>
+            <p>IT ticketing systems, CRM platforms, Remote Desktop</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- experience ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Experience</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-head">
+              <h3>Technical Support Advisor <span class="org">— Apple (Remote)</span></h3>
+              <span class="dates">Jan 2024 – Jul 2025</span>
+            </div>
+            <ul>
+              <li>Served as first point of contact for customers, delivering remote technical support across Mac, iPhone, iPad, and Apple Watch, resolving 150+ cases weekly across hardware, software, and account issues</li>
+              <li>Maintained a 97% customer satisfaction rating by providing empathetic, efficient, and accurate solutions in a high-volume environment</li>
+              <li>Diagnosed and resolved complex OS-level, network connectivity, and account security issues, applying systematic troubleshooting methodology</li>
+              <li>Leveraged IT ticketing and CRM platforms to manage cases, track resolutions, and ensure accurate documentation and timely follow-up</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-head">
+              <h3>Head Cashier <span class="org">— The Home Depot, Boerne, TX</span></h3>
+              <span class="dates">Jan 2021 – Present</span>
+            </div>
+            <ul>
+              <li>Supervised cashier team and oversaw thousands of weekly transactions in a high-volume retail environment</li>
+              <li>Trained new employees on POS systems, compliance procedures, and customer engagement, reducing onboarding errors and improving team efficiency</li>
+              <li>Served as primary point of escalation for customer issues and POS technical failures, consistently resolving problems under time pressure</li>
+              <li>Maintained composure and accuracy managing competing priorities across a fast-paced, customer-facing environment</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- projects ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Projects</h2>
+        </div>
+        <div class="project-list">
+          <div class="project-card">
+            <h3>Security Home Lab</h3>
+            <p class="project-stack">Proxmox · Docker · Wazuh · Active Directory</p>
+            <ul>
+              <li>Built and maintain a multi-VM home lab on Proxmox, running containerized services via Docker and Traefik reverse proxy with Cloudflare Tunnel for secure external access</li>
+              <li>Deployed Wazuh SIEM for log aggregation and threat detection across lab infrastructure, gaining hands-on experience with security monitoring and alerting</li>
+              <li>Configured an Active Directory lab environment to simulate and detect attacks including Kerberoasting, Pass-the-Hash, DCSync, and Golden Ticket attacks using MITRE ATT&amp;CK as a framework</li>
+              <li>Documented architecture, configurations, and troubleshooting processes in a portfolio of technical writeups on this site — see the <a href="/blog" class="card-link">blog</a> and sort by Tech, Security, or Labs</li>
+            </ul>
+          </div>
+
+          <div class="project-card">
+            <h3>Self-Hosted Infrastructure Stack</h3>
+            <p class="project-stack">Linux · Docker · Nextcloud · Jellyfin</p>
+            <ul>
+              <li>Designed and deployed a home server stack including, but not limited to, Nextcloud for file sync, Jellyfin for media, and ntfy for push notifications, all managed via Docker Compose</li>
+              <li>Managed storage migrations, resolved Cloudflare Tunnel trusted-domain issues, and maintained uptime across services with documented runbooks</li>
+              <li>Configured Bash scripts and system-level tooling for automated media organization, user account management, and backup routines</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- education & certs ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Education &amp; certifications</h2>
+        </div>
+        <div class="ed-grid">
+          <div class="ed-card">
+            <h3>B.B.A. in Cybersecurity</h3>
+            <p class="org">University of Texas at San Antonio <span class="dates">— Expected Aug 2026</span></p>
+            <p>GPA: 3.75 · Coursework: Network Security, Information Assurance, Linux &amp; SQL, Cybersecurity Fundamentals</p>
+          </div>
+          <div class="ed-card">
+            <h3>Certifications &amp; training</h3>
+            <ul>
+              <li>CompTIA A+ (220-1201 &amp; 220-1202) — January 2026</li>
+              <li>CompTIA Security+ (SY0-701) — In Progress, Expected June 2026</li>
+              <li>Tools of the Trade: Linux and SQL — February 2024</li>
+              <li>Connect and Protect: Networks and Network Security — April 2024</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- footer ---------- -->
+      <footer class="site-foot">
+        <span class="foot-brand">Preah</span>
+        <span class="foot-dot">&middot;</span>
+        <span>{year}</span>
+        <span class="foot-spacer"></span>
+        <a href="https://git.preahs.com/preah">Forgejo</a>
+        <a href="mailto:contact@preahs.com">Email</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="https://signal.me/#eu/7FQaEphPdhSrlUCPuqr8awsHVYUSiJ9CGua_YktOEMge3oIT-itMcKuS2r3k6x8Q">Signal</a>
+        <a href="https://matrix.to/#/@preshavocado:snowberry.social">Matrix</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .hero-sub a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+  }
+
+  .hero-sub a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 680px;
+  }
+
+  .prose p {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .skill-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .skill-card p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ---------- timeline / experience ---------- */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    border-left: 2px dashed var(--rule);
+    padding-left: 1.25rem;
+  }
+
+  .timeline-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-head h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .org {
+    color: var(--ink-soft);
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+
+  .dates {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .timeline-item ul,
+  .project-card ul,
+  .ed-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-left: 1.1rem;
+  }
+
+  .timeline-item li,
+  .project-card li,
+  .ed-card li {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ---------- projects ---------- */
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .project-stack {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+  }
+
+  .card-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+    transition: border-color 0.15s;
+  }
+
+  .card-link:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---------- education ---------- */
+  .ed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .ed-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ed-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .ed-card > p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+</style>
