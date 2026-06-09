@@ -3,6 +3,8 @@ import '../styles/global.css';
 import { categoryLabel } from '../lib/blog';
 import LikeButton from '../components/LikeButton.astro';
 
+interface TocEntry { depth: number; slug: string; text: string; }
+
 interface Props {
   title: string;
   description: string;
@@ -13,9 +15,10 @@ interface Props {
   prev?: { title: string; href: string } | undefined;
   next?: { title: string; href: string } | undefined;
   rawHref?: string | undefined;
+  toc?: TocEntry[];
 }
 
-const { title, description, date, category, readingTime, slug, prev, next, rawHref } = Astro.props;
+const { title, description, date, category, readingTime, slug, prev, next, rawHref, toc } = Astro.props;
 const catLabel = categoryLabel(category);
 const year = new Date().getFullYear();
 ---
@@ -97,6 +100,27 @@ const year = new Date().getFullYear();
             )}
           </div>
         </header>
+
+        <!-- table of contents -->
+        {toc && toc.length > 0 && (
+          <details class="toc-box" open>
+            <summary class="toc-toggle">
+              <span class="toc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+              </span>
+              Table of Contents
+            </summary>
+            <nav class="toc-nav" aria-label="Table of contents">
+              <ol class="toc-list">
+                {toc.map(h => (
+                  <li class={`toc-item toc-depth-${h.depth}`}>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </details>
+        )}
 
         <!-- rendered Markdown goes here -->
         <div class="prose">
@@ -681,4 +705,72 @@ const year = new Date().getFullYear();
     font-family: var(--font-mono);
     font-size: 0.8em;
   }
+
+  /* ---------- table of contents ---------- */
+  .toc-box {
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    margin-bottom: 1.75rem;
+    background: var(--paper-card);
+  }
+
+  .toc-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .toc-toggle::-webkit-details-marker { display: none; }
+  .toc-toggle::after {
+    content: '▾';
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    transition: transform 0.2s;
+  }
+  .toc-box:not([open]) .toc-toggle::after { transform: rotate(-90deg); }
+
+  .toc-icon {
+    display: flex;
+    color: var(--ink-faint);
+  }
+  .toc-icon svg { width: 1rem; height: 1rem; }
+
+  .toc-nav {
+    padding: 0.25rem 1.1rem 0.9rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .toc-item a {
+    display: inline-block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0.1rem 0;
+    transition: color 0.15s;
+  }
+  .toc-item a:hover { color: var(--accent); }
+
+  .toc-depth-1 { margin-left: 0; }
+  .toc-depth-2 { margin-left: 1.25rem; }
+  .toc-depth-3 { margin-left: 2.5rem; }
 </style>

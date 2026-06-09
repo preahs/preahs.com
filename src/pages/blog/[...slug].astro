@@ -28,9 +28,10 @@ export async function getStaticPaths() {
 }
 
 const { post, prev, next } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const slug = post.id.replace(/\.mdx?$/, '');
 const rawHref = post.data.rawSource ? `/blog/${slug}.md` : undefined;
+const tocHeadings = post.data.toc ? headings.filter(h => h.depth <= 3) : [];
 ---
 
 <BlogPostLayout
@@ -43,6 +44,7 @@ const rawHref = post.data.rawSource ? `/blog/${slug}.md` : undefined;
   prev={prev}
   next={next}
   rawHref={rawHref}
+  toc={tocHeadings}
 >
   <Content />
 </BlogPostLayout>

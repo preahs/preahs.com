@@ -3,6 +3,7 @@ title: "Strategy Guide For Kingdom: Two Crowns"
 description: "My own strategy guide for the game Kingdom: Two Crowns."
 date: 2026-01-08
 category: gaming
+toc: true
 ---
 
 *Kingdom: Two Crowns* is the third, and definitive, installment in a game series, released in 2018 by Raw Fury and now available on Android and iOS, among other platforms.

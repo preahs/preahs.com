@@ -3,6 +3,7 @@ title: "Deploying to Cloudflare Pages From A Self-Hosted Forgejo Instance"
 description: "How I hooked up a full CI/CD pipeline through Forgejo to deploy to Cloudflare Pages."
 date: 2026-06-09
 category: guides
+toc: true
 ---
 
 I got fed up with GitHub and their outages lately. And honestly, the direction Microsoft has been taking things hasn't sat right with me for a while. So a bit ago, I set up a Forgejo instance on my homelab and moved my repos over. A bit of the control freak in me. I might mirror my repos on GitHub soon to at least have the presence.
