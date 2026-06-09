@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { categoryLabel } from '../lib/blog';
+import LikeButton from '../components/LikeButton.astro';
 
 interface Props {
   title: string;
@@ -8,12 +9,13 @@ interface Props {
   date: string;         // pre-formatted string, e.g. "Sun May. 17, 2026"
   category: string;     // category id, e.g. "codex"
   readingTime: string;  // e.g. "5 min read"
+  slug: string;         // post slug, used for like counts
   prev?: { title: string; href: string } | undefined;
   next?: { title: string; href: string } | undefined;
   rawHref?: string | undefined;
 }
 
-const { title, description, date, category, readingTime, prev, next, rawHref } = Astro.props;
+const { title, description, date, category, readingTime, slug, prev, next, rawHref } = Astro.props;
 const catLabel = categoryLabel(category);
 const year = new Date().getFullYear();
 ---
@@ -101,12 +103,13 @@ const year = new Date().getFullYear();
           <slot />
         </div>
 
-        <!-- ---------- reply ---------- -->
+        <!-- ---------- reply + like ---------- -->
         <div class="reply-line">
           <a class="reply-btn" href={`mailto:contact@preahs.com?subject=Re%3A%20${encodeURIComponent(title)}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             Reply via email
           </a>
+          <LikeButton slug={slug} />
         </div>
 
         <!-- ---------- prev / next ---------- -->
@@ -375,6 +378,10 @@ const year = new Date().getFullYear();
     margin-top: 2.5rem;
     padding-top: 1.5rem;
     border-top: 1.5px dashed var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
   .reply-btn {
     display: inline-flex;

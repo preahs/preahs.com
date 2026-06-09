@@ -23,5 +23,8 @@
     "remark-github-alerts": "^0.1.1",
     "remark-math": "^6.0.0",
     "remark-supersub": "^1.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260609.1"
   }
 }

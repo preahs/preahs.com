@@ -1,0 +1,101 @@
+---
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+---
+
+<div class="like-wrap">
+  <button
+    class="like-btn"
+    id="like-btn"
+    data-slug={slug}
+    aria-label="Like this post"
+    aria-pressed="false"
+  >
+    <svg class="like-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    <span class="like-count">—</span>
+  </button>
+</div>
+
+<script>
+  const btn = document.getElementById('like-btn') as HTMLButtonElement;
+  const countEl = btn.querySelector('.like-count') as HTMLSpanElement;
+  const slug = btn.dataset.slug!;
+  const storageKey = `liked:${slug}`;
+
+  async function fetchCount(): Promise<number> {
+    const res = await fetch(`/api/likes/${slug}`);
+    const data = await res.json() as { likes: number };
+    return data.likes;
+  }
+
+  // Restore liked state from localStorage
+  if (localStorage.getItem(storageKey)) {
+    btn.classList.add('liked');
+    btn.setAttribute('aria-pressed', 'true');
+  }
+
+  // Load initial count
+  fetchCount().then(n => { countEl.textContent = String(n); });
+
+  btn.addEventListener('click', async () => {
+    if (btn.classList.contains('liked')) return; // already liked
+
+    btn.disabled = true;
+    const res = await fetch(`/api/likes/${slug}`, { method: 'POST' });
+    const data = await res.json() as { likes: number };
+
+    countEl.textContent = String(data.likes);
+    btn.classList.add('liked');
+    btn.setAttribute('aria-pressed', 'true');
+    localStorage.setItem(storageKey, '1');
+    btn.disabled = false;
+  });
+</script>
+
+<style>
+  .like-wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .like-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+
+  .like-btn:hover:not(:disabled):not(.liked) {
+    border-color: #e05c7a;
+    color: #e05c7a;
+    background: var(--accent-soft);
+  }
+
+  .like-btn.liked {
+    border-color: #e05c7a;
+    color: #e05c7a;
+    cursor: default;
+  }
+
+  .like-btn.liked .like-icon {
+    fill: #e05c7a;
+    stroke: #e05c7a;
+  }
+
+  .like-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+</style>

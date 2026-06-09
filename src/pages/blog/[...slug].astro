@@ -39,6 +39,7 @@ const rawHref = post.data.rawSource ? `/blog/${slug}.md` : undefined;
   date={formatDate(post.data.date)}
   category={post.data.category}
   readingTime={readingTime(post.body ?? '')}
+  slug={slug}
   prev={prev}
   next={next}
   rawHref={rawHref}
