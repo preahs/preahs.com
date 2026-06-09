@@ -28,6 +28,7 @@ const { slug } = Astro.props;
 
   async function fetchCount(): Promise<number> {
     const res = await fetch(`/api/likes/${slug}`);
+    if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json() as { likes: number };
     return data.likes;
   }
@@ -39,20 +40,27 @@ const { slug } = Astro.props;
   }
 
   // Load initial count
-  fetchCount().then(n => { countEl.textContent = String(n); });
+  fetchCount()
+    .then(n => { countEl.textContent = String(n); })
+    .catch(() => { countEl.textContent = '?'; });
 
   btn.addEventListener('click', async () => {
     if (btn.classList.contains('liked')) return; // already liked
 
     btn.disabled = true;
-    const res = await fetch(`/api/likes/${slug}`, { method: 'POST' });
-    const data = await res.json() as { likes: number };
-
-    countEl.textContent = String(data.likes);
-    btn.classList.add('liked');
-    btn.setAttribute('aria-pressed', 'true');
-    localStorage.setItem(storageKey, '1');
-    btn.disabled = false;
+    try {
+      const res = await fetch(`/api/likes/${slug}`, { method: 'POST' });
+      if (!res.ok) throw new Error(`${res.status}`);
+      const data = await res.json() as { likes: number };
+      countEl.textContent = String(data.likes);
+      btn.classList.add('liked');
+      btn.setAttribute('aria-pressed', 'true');
+      localStorage.setItem(storageKey, '1');
+    } catch {
+      // silently restore so user can try again
+    } finally {
+      btn.disabled = false;
+    }
   });
 </script>
 
