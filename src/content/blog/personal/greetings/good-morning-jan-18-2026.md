@@ -1,7 +1,7 @@
 ---
 title: "Good Morning Jan 18 2026"
 description: "A relaxing weekend and coffee with a friend."
-date: 2026-01-18
+date: 2026-01-18T09:00:00
 category: personal/greetings
 ---
 

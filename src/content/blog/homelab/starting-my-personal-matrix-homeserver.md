@@ -1,7 +1,7 @@
 ---
 title: "Starting My Personal Matrix Homeserver"
 description: "I made my own homeserver using the Matrix protocol to move my chats from Discord."
-date: 2026-03-10
+date: 2026-03-10T09:00:00
 category: homelab
 ---
 

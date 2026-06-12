@@ -1,7 +1,7 @@
 ---
 title: "Good Morning October 16"
 description: "Good morning everyone, here's what I'm up to."
-date: 2025-10-16
+date: 2025-10-16T09:00:00
 category: personal/greetings
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Butternut Squash Soup And OTGW"
 description: "Zero to hero butternut squash tutorial. And Over The Garden Wall."
-date: 2025-10-19
+date: 2025-10-19T09:00:00
 category: personal
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Overview of My Homelab"
 description: "I go over where my homelab and self-hosting services are now."
-date: 2026-04-09
+date: 2026-04-09T09:00:00
 category: homelab
 ---
 

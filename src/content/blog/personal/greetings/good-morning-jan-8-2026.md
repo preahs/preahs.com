@@ -1,7 +1,7 @@
 ---
 title: "Good Morning Jan 8 2026"
 description: "Returning to blogging after a holiday break."
-date: 2026-01-08
+date: 2026-01-08T09:00:00
 category: personal/greetings
 ---
 

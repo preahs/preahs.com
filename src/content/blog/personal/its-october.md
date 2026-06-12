@@ -1,7 +1,7 @@
 ---
 title: "It's October"
 description: "It's finally my favorite month"
-date: 2025-10-01
+date: 2025-10-01T09:00:00
 category: personal
 ---
 

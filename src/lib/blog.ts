@@ -42,6 +42,12 @@ export function formatDate(date: Date): string {
   return `${day} ${month}. ${d}, ${year}`;
 }
 
+/** Formats a Date as "Wed May. 13, 2026, 3:45 PM" (matching the site style). */
+export function formatDateTime(date: Date): string {
+  const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return `${formatDate(date)}, ${time}`;
+}
+
 // ------ Reading time -----------------------------------------
 /** Estimates reading time from raw Markdown body text. */
 export function readingTime(body: string): string {

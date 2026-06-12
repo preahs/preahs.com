@@ -1,7 +1,7 @@
 ---
 title: "Exploring IRC (Internet Relay Chat)"
 description: "I have been having fun trying out IRC and IRC clients, including a self-hosted option."
-date: 2025-10-20
+date: 2025-10-20T09:00:00
 category: guides
 ---
 

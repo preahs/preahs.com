@@ -1,7 +1,7 @@
 ---
 title: "Playing Kingdom: Two Crowns"
 description: "I started playing Kingdom: Two Crowns, and really enjoy it so far."
-date: 2025-10-13
+date: 2025-10-13T09:00:00
 category: gaming
 ---
 

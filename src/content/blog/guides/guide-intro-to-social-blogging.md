@@ -1,7 +1,7 @@
 ---
 title: "(Guide) Intro To Social Blogging"
 description: "A general guide to getting started blogging for the purpose of creating a social network, AKA Blog Feeds."
-date: 2025-10-07
+date: 2025-10-07T09:00:00
 category: guides
 toc: true
 ---

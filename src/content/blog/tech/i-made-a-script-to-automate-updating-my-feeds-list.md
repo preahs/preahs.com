@@ -1,7 +1,7 @@
 ---
 title: "I Made A Script To Automate Updating My Feeds List"
 description: "I wrote a Python script to read a portion of my .opml file and output a markdown-friendly version."
-date: 2026-01-08
+date: 2026-01-08T09:00:00
 category: tech
 ---
 

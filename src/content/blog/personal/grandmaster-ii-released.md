@@ -1,7 +1,7 @@
 ---
 title: "Grandmaster II Released"
 description: "The newest album from Austin-based band Grandmaster was released today."
-date: 2026-01-30
+date: 2026-01-30T09:00:00
 category: personal
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Oktoberfest 2025"
 description: "Going to Oktoberfest in Fredericksburg, TX"
-date: 2025-10-04
+date: 2025-10-04T09:00:00
 category: personal
 ---
 

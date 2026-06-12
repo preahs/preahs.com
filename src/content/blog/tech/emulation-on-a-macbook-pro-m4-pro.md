@@ -1,7 +1,7 @@
 ---
 title: "Emulation on a MacBook Pro M4 Pro"
 description: "Turning my MacBook Pro into an emulation machine."
-date: 2025-10-06
+date: 2025-10-06T09:00:00
 category: tech
 ---
 

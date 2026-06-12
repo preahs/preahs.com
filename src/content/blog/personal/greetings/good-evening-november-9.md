@@ -1,7 +1,7 @@
 ---
 title: "Good Evening November 9"
 description: "Update on what I've been doing."
-date: 2025-11-10
+date: 2025-11-10T09:00:00
 category: personal/greetings
 ---
 

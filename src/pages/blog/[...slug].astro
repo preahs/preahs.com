@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { formatDate, readingTime } from '../../lib/blog';
+import { formatDateTime, readingTime } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -37,7 +37,7 @@ const tocHeadings = post.data.toc ? headings.filter(h => h.depth <= 3) : [];
 <BlogPostLayout
   title={post.data.title}
   description={post.data.description}
-  date={formatDate(post.data.date)}
+  date={formatDateTime(post.data.date)}
   category={post.data.category}
   readingTime={readingTime(post.body ?? '')}
   slug={slug}

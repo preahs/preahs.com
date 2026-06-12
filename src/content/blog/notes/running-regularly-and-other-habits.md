@@ -1,7 +1,7 @@
 ---
 title: "Running Regularly, And Other Habits"
 description: "I made a habit to exercise regularly no matter what, and extended that to other parts of my life."
-date: 2025-10-10
+date: 2025-10-10T09:00:00
 category: notes
 ---
 

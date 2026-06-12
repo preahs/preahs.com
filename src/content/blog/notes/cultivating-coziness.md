@@ -1,7 +1,7 @@
 ---
 title: "Cultivating Coziness"
 description: "My personal experience with bringing a feeling of coziness, or hygge, into my life."
-date: 2025-10-22
+date: 2025-10-22T09:00:00
 category: notes
 ---
 
