@@ -295,12 +295,12 @@ const year = new Date().getFullYear();
     padding: 0.15em 0.6em;
     border: 1px dashed var(--rule-strong);
     border-radius: 999px;
-    background: var(--paper-card);
+    background: #FEFCF6;
     transition: border-color 0.15s, background 0.15s;
   }
   .tag-pill:hover { border-color: var(--accent); background: var(--accent-soft); }
 
-  .meta-row a:not(.crumb a) {
+  .meta-row a:not(.crumb a):not(.tag-pill) {
     color: var(--ink-soft);
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -308,7 +308,7 @@ const year = new Date().getFullYear();
     text-decoration-color: var(--rule);
     transition: color 0.15s, text-decoration-color 0.15s;
   }
-  .meta-row a:not(.crumb a):hover {
+  .meta-row a:not(.crumb a):not(.tag-pill):hover {
     color: var(--accent);
     text-decoration-color: var(--accent-soft);
   }
