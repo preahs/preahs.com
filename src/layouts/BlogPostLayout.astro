@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import { categoryLabel } from '../lib/blog';
 import LikeButton from '../components/LikeButton.astro';
 
 interface TocEntry { depth: number; slug: string; text: string; }
@@ -9,7 +8,7 @@ interface Props {
   title: string;
   description: string;
   date: string;         // pre-formatted string, e.g. "Sun May. 17, 2026"
-  category: string;     // category id, e.g. "codex"
+  tags: string[];
   readingTime: string;  // e.g. "5 min read"
   slug: string;         // post slug, used for like counts
   prev?: { title: string; href: string } | undefined;
@@ -18,8 +17,7 @@ interface Props {
   toc?: TocEntry[];
 }
 
-const { title, description, date, category, readingTime, slug, prev, next, rawHref, toc } = Astro.props;
-const catLabel = categoryLabel(category);
+const { title, description, date, tags, readingTime, slug, prev, next, rawHref, toc } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -72,10 +70,21 @@ const year = new Date().getFullYear();
               </span>
               <a href="/blog">Blog</a>
               <span class="sep">&#8594;</span>
-              <a href={`/blog?folder=${category}`}>{catLabel}</a>
-              <span class="sep">&#8594;</span>
               <span class="crumb-here">{title}</span>
             </div>
+            <!-- tags -->
+            {tags.length > 0 && (
+              <div class="meta-row tags-row">
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.41 0l7.3-7.3a1 1 0 0 0 0-1.41L12 2Z"/><circle cx="7" cy="7" r="1" fill="currentColor"/></svg>
+                </span>
+                <div class="tag-list">
+                  {tags.map(tag => (
+                    <a href={`/blog?tag=${encodeURIComponent(tag)}`} class="tag-pill">{tag}</a>
+                  ))}
+                </div>
+              </div>
+            )}
             <!-- date -->
             <div class="meta-row">
               <span class="mi" aria-hidden="true">
@@ -275,6 +284,21 @@ const year = new Date().getFullYear();
   .crumb a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .crumb .sep { color: var(--ink-faint); font-size: 0.85rem; }
   .crumb-here { color: var(--ink); }
+
+  .tags-row { align-items: flex-start; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tag-pill {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.15em 0.6em;
+    border: 1px dashed var(--rule-strong);
+    border-radius: 999px;
+    background: var(--paper-card);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .tag-pill:hover { border-color: var(--accent); background: var(--accent-soft); }
 
   .meta-row a:not(.crumb a) {
     color: var(--ink-soft);

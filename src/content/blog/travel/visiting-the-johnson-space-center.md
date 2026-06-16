@@ -2,7 +2,7 @@
 title: "Visiting The Johnson Space Center"
 description: "Visiting the Great Wolf Lodge in Houston with Family, then the Johnson Space Center."
 date: 2026-06-12T18:20:00
-category: travel
+tags: [travel, personal, "2026"]
 ---
 
 This past weekend, I took a quick vacation to visit the Great Wolf Lodge in Houston with my fiancé's inlaws. It's a mainly kid focused place, but it scratched this itch in 10-year-old me, who I think would have absolutely adored it.

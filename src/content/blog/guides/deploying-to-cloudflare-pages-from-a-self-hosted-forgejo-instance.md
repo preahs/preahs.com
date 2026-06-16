@@ -2,7 +2,7 @@
 title: "Deploying to Cloudflare Pages From A Self-Hosted Forgejo Instance"
 description: "How I hooked up a full CI/CD pipeline through Forgejo to deploy to Cloudflare Pages."
 date: 2026-06-09T09:00:00
-category: guides
+tags: [guides, tech, self-hosting, "2026"]
 toc: true
 ---
 

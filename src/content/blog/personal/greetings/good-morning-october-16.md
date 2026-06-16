@@ -2,7 +2,7 @@
 title: "Good Morning October 16"
 description: "Good morning everyone, here's what I'm up to."
 date: 2025-10-16T09:00:00
-category: personal/greetings
+tags: [personal, greetings, "2025"]
 ---
 
 Hello hello, I don't have much going on today, or recently for that matter. I got employed again (finally), and start next week, so I'll have less time for fun projects but more money for important life things. I might be getting my first house soon? Just starting with that.

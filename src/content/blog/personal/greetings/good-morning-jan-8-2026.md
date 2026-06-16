@@ -2,7 +2,7 @@
 title: "Good Morning Jan 8 2026"
 description: "Returning to blogging after a holiday break."
 date: 2026-01-08T09:00:00
-category: personal/greetings
+tags: [personal, greetings, "2026"]
 ---
 
 Hello all. I just finished the Core 2 part of the CompTIA A+ exam, and I can finally breathe. School has also been out for winter break, but between moving, parties, and holiday cheer, I have yet to post.

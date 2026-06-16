@@ -2,7 +2,7 @@
 title: "Good Morning Oct 10"
 description: "Good morning."
 date: 2025-10-10T09:00:00
-category: personal/greetings
+tags: [personal, greetings, "2025"]
 ---
 
 Goodmorning everyone 😪 it's 10:00 here.

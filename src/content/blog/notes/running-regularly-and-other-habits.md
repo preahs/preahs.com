@@ -2,7 +2,7 @@
 title: "Running Regularly, And Other Habits"
 description: "I made a habit to exercise regularly no matter what, and extended that to other parts of my life."
 date: 2025-10-10T09:00:00
-category: notes
+tags: [notes, personal, "2025"]
 ---
 
 A few months ago, I started exercising regularly. I mean, I've been "exercising regularly" on and off for years, to no one's surprise, but I have been _actually_ consistently doing it for probably my longest streak yet now. Also to no one's surprise, this has improved by mental and physical health, made me feel more confident, and expelled anxious energy.

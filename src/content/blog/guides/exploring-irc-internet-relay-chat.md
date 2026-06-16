@@ -2,7 +2,7 @@
 title: "Exploring IRC (Internet Relay Chat)"
 description: "I have been having fun trying out IRC and IRC clients, including a self-hosted option."
 date: 2025-10-20T09:00:00
-category: guides
+tags: [guides, tech, "2025"]
 ---
 
 My history with IRC is spotty. I've explored it a couple different times, but I always struggled with 1. understanding it, 2. setting it up, and 3. finding channels that I actually enjoy.

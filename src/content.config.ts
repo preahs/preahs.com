@@ -7,8 +7,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    /** Must match one of the category ids defined in src/lib/blog.ts */
-    category: z.string(),
+    tags: z.array(z.string()).default([]),
     draft: z.boolean().optional().default(false),
     rawSource: z.boolean().optional().default(false),
     toc: z.boolean().optional().default(false),

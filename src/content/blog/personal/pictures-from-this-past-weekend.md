@@ -2,7 +2,7 @@
 title: "Pictures From This Past Weekend"
 description: "Pictures I took from this last weekend."
 date: 2026-01-30T09:00:00
-category: personal
+tags: [personal, photography, "2026"]
 ---
 
 Pictures from the freeze this past weekend. The grub is an ox beetle found in our yard :)

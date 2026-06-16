@@ -2,7 +2,7 @@
 title: "Strategy Guide For Kingdom: Two Crowns"
 description: "My own strategy guide for the game Kingdom: Two Crowns."
 date: 2026-01-08T09:00:00
-category: gaming
+tags: [gaming, guides, "2026"]
 toc: true
 ---
 

@@ -2,7 +2,7 @@
 title: "Good Morning Jan 18 2026"
 description: "A relaxing weekend and coffee with a friend."
 date: 2026-01-18T09:00:00
-category: personal/greetings
+tags: [personal, greetings, "2026"]
 ---
 
 Admittedly, I don't go on my town's main street much. It's not the most exciting place, and I don't have fun money most of the time. But this morning, before I go in for work, I met up with a friend for some coffee and breakfast.

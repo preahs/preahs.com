@@ -2,7 +2,7 @@
 title: "Emulation on a MacBook Pro M4 Pro"
 description: "Turning my MacBook Pro into an emulation machine."
 date: 2025-10-06T09:00:00
-category: tech
+tags: [tech, gaming, macos, "2025"]
 ---
 
 I bought a MacBook Pro 14-inch November 2024 M4 Pro with 24GB RAM in June of this year. It is my first and only Mac.

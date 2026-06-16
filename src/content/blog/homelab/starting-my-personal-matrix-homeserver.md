@@ -2,7 +2,7 @@
 title: "Starting My Personal Matrix Homeserver"
 description: "I made my own homeserver using the Matrix protocol to move my chats from Discord."
 date: 2026-03-10T09:00:00
-category: homelab
+tags: [homelab, self-hosting, tech, "2026"]
 ---
 
 I initially explored Matrix several years ago. It seemed promising, yet about as active as your average IRC channel and lacking most features one would like in a chat platform. Since [Discord's relatively recent announcement about age-verification](https://support.discord.com/hc/en-us/articles/38332670254231-Age-Assurance-Update-FAQ), and their more long-standing problem of slowly boiling their users like frogs with more and more paywalling basic features, I have revisited any and all alternatives for the platform.

@@ -2,7 +2,7 @@
 title: "Good Evening November 9"
 description: "Update on what I've been doing."
 date: 2025-11-10T09:00:00
-category: personal/greetings
+tags: [personal, greetings, "2025"]
 ---
 
 I'm not dead, although I have been busy. Working, learning, dog-sitting, reading, the works. I'm trying incredibly hard to learn more about web development without burning out, while also doing school, and reading my books, and studying for a CLEP exam, and studying for my CompTIA A+ exam, and working, and buying my first house, and yeah...

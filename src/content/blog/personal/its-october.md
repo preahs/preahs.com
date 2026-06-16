@@ -2,7 +2,7 @@
 title: "It's October"
 description: "It's finally my favorite month"
 date: 2025-10-01T09:00:00
-category: personal
+tags: [personal, "2025"]
 ---
 
 It's October.

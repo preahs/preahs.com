@@ -2,7 +2,7 @@
 title: "I Made A Script To Automate Updating My Feeds List"
 description: "I wrote a Python script to read a portion of my .opml file and output a markdown-friendly version."
 date: 2026-01-08T09:00:00
-category: tech
+tags: [tech, "2026"]
 ---
 
 Today I made a Python script to make my life a little easier when it comes to updating my [Feeds](/feeds) page. I follow and un-follow blogs occasionally, so exporting that and then writing it up in Markdown is kind of a bummer.

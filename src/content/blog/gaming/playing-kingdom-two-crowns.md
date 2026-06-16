@@ -2,7 +2,7 @@
 title: "Playing Kingdom: Two Crowns"
 description: "I started playing Kingdom: Two Crowns, and really enjoy it so far."
 date: 2025-10-13T09:00:00
-category: gaming
+tags: [gaming, "2025"]
 ---
 
 I recently started playing a game called Kingdom: Two Crowns. It is _not_ often at all that I try new games and play for more than half an hour; I usually am loyal to my games and like to learn everything about them, 100%-ing them if possible. Examples include that I have played Skyrim pretty consistently since 2012, same with Spelunky 2 since it came out, and I got 97% completion on Red Dead Redemption 2 before moving on.

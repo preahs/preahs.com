@@ -2,7 +2,7 @@
 title: "Overview of My Homelab"
 description: "I go over where my homelab and self-hosting services are now."
 date: 2026-04-09T09:00:00
-category: homelab
+tags: [homelab, self-hosting, tech, "2026"]
 ---
 
 I've had a homelab for quite some time now, although it hasn't been a linear process. I first got into it when I heard about Plex, which at first, I was under the impression of it being a free streaming service with *everything.*

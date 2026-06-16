@@ -2,7 +2,7 @@
 title: "Butternut Squash Soup And OTGW"
 description: "Zero to hero butternut squash tutorial. And Over The Garden Wall."
 date: 2025-10-19T09:00:00
-category: personal
+tags: [personal, food, "2025"]
 ---
 
 It was my first time preparing a whole butternut squash from scratch recently. On Friday, I wanted a classic fall dinner: butternut squash soup, and some mashed potatoes with St Arnold Oktoberfest beer. It was delicious and amazing, but turns out that peeling and dicing a whole squash takes like 45 minutes and some elbow grease.

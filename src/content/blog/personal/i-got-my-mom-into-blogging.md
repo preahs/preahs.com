@@ -2,7 +2,7 @@
 title: "I Got My Mom Into Blogging?"
 description: "My mom has a blog now."
 date: 2025-10-09T09:00:00
-category: personal
+tags: [personal, blogging, "2025"]
 ---
 
 I somehow got my mom into blogging.

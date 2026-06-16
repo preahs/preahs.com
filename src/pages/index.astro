@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { getCollection } from "astro:content";
-import { formatDate, readingTime, categoryLabel } from "../lib/blog";
+import { formatDate, readingTime } from "../lib/blog";
 
 const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -9,7 +9,7 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .map((p) => ({
     title: p.data.title,
     desc: p.data.description,
-    folder: categoryLabel(p.data.category),
+    folder: p.data.tags[0] ?? '',
     href: `/blog/${p.id.replace(/\.mdx?$/, "")}`,
     date: formatDate(p.data.date),
     read: readingTime(p.body ?? ""),

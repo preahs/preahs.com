@@ -2,7 +2,7 @@
 title: "Grandmaster II Released"
 description: "The newest album from Austin-based band Grandmaster was released today."
 date: 2026-01-30T09:00:00
-category: personal
+tags: [personal, music, "2026"]
 ---
 
 Today I received the email from [Bandcamp that Grandmaster II was released](https://grandmasterorchestra.bandcamp.com/). I believe this is their second full album, besides the live album. I've been listening to it today after purchasing it and the vinyl on Bandcamp, and already love it. Just as great as the first album.

@@ -2,7 +2,7 @@
 title: "Oktoberfest 2025"
 description: "Going to Oktoberfest in Fredericksburg, TX"
 date: 2025-10-04T09:00:00
-category: personal
+tags: [personal, "2025"]
 ---
 
 Made my annual trip to Oktoberfest this year. My two beers I tried this time were a Weihenstephaner Dunkel, and a St Arnold's Oktoberfest. I've had both not on tap, but having it on tap at the event itself is just amazing.

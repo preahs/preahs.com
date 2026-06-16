@@ -2,7 +2,7 @@
 title: "Markdown Feature Reference"
 description: "This document demonstrates every major Markdown feature."
 date: 2026-06-02T09:00:00
-category: guides
+tags: [guides, tech, "2026"]
 rawSource: true
 toc: True
 ---

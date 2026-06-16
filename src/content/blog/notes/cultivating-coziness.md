@@ -2,7 +2,7 @@
 title: "Cultivating Coziness"
 description: "My personal experience with bringing a feeling of coziness, or hygge, into my life."
 date: 2025-10-22T09:00:00
-category: notes
+tags: [notes, personal, "2025"]
 ---
 
 The following is general advice and thoughts on how to cultivate more "coziness" in one's life. This is purely my own experience and not applicable to everyone everywhere.
