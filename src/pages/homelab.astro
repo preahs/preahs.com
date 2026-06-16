@@ -1,0 +1,462 @@
+---
+import "../styles/global.css";
+import { getCollection } from "astro:content";
+import { formatDate } from "../lib/blog";
+
+const homelabPosts = (await getCollection("blog", ({ data }) => !data.draft && data.tags?.includes("homelab")))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    title: p.data.title,
+    desc: p.data.description,
+    href: `/blog/${p.id.replace(/\.mdx?$/, "")}`,
+    date: formatDate(p.data.date),
+  }));
+
+const year = new Date().getFullYear();
+
+const hardware = [
+  {
+    name: "Dell PowerEdge R730",
+    role: "Primary hypervisor",
+    specs: "Dual Xeon E5-2667 v4 · 16 GB DDR4 (expandable to 768 GB) · 8-bay 2.5\" SFF · Dual 750 W PSU",
+    notes: "Runs Proxmox VE. All services live here as LXC containers. Paired with an APC UPS for power protection.",
+  },
+  {
+    name: "Synology NAS",
+    role: "Network-attached storage",
+    specs: "8 TB HDD (personal) · 16 TB HDD (shared with brother)",
+    notes: "Primary storage for media, backups, and large files. The machine that started it all, acquired June 14, 2024.",
+  },
+  {
+    name: "Dell Optiplex",
+    role: "Remote access node",
+    specs: "Repurposed desktop PC",
+    notes: "Previously a dedicated Minecraft server host. Now a remote desktop endpoint at my parents' house, letting me access the lab network easily.",
+  },
+];
+
+const services = [
+  { name: "Jellyfin", category: "Media", url: "https://jellyfin.org", desc: "Open-source media server for movies, TV, and music. I mainly stream it to Apple TV via Infuse." },
+  { name: "Plex", category: "Media", url: "https://plex.tv", desc: "Media server for streaming my personal movie, TV, and music library to any device. Mainly used as a backup for Jellyfin (boo Plex)." },
+  { name: "Audiobookshelf", category: "Media", url: "https://www.audiobookshelf.org", desc: "Self-hosted audiobook and podcast server with cross-device progress sync. Man I love this app!" },
+  { name: "Seerr", category: "Media", url: "https://docs.seerr.dev", desc: "Media request frontend for Plex. Lets users request new movies and shows." },
+  { name: "Arr Suite", category: "Media", url: null, desc: "Sonarr, Radarr, and others for automated media library management and downloading." },
+  { name: "Immich", category: "Media", url: "https://immich.app", desc: "Self-hosted Google Photos alternative with ML-powered face and object recognition." },
+  { name: "Kavita", category: "Media", url: "https://www.kavitareader.com", desc: "Self-hosted e-book, manga, and comic reader with a clean library interface." },
+  { name: "RomM", category: "Media", url: "https://romm.app", desc: "ROM manager and player for retro game preservation, with metadata and cover art." },
+  { name: "Actual Budget", category: "Finance", url: "https://actualbudget.org", desc: "Local-first envelope budgeting app. One of my most-used services. Completely changed how I manage money and I'm grateful." },
+  { name: "Tandoor", category: "Productivity", url: "https://tandoor.dev", desc: "Recipe manager and meal planner with ingredient scaling, shopping lists, and nutrition tracking." },
+  { name: "Karakeep", category: "Productivity", url: "https://karakeep.app", desc: "Bookmark and read-later manager with tagging, full-text search, and article archiving." },
+  { name: "Joplin Server", category: "Productivity", url: "https://joplinapp.org", desc: "Sync backend for Joplin, my open-source encrypted note-taking app of choice." },
+  { name: "Trek", category: "Productivity", url: "https://github.com/mauriceboe/TREK", desc: "Self-hosted travel and trip planner with real-time collaboration, interactive maps, budgets, packing lists, and PWA support." },
+  { name: "Paperless-ngx", category: "Docs", url: "https://docs.paperless-ngx.com", desc: "Document management system that OCRs and indexes physical and digital documents." },
+  { name: "TheLounge", category: "Social", url: "https://thelounge.chat", desc: "Web-based IRC client that stays connected 24/7 and keeps full channel logs." },
+  { name: "CraftyController", category: "Gaming", url: "https://craftycontrol.com", desc: "Web-based Minecraft server manager for spinning up and monitoring game server instances." },
+  { name: "Cloudflared", category: "Infra", url: "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/", desc: "Cloudflare Tunnel daemon. Exposes selected services to the internet without opening firewall ports." },
+  { name: "Tailscale", category: "Infra", url: "https://tailscale.com", desc: "WireGuard-based mesh VPN for accessing private services remotely without full public exposure." },
+  { name: "Homepage", category: "Infra", url: "https://github.com/gethomepage/homepage", desc: "Customizable dashboard aggregating all services with live status widgets." },
+  { name: "Homarr", category: "Infra", url: "https://homarr.dev", desc: "Another dashboard option with a drag-and-drop layout and deep service integrations." },
+  { name: "OpenCloud", category: "Infra", url: "https://opencloud.eu", desc: "Self-hosted cloud storage and file sync, an open-source alternative to Nextcloud." },
+  { name: "Forgejo", category: "Infra", url: "https://forgejo.org", desc: "Self-hosted Git forge. Powers git.preahs.com for personal code and project hosting." },
+  { name: "Forgejo Runners", category: "Infra", url: null, desc: "CI/CD runners for Forgejo Actions, enabling automated builds and deployments from the forge." },
+  { name: "ntfy", category: "Infra", url: "https://ntfy.sh", desc: "Simple push notification server. Sends alerts from any service to my phone via a topic URL." },
+];
+
+const categories = [...new Set(services.map((s) => s.category))];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homelab · Preah</title>
+    <meta
+      name="description"
+      content="A tour of my self-hosted infrastructure: hardware, services, networking, and the journey from a Synology NAS to a Dell PowerEdge rack server."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ---------- site header ---------- -->
+      <header class="site-head">
+        <div class="brand-row">
+          <span class="brand-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 1 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+          </span>
+          <a class="brand" href="/">Preah</a>
+        </div>
+        <nav class="nav">
+          <a href="/">home</a>
+          <a href="/blog">blog</a>
+          <a href="/homelab" class="active">homelab</a>
+          <a href="/portfolio">portfolio</a>
+          <a href="/about">about</a>
+        </nav>
+      </header>
+
+      <!-- ---------- page header ---------- -->
+      <section class="hero">
+        <h1>Homelab</h1>
+        <p class="hero-sub">
+          A tour of the self-hosted infrastructure I run, maintain, and learn from.
+          It started with a Synology NAS and a confusing start in 2024. It has since grown
+          into a rack server, 20+ services, and a lot of hard-won sysadmin knowledge.
+          For the write-ups, see the <a href="#writing">blog posts below</a>. To ask me questions about any of it, or ask for help setting up your own infrastructure, please <a href="mailto:contact@preahs.com">reach out via email!</a>
+        </p>
+      </section>
+
+      <!-- ---------- hardware ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Hardware</h2>
+        </div>
+        <div class="hw-grid">
+          {hardware.map((h) => (
+            <div class="hw-card">
+              <div class="hw-top">
+                <h3>{h.name}</h3>
+                <span class="hw-role">{h.role}</span>
+              </div>
+              <p class="hw-specs">{h.specs}</p>
+              <p class="hw-notes">{h.notes}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ---------- networking & access ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Networking &amp; access</h2>
+        </div>
+        <div class="prose">
+          <p>
+            The PowerEdge runs <strong>Proxmox VE</strong> as the hypervisor. Each service lives in its own
+            LXC container, lightweight, isolated, and easy to snapshot and restore.
+          </p>
+          <p>
+            Remote access works in two layers. <strong>Tailscale</strong> provides a private WireGuard mesh
+            for services I never want publicly exposed. For services intended to be reachable on the open web,
+            I use <strong>Cloudflare Tunnels</strong>: no open firewall ports, free TLS, and DDoS protection
+            included. The tunnel daemon (cloudflared) runs as its own container and proxies
+            traffic inbound.
+          </p>
+          <p>
+            The lab lives at my parents' house (powered by solar panels, which keeps the electricity bill sane).
+            The Dell Optiplex on the same UPS acts as a remote desktop jump point when I need local network
+            access to debug something I can't reach over Tailscale.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- vps ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>VPS</h2>
+        </div>
+        <div class="prose">
+          <p>
+            A small number of services run on a VPS rather than local hardware, either because they need
+            a stable public IP or because port-forwarding from home is impractical.
+          </p>
+          <p>
+            The main one is my <strong>Matrix homeserver</strong>, <a href="https://snowberry.social" target="_blank" rel="noopener noreferrer">snowberry.social</a>.
+            I deployed it using the <a href="https://github.com/spantaleev/matrix-docker-ansible-deploy" target="_blank" rel="noopener noreferrer">matrix-docker-ansible-deploy</a>
+            Ansible playbook, which handles the full stack including Synapse, well-known federation files,
+            and an nginx reverse proxy. Federation lets me talk to any Matrix user regardless of what
+            homeserver they are on. Read more in my
+            <a href="/blog/homelab/starting-my-personal-matrix-homeserver">write-up on setting it up</a>.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- services ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Services</h2>
+          <span class="more-static">{services.length} running</span>
+        </div>
+
+        {categories.map((cat) => (
+          <div class="svc-group">
+            <h3 class="svc-cat">{cat}</h3>
+            <div class="svc-list">
+              {services.filter((s) => s.category === cat).map((s) => (
+                <div class="svc-card">
+                  <div class="svc-top">
+                    {s.url
+                      ? <a class="svc-name" href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>
+                      : <span class="svc-name">{s.name}</span>
+                    }
+                  </div>
+                  <p class="svc-desc">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <!-- ---------- blog posts ---------- -->
+      {homelabPosts.length > 0 && (
+        <section class="block" id="writing">
+          <div class="block-head">
+            <h2>Write-ups</h2>
+            <a class="more" href="/blog">all posts &#8594;</a>
+          </div>
+          <div class="posts">
+            {homelabPosts.map((p) => (
+              <article class="preview">
+                <a class="title" href={p.href}>{p.title}</a>
+                <p class="desc">{p.desc}</p>
+                <div class="meta">
+                  <span class="mi" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+                  </span>
+                  <span>{p.date}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- ---------- footer ---------- -->
+      <footer class="site-foot">
+        <span class="foot-brand">Preah</span>
+        <span class="foot-dot">&middot;</span>
+        <span>{year}</span>
+        <span class="foot-spacer"></span>
+        <a href="https://git.preahs.com/preah">Forgejo</a>
+        <a href="mailto:contact@preahs.com">Email</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="https://signal.me/#eu/7FQaEphPdhSrlUCPuqr8awsHVYUSiJ9CGua_YktOEMge3oIT-itMcKuS2r3k6x8Q">Signal</a>
+        <a href="https://matrix.to/#/@preshavocado:snowberry.social">Matrix</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .hero-sub a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+  }
+
+  .hero-sub a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---------- prose ---------- */
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 680px;
+  }
+
+  .prose p {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .prose a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+  }
+
+  .prose a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .prose strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+
+  /* ---------- hardware ---------- */
+  .hw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .hw-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .hw-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.75rem;
+  }
+
+  .hw-top h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .hw-role {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .hw-specs {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  .hw-notes {
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ---------- services ---------- */
+  .svc-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .svc-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .svc-cat {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+  }
+
+  .svc-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .svc-card {
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .svc-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  a.svc-name:hover {
+    color: var(--accent);
+  }
+
+  .svc-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ---------- blog posts ---------- */
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border-left: 2px dashed var(--rule);
+    padding-left: 1.1rem;
+  }
+
+  .preview .title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .preview .title:hover {
+    color: var(--accent);
+  }
+
+  .preview .desc {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+  }
+
+  .mi {
+    display: flex;
+    align-items: center;
+  }
+
+  .mi svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .more-static {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+</style>
