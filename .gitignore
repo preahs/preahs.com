@@ -26,3 +26,12 @@ pnpm-debug.log*
 # wrangler
 .wrangler/
 .dev.vars
+
+# claude
+.claude/
+
+# forgejo
+.forgejo/
+
+# vscode
+.vscode/
