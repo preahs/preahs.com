@@ -30,8 +30,5 @@ pnpm-debug.log*
 # claude
 .claude/
 
-# forgejo
-.forgejo/
-
 # vscode
 .vscode/
