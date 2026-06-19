@@ -46,6 +46,9 @@ const tocHeadings = post.data.toc ? headings.filter(h => h.depth <= 3) : [];
   next={next}
   rawHref={rawHref}
   toc={tocHeadings}
+  section="Blog"
+  sectionHref="/blog"
+  navActive="blog"
 >
   <Content />
 </BlogPostLayout>

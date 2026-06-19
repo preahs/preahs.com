@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { formatDate, formatDateTime, readingTime } from '../../lib/blog';
+
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs', ({ data }) => !data.draft);
+  const sorted = docs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return sorted.map((doc, i) => {
+    const slug = doc.id.replace(/\.mdx?$/, '');
+    const prev = sorted[i + 1]; // older
+    const next = sorted[i - 1]; // newer
+
+    return {
+      params: { slug },
+      props: {
+        doc,
+        prev: prev
+          ? { title: prev.data.title, href: `/docs/${prev.id.replace(/\.mdx?$/, '')}` }
+          : undefined,
+        next: next
+          ? { title: next.data.title, href: `/docs/${next.id.replace(/\.mdx?$/, '')}` }
+          : undefined,
+      },
+    };
+  });
+}
+
+const { doc, prev, next } = Astro.props;
+const { Content, headings } = await render(doc);
+const slug = doc.id.replace(/\.mdx?$/, '');
+const rawHref = doc.data.rawSource ? `/docs/${slug}.md` : undefined;
+const tocHeadings = doc.data.toc ? headings.filter(h => h.depth <= 3) : [];
+---
+
+<BlogPostLayout
+  title={doc.data.title}
+  description={doc.data.description}
+  date={formatDateTime(doc.data.date)}
+  tags={doc.data.tags}
+  readingTime={readingTime(doc.body ?? '')}
+  slug={slug}
+  prev={prev}
+  next={next}
+  rawHref={rawHref}
+  toc={tocHeadings}
+  section="Docs"
+  sectionHref="/docs"
+  navActive="docs"
+  severity={doc.data.severity}
+  lastVerified={doc.data.lastVerified ? formatDate(doc.data.lastVerified) : undefined}
+>
+  <Content />
+</BlogPostLayout>

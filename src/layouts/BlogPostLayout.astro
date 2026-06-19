@@ -15,9 +15,18 @@ interface Props {
   next?: { title: string; href: string } | undefined;
   rawHref?: string | undefined;
   toc?: TocEntry[];
+  section?: string;      // breadcrumb label, e.g. "Blog" or "Docs"
+  sectionHref?: string;  // breadcrumb + tag-filter base href, e.g. "/blog" or "/docs"
+  navActive?: string;    // which top-nav link to highlight, e.g. "blog" or "docs"
+  severity?: 'low' | 'medium' | 'high' | 'critical' | undefined;
+  lastVerified?: string | undefined; // pre-formatted string, e.g. "Sun May. 17, 2026"
 }
 
-const { title, description, date, tags, readingTime, slug, prev, next, rawHref, toc } = Astro.props;
+const {
+  title, description, date, tags, readingTime, slug, prev, next, rawHref, toc,
+  section = 'Blog', sectionHref = '/blog', navActive = 'blog',
+  severity, lastVerified,
+} = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -52,7 +61,8 @@ const year = new Date().getFullYear();
         </div>
         <nav class="nav">
           <a href="/">home</a>
-          <a href="/blog" class="active">blog</a>
+          <a href="/blog" class={navActive === 'blog' ? 'active' : undefined}>blog</a>
+          <a href="/docs" class={navActive === 'docs' ? 'active' : undefined}>docs</a>
           <a href="/homelab">homelab</a>
           <a href="/portfolio">portfolio</a>
           <a href="/about">about</a>
@@ -69,7 +79,7 @@ const year = new Date().getFullYear();
               <span class="mi" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M5 3l14 9-14 9V3z"/></svg>
               </span>
-              <a href="/blog">Blog</a>
+              <a href={sectionHref}>{section}</a>
               <span class="sep">&#8594;</span>
               <span class="crumb-here">{title}</span>
             </div>
@@ -81,9 +91,18 @@ const year = new Date().getFullYear();
                 </span>
                 <div class="tag-list">
                   {tags.map(tag => (
-                    <a href={`/blog?tag=${encodeURIComponent(tag)}`} class="tag-pill">{tag}</a>
+                    <a href={`${sectionHref}?tag=${encodeURIComponent(tag)}`} class="tag-pill">{tag}</a>
                   ))}
                 </div>
+              </div>
+            )}
+            <!-- severity -->
+            {severity && (
+              <div class="meta-row">
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </span>
+                <span class={`severity-pill severity-${severity}`}>{severity}</span>
               </div>
             )}
             <!-- date -->
@@ -93,6 +112,15 @@ const year = new Date().getFullYear();
               </span>
               <span>Posted {date}</span>
             </div>
+            <!-- last verified -->
+            {lastVerified && (
+              <div class="meta-row">
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M9 14l1.5 1.5L15 11.5"/></svg>
+                </span>
+                <span>Last verified {lastVerified}</span>
+              </div>
+            )}
             <!-- reading time -->
             <div class="meta-row">
               <span class="mi" aria-hidden="true">
@@ -300,6 +328,20 @@ const year = new Date().getFullYear();
     transition: border-color 0.15s, background 0.15s;
   }
   .tag-pill:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .severity-pill {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .severity-low { color: oklch(44% 0.20 145); background: oklch(96% 0.03 145); border-color: oklch(56% 0.18 145); }
+  .severity-medium { color: oklch(50% 0.18 60); background: oklch(97% 0.03 80); border-color: oklch(68% 0.17 70); }
+  .severity-high { color: oklch(48% 0.22 25); background: oklch(96% 0.03 25); border-color: oklch(58% 0.20 25); }
+  .severity-critical { color: oklch(46% 0.22 295); background: oklch(96% 0.025 295); border-color: oklch(56% 0.20 295); }
 
   .meta-row a:not(.crumb a):not(.tag-pill) {
     color: var(--ink-soft);
