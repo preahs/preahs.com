@@ -6,7 +6,7 @@ tags: [guides, tech, self-hosting, "2026"]
 toc: true
 ---
 
-I got fed up with GitHub and their outages lately. And honestly, the direction Microsoft has been taking things hasn't sat right with me for a while. So a bit ago, I set up a Forgejo instance on my homelab and moved my repos over. A bit of the control freak in me. I might mirror my repos on GitHub soon to at least have the presence.
+I got fed up with GitHub and their outages lately. And honestly, the direction Microsoft has been taking things hasn't sat right with me for a while. So a bit ago, I set up a Forgejo instance on my homelab and moved my repos over. A bit of the control freak in me. I might mirror my repos on GitHub soon to at least have the presence.[^1]
 
 The one thing I hadn't figured out yet was deployments. I'd been relying on GitHub Pages and its tight integration with Actions to rebuild and serve my site on every push. When I moved my posts and life to a personal website, I needed a different pipeline, and I needed it to make my life easier.
 
@@ -259,3 +259,5 @@ The whole thing took me an afternoon, and most of that time was sorting out the 
 There's something satisfying about pushing a commit and watching a pipeline run on my own server, in my own LXC, on hardware I own. I don't miss the GitHub dependency at all. The setup is more involved than connecting a repo through a UI, but I actually understand every piece of it now, which wasn't true before.
 
 I'm planning to keep building the site out with more Astro features. The pipeline will handle it all the same way.
+
+[^1]: Update: I am now mirroring my repositories!
