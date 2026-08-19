@@ -32,3 +32,4 @@ pnpm-debug.log*
 
 # vscode
 .vscode/
+src/content/blog/essays/computing-toward-what-end.md
