@@ -1,7 +1,7 @@
 ---
 title: "Sharing an ext4 Drive Between an Unprivileged LXC and Other Services"
 description: "Moving a Nextcloud data directory onto a separate drive shared with other services, and the UID mapping that makes it work."
-date: 2026-08-19
+date: 2026-07-29
 severity: low
 tags: ["labs", "tech", "linux", "proxmox", "lxc", "runbook"]
 ---

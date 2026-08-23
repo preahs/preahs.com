@@ -1,7 +1,7 @@
 ---
 title: "Nextcloud 403 on Upload and Save After a Bulk File Import"
 description: "A permissions failure that looked like a client bug. Diagnosing and fixing root-owned files in the Nextcloud data directory."
-date: 2026-08-19
+date: 2026-07-28
 tags: ["labs", "tech", "linux", "nextcloud", "runbook"]
 severity: low
 ---
