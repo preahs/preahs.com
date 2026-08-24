@@ -322,7 +322,7 @@ const year = new Date().getFullYear();
     color: var(--accent);
     text-decoration: none;
     padding: 0.15em 0.6em;
-    border: 1px dashed var(--rule-strong);
+    border: 1px solid var(--rule-strong);
     border-radius: 999px;
     background: #FEFCF6;
     transition: border-color 0.15s, background 0.15s;
@@ -425,11 +425,11 @@ const year = new Date().getFullYear();
   .prose :global(code) {
     font-family: var(--font-mono);
     font-size: 0.83em;
-    color: oklch(42% 0.14 25);
-    padding: 0.15em 0.45em;
+    color: var(--accent);
+    padding: 0.1em 0.4em;
     border-radius: 4px;
-    background: oklch(92% 0.025 60);
-    border: none;
+    background: oklch(95% 0.005 85);
+    border: 1px solid var(--rule);
   }
 
   .prose :global(pre) {
@@ -460,7 +460,7 @@ const year = new Date().getFullYear();
 
   .prose :global(hr) {
     border: none;
-    border-top: 1.5px dashed var(--rule);
+    border-top: 1.5px solid var(--rule);
     margin: 1.75rem 0;
   }
 
@@ -468,7 +468,7 @@ const year = new Date().getFullYear();
   .reply-line {
     margin-top: 2.5rem;
     padding-top: 1.5rem;
-    border-top: 1.5px dashed var(--rule);
+    border-top: 1.5px solid var(--rule);
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -483,7 +483,7 @@ const year = new Date().getFullYear();
     text-decoration: none;
     color: var(--accent);
     padding: 0.6rem 1.25rem;
-    border: 1.5px dashed var(--rule-strong);
+    border: 1.5px solid var(--rule-strong);
     border-radius: var(--radius);
     background: var(--paper-card);
     transition: border-color 0.15s, background 0.15s;
@@ -494,7 +494,7 @@ const year = new Date().getFullYear();
   .article-foot {
     margin-top: 2.75rem;
     padding-top: 1.75rem;
-    border-top: 1.5px dashed var(--rule);
+    border-top: 1.5px solid var(--rule);
   }
 
   .post-nav {
@@ -510,7 +510,7 @@ const year = new Date().getFullYear();
     text-decoration: none;
     color: inherit;
     padding: 0.9rem 1.1rem;
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     border-radius: var(--radius);
     transition: border-color 0.18s;
     display: block;
@@ -551,12 +551,12 @@ const year = new Date().getFullYear();
     color: var(--ink-soft);
     background: var(--paper-card);
     padding: 0.55rem 0.85rem;
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     text-align: left;
   }
   .prose :global(td) {
     padding: 0.5rem 0.85rem;
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     vertical-align: top;
   }
   .prose :global(tr:nth-child(even) td) {
@@ -699,7 +699,7 @@ const year = new Date().getFullYear();
   /* While JS loads, the raw <pre> placeholder gets a subtle unrendered style */
   .prose :global(pre:has(> code.language-mermaid)) {
     background: var(--paper-card);
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     box-shadow: none;
     opacity: 0.5;
   }
@@ -710,7 +710,7 @@ const year = new Date().getFullYear();
   .prose :global(.mermaid-diagram-wrapper svg) {
     max-width: 100%;
     height: auto;
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     border-radius: var(--radius);
     padding: 1rem;
     background: var(--paper-card);
@@ -761,7 +761,7 @@ const year = new Date().getFullYear();
 
   /* ---------- footnotes ---------- */
   .prose :global(.footnotes) {
-    border-top: 1.5px dashed var(--rule);
+    border-top: 1.5px solid var(--rule);
     margin-top: 2.5rem;
     padding-top: 1rem;
     font-size: 0.9em;
@@ -775,7 +775,7 @@ const year = new Date().getFullYear();
 
   /* ---------- table of contents ---------- */
   .toc-box {
-    border: 1.5px dashed var(--rule);
+    border: 1.5px solid var(--rule);
     border-radius: var(--radius);
     margin-bottom: 1.75rem;
     background: var(--paper-card);
