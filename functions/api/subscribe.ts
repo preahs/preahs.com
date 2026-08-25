@@ -27,7 +27,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return new Response(JSON.stringify({ error: 'invalid_email' }), { status: 400, headers: corsHeaders });
   }
 
-  const res = await fetch('https://api.buttondown.email/v1/subscribers', {
+  const hasKey = Boolean(env.BUTTONDOWN_API_KEY);
+  const res = await fetch('https://api.buttondown.com/v1/subscribers', {
     method: 'POST',
     headers: {
       Authorization: `Token ${env.BUTTONDOWN_API_KEY}`,
@@ -44,5 +45,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (ok) {
     return new Response(JSON.stringify({ ok: true }), { status: 200, headers: corsHeaders });
   }
+
+  // Diagnostic: surface Buttondown's real status/body in the Function tail.
+  const detail = await res.text().catch(() => '<no body>');
+  console.log(`[subscribe] buttondown status=${res.status} hasKey=${hasKey} body=${detail.slice(0, 500)}`);
   return new Response(JSON.stringify({ ok: false }), { status: 502, headers: corsHeaders });
 };
