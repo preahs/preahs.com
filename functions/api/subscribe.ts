@@ -1,3 +1,13 @@
+// ============================================================================
+// Newsletter subscribe endpoint — DISABLED 2026-08-24 (shelved until ready).
+// The Buttondown wiring is verified working; feature is intentionally paused.
+// To re-enable: delete the /* and */ block-comment markers below.
+// See also, to fully re-enable the feature:
+//   - <Subscribe /> import + usage in src/layouts/BlogPostLayout.astro
+//   - src/pages/_subscribe.astro  (rename back to subscribe.astro)
+//   - the commented "Newsletter" footer links across the site pages
+// ============================================================================
+/*
 interface Env {
   BUTTONDOWN_API_KEY: string;
 }
@@ -51,3 +61,4 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   console.log(`[subscribe] buttondown status=${res.status} hasKey=${hasKey} body=${detail.slice(0, 500)}`);
   return new Response(JSON.stringify({ ok: false }), { status: 502, headers: corsHeaders });
 };
+*/
