@@ -1,0 +1,193 @@
+---
+interface Props {
+  title?: string;
+  blurb?: string;
+}
+const {
+  title = 'Subscribe by email',
+  blurb = 'New posts, delivered to your inbox. No spam, unsubscribe anytime.',
+} = Astro.props;
+---
+
+<section class="subscribe" aria-labelledby="sub-heading">
+  <div class="sub-head">
+    <span class="sub-icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+    </span>
+    <h2 id="sub-heading">{title}</h2>
+  </div>
+
+  <p class="sub-blurb">{blurb}</p>
+
+  <form class="sub-form" novalidate>
+    <input
+      class="sub-input"
+      type="email"
+      name="email"
+      inputmode="email"
+      autocomplete="email"
+      placeholder="you@example.com"
+      aria-label="Email address"
+      required
+    />
+    <button class="sub-btn" type="submit">Subscribe</button>
+  </form>
+
+  <p class="sub-msg" role="status" aria-live="polite"></p>
+
+  <p class="sub-alt">
+    Prefer a feed reader? <a href="/rss.xml">Subscribe via RSS</a> instead.
+  </p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.sub-form').forEach((form) => {
+    const section = form.closest('.subscribe') as HTMLElement;
+    const input = form.querySelector('.sub-input') as HTMLInputElement;
+    const btn = form.querySelector('.sub-btn') as HTMLButtonElement;
+    const msg = section.querySelector('.sub-msg') as HTMLParagraphElement;
+    const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    function setMsg(text: string, kind: 'ok' | 'err' | '') {
+      msg.textContent = text;
+      msg.classList.remove('is-ok', 'is-err');
+      if (kind === 'ok') msg.classList.add('is-ok');
+      if (kind === 'err') msg.classList.add('is-err');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
+      if (!EMAIL_RE.test(email)) {
+        setMsg('That doesn’t look like a valid email address.', 'err');
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      input.disabled = true;
+      setMsg('Subscribing…', '');
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.hidden = true;
+        setMsg('Almost there — check your inbox to confirm your subscription. ✓', 'ok');
+      } catch {
+        setMsg('Something went wrong. Please try again in a moment.', 'err');
+        btn.disabled = false;
+        input.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .subscribe {
+    margin-top: 2.5rem;
+    background: var(--paper-card);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+  }
+
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sub-head .sub-icon {
+    flex: none;
+    display: flex;
+    color: var(--accent);
+  }
+
+  .sub-head h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.35rem;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .sub-blurb {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    max-width: 46ch;
+  }
+
+  .sub-form {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .sub-input {
+    flex: 1 1 16rem;
+    min-width: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.85rem;
+    transition: border-color 0.15s;
+  }
+  .sub-input::placeholder { color: var(--ink-faint); }
+  .sub-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .sub-input:disabled { opacity: 0.6; }
+
+  .sub-btn {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    background: var(--paper-card);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sub-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .sub-btn:disabled { opacity: 0.6; cursor: wait; }
+
+  .sub-msg {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-top: 0.75rem;
+    min-height: 1.2em;
+  }
+  .sub-msg:empty { margin-top: 0; min-height: 0; }
+  .sub-msg.is-ok { color: oklch(44% 0.20 145); }
+  .sub-msg.is-err { color: var(--accent); }
+
+  .sub-alt {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.9rem;
+  }
+  .sub-alt a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--rule-strong);
+    transition: border-color 0.15s;
+  }
+  .sub-alt a:hover { border-bottom-color: var(--accent); }
+</style>
