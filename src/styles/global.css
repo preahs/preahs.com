@@ -175,6 +175,47 @@ body {
   .game-note { margin-left: 1.9rem; }
 }
 
+/* ---------- hero + my weather card ---------- */
+.hero-row { display: flex; gap: 2rem; align-items: flex-start; }
+.hero-row .hero { flex: 1 1 auto; min-width: 0; }
+
+.weather-card {
+  flex: none; width: 210px; margin-top: 2rem;
+  border: 1.5px solid var(--rule); border-radius: var(--radius);
+  background: var(--paper-card); padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  position: sticky; top: 1.5rem;
+}
+.weather-label {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.weather-main { display: flex; align-items: center; gap: 0.7rem; }
+.weather-icon { flex: none; color: var(--accent); display: flex; width: 2.2rem; }
+.weather-icon svg { width: 2.2rem; height: 2.2rem; display: block; }
+.weather-temp {
+  font-family: var(--font-display); font-weight: 500; font-size: 2rem;
+  color: var(--ink); letter-spacing: -0.02em; line-height: 1;
+}
+.weather-cond {
+  font-family: var(--font-body); font-size: 1.05rem; color: var(--ink-soft);
+}
+.weather-meta { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.15rem; }
+.weather-pill {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent);
+  border: 1.5px solid var(--rule); border-radius: 4px; padding: 0.1em 0.45em;
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .hero-row { flex-direction: column; gap: 0.5rem; }
+  .weather-card {
+    width: 100%; margin-top: 0.5rem; position: static;
+    flex-direction: row; align-items: center; flex-wrap: wrap; gap: 0.6rem 0.9rem;
+  }
+  .weather-label { width: 100%; }
+  .weather-meta { margin-left: auto; margin-top: 0; }
+}
+
 /* ---------- elsewhere / external links ---------- */
 .elsewhere-intro { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 1.2rem; max-width: 620px; }
 .elsewhere-intro a {

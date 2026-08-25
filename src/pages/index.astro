@@ -67,21 +67,36 @@ const year = new Date().getFullYear();
       </header>
 
       <!-- ---------- hero ---------- -->
-      <section class="hero">
-        <h1>Welcome!</h1>
-        <p class="hero-sub">
-          Welcome to Preah's personal website. I'm a cybersecurity grad tinkering away in <a href="https://en.wikipedia.org/wiki/Texas_Hill_Country" target="_blank" rel="noopener noreferrer">the Texas Hill Country</a>. Information security is my obsession and amateur web development is my excuse to keep building little things. Off the clock, you'll find me brewing Gong Fu tea, fussing over my homelab, or replaying a game I already know by heart.
-        </p>
-        <p class="hero-sub">
-          Expect short personal updates, my latest obsessions, and other thoughts, possibly
-          the odd game review, although I don't try new games often&nbsp;:)
-        </p>
-        <p class="hero-sub hero-callout">If you're intrigued by my professional work, write-ups, resume, or career goals, visit my <a href="/portfolio">portfolio</a>!</p>
-        <div class="hero-cta">
-          <a class="btn" href="/blog">Read the blog</a>
-          <a class="btn" href="/about">More about me</a>
-        </div>
-      </section>
+      <div class="hero-row">
+        <section class="hero">
+          <h1>Welcome!</h1>
+          <p class="hero-sub">
+            Welcome to Preah's personal website. I'm a cybersecurity grad tinkering away in <a href="https://en.wikipedia.org/wiki/Texas_Hill_Country" target="_blank" rel="noopener noreferrer">the Texas Hill Country</a>. Information security is my obsession and amateur web development is my excuse to keep building little things. Off the clock, you'll find me brewing Gong Fu tea, fussing over my homelab, or replaying a game I already know by heart.
+          </p>
+          <p class="hero-sub">
+            Expect short personal updates, my latest obsessions, and other thoughts, possibly
+            the odd game review, although I don't try new games often&nbsp;:)
+          </p>
+          <p class="hero-sub hero-callout">If you're intrigued by my professional work, write-ups, resume, or career goals, visit my <a href="/portfolio">portfolio</a>!</p>
+          <div class="hero-cta">
+            <a class="btn" href="/blog">Read the blog</a>
+            <a class="btn" href="/about">More about me</a>
+          </div>
+        </section>
+
+        <!-- my weather (Open-Meteo, no API key, fetched on load; location unlabeled) -->
+        <aside class="weather-card" id="weather" aria-live="polite">
+          <span class="weather-label">My weather</span>
+          <div class="weather-main">
+            <span class="weather-icon" id="wx-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </span>
+            <span class="weather-temp" id="wx-temp">&mdash;</span>
+          </div>
+          <span class="weather-cond" id="wx-cond">checking the sky&hellip;</span>
+          <div class="weather-meta" id="wx-meta"></div>
+        </aside>
+      </div>
 
       <!-- ---------- recent writing ---------- -->
       <section class="block">
@@ -147,5 +162,131 @@ const year = new Date().getFullYear();
         <a href="https://matrix.to/#/@preshavocado:snowberry.social">Matrix</a>
       </footer>
     </div>
+
+    <script>
+      // "My weather" widget — Open-Meteo, no API key, fetched on each load.
+      // Coordinates are intentionally unlabeled on the page.
+      const LAT = 29.6146;
+      const LON = -98.9439;
+
+      const ICON: Record<string, string> = {
+        sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+        moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>',
+        partly: '<path d="M8 5a4 4 0 0 1 3.9 3.1M6 3.5v1M2.5 7h1M3.7 4.2l.7.7"/><path d="M17.5 19H8a4 4 0 0 1-.3-8A5 5 0 0 1 17 12.3a3.5 3.5 0 0 1 .5 6.7Z"/>',
+        cloud: '<path d="M17.5 19H8a4.5 4.5 0 0 1-.4-9A5 5 0 0 1 17.5 11a4 4 0 0 1 0 8Z"/>',
+        fog: '<path d="M6 8a4.5 4.5 0 0 1 8.9-.9A3.5 3.5 0 0 1 16 14H7"/><path d="M4 17h13M6 20h11"/>',
+        rain: '<path d="M17.5 14H8a4.5 4.5 0 0 1-.4-9A5 5 0 0 1 17.5 6a4 4 0 0 1 0 8Z"/><path d="M8 18l-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/>',
+        snow: '<path d="M17.5 13H8a4.5 4.5 0 0 1-.4-9A5 5 0 0 1 17.5 5a4 4 0 0 1 0 8Z"/><path d="M9 17.5v.01M12 19v.01M15 17.5v.01M9 20.5v.01M15 20.5v.01"/>',
+        storm: '<path d="M17.5 13H8a4.5 4.5 0 0 1-.4-9A5 5 0 0 1 17.5 5a4 4 0 0 1 0 8Z"/><path d="M13 15l-3 4h3l-2 3"/>',
+      };
+
+      // WMO weather code -> { label, icon }
+      function decode(code: number, isDay: boolean): [string, string] {
+        const clearIcon = isDay ? "sun" : "moon";
+        const map: Record<number, [string, string]> = {
+          0: ["Clear skies", clearIcon],
+          1: ["Mostly clear", clearIcon],
+          2: ["Partly cloudy", "partly"],
+          3: ["Overcast", "cloud"],
+          45: ["Foggy", "fog"],
+          48: ["Freezing fog", "fog"],
+          51: ["Light drizzle", "rain"],
+          53: ["Drizzle", "rain"],
+          55: ["Heavy drizzle", "rain"],
+          56: ["Freezing drizzle", "rain"],
+          57: ["Freezing drizzle", "rain"],
+          61: ["Light rain", "rain"],
+          63: ["Rain", "rain"],
+          65: ["Heavy rain", "rain"],
+          66: ["Freezing rain", "rain"],
+          67: ["Freezing rain", "rain"],
+          71: ["Light snow", "snow"],
+          73: ["Snow", "snow"],
+          75: ["Heavy snow", "snow"],
+          77: ["Snow grains", "snow"],
+          80: ["Rain showers", "rain"],
+          81: ["Rain showers", "rain"],
+          82: ["Heavy showers", "rain"],
+          85: ["Snow showers", "snow"],
+          86: ["Snow showers", "snow"],
+          95: ["Thunderstorm", "storm"],
+          96: ["Thunderstorm", "storm"],
+          99: ["Thunderstorm", "storm"],
+        };
+        return map[code] || ["Weather", "cloud"];
+      }
+
+      function el(id: string): HTMLElement {
+        return document.getElementById(id) as HTMLElement;
+      }
+
+      function svg(name: string) {
+        return (
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' +
+          ICON[name] +
+          "</svg>"
+        );
+      }
+
+      function pill(text: string) {
+        return '<span class="weather-pill">' + text + "</span>";
+      }
+
+      function uvBand(uv: number) {
+        if (uv <= 2) return "low";
+        if (uv <= 5) return "moderate";
+        if (uv <= 7) return "high";
+        if (uv <= 10) return "very high";
+        return "extreme";
+      }
+
+      // API returns location-local time (timezone=auto) with no offset,
+      // so read the clock digits directly rather than via Date (avoids
+      // shifting to the viewer's timezone). e.g. "2026-08-24T06:58" -> "6:58a"
+      function fmtTime(iso: string) {
+        const parts = iso.split("T")[1].split(":");
+        let h = parseInt(parts[0], 10);
+        const m = parts[1];
+        const ap = h >= 12 ? "p" : "a";
+        h = h % 12 || 12;
+        return h + ":" + m + ap;
+      }
+
+      async function loadWeather() {
+        const url =
+          "https://api.open-meteo.com/v1/forecast?latitude=" + LAT +
+          "&longitude=" + LON +
+          "&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,is_day" +
+          "&daily=temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset" +
+          "&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto";
+
+        const condEl = el("wx-cond");
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("bad response");
+          const data = await res.json();
+          const c = data.current;
+          const d = data.daily;
+          const [label, icon] = decode(c.weather_code, c.is_day === 1);
+
+          const uv = Math.round(d.uv_index_max[0]);
+
+          el("wx-icon").innerHTML = svg(icon);
+          el("wx-temp").textContent = Math.round(c.temperature_2m) + "°F";
+          condEl.textContent = label;
+          el("wx-meta").innerHTML =
+            pill("feels " + Math.round(c.apparent_temperature) + "°") +
+            pill("H " + Math.round(d.temperature_2m_max[0]) + "° · L " + Math.round(d.temperature_2m_min[0]) + "°") +
+            pill("UV " + uv + " " + uvBand(uv)) +
+            pill(Math.round(c.relative_humidity_2m) + "% humidity") +
+            pill(Math.round(c.wind_speed_10m) + " mph wind") +
+            pill("↑ " + fmtTime(d.sunrise[0]) + "  ↓ " + fmtTime(d.sunset[0]));
+        } catch (e) {
+          condEl.textContent = "couldn't reach the weather right now";
+        }
+      }
+
+      loadWeather();
+    </script>
   </body>
 </html>
