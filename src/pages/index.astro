@@ -15,10 +15,22 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
     read: readingTime(p.body ?? ""),
   }));
 
+const recentDocs = (await getCollection("docs", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+  .map((d) => ({
+    title: d.data.title,
+    desc: d.data.description,
+    folder: d.id.includes("/") ? d.id.split("/")[0] : (d.data.tags[0] ?? ''),
+    href: `/docs/${d.id.replace(/\.mdx?$/, "")}`,
+    date: formatDate(d.data.date),
+    read: readingTime(d.body ?? ""),
+  }));
+
 // Current rotation. `note` is optional.
 const games = [
   { name: "Skyrim", note: "Since forever! And I mod it too" },
-  { name: "Kingdom: Two Crowns", note: "null" },
+  { name: "Kingdom: Two Crowns", note: null },
   { name: "Stardew Valley", note: "Old favorite" },
   { name: "Spelunky 2", note: null },
   { name: "Minecraft", note: "Custom fantasy-focused modpack" },
@@ -122,6 +134,36 @@ const year = new Date().getFullYear();
                 <span>{p.read}</span>
                 <span class="gap"></span>
                 <span class="folder-pill">{p.folder}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- ---------- recent docs / lab writing ---------- -->
+      <section class="block">
+        <div class="block-head">
+          <h2>Recent docs</h2>
+          <a class="more" href="/docs">all docs &#8594;</a>
+        </div>
+
+        <div class="posts">
+          {recentDocs.map((d) => (
+            <article class="preview">
+              <a class="title" href={d.href}>{d.title}</a>
+              <p class="desc">{d.desc}</p>
+              <div class="meta">
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+                </span>
+                <span>{d.date}</span>
+                <span class="gap"></span>
+                <span class="mi" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </span>
+                <span>{d.read}</span>
+                <span class="gap"></span>
+                <span class="folder-pill">{d.folder}</span>
               </div>
             </article>
           ))}
