@@ -1,0 +1,35 @@
+---
+// ============================================================
+//  BaseHead — the shared <head> for every page on the site.
+//  Anything that belongs on all pages (meta, favicons, fonts)
+//  lives here; page-specific <link>/<meta> go in the slot.
+// ============================================================
+
+interface Props {
+  /** Page name, composed as "{title} — Preah". */
+  title: string;
+  description: string;
+  /** Replaces the composed title outright (used by the home page). */
+  fullTitle?: string;
+  /** Adds the RSS <link rel="alternate">. */
+  rss?: boolean;
+}
+
+const { title, description, fullTitle, rss = false } = Astro.props;
+const pageTitle = fullTitle ?? `${title} — Preah`;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+{rss && <link rel="alternate" type="application/rss+xml" title="Preah's Blog" href="/rss.xml" />}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..700;1,300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..600&display=swap"
+  rel="stylesheet"
+/>
+<slot />

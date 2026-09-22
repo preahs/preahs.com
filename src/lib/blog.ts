@@ -25,3 +25,18 @@ export function readingTime(body: string): string {
   const mins = Math.max(1, Math.round(words / 200));
   return `${mins} min read`;
 }
+
+// ------ Tags --------------------------------------------------
+/**
+ * Collects every unique tag across a set of entries, ordered the way the
+ * tag rail displays them: named tags alphabetically, then year tags newest
+ * first.
+ */
+export function collectTags(entries: { data: { tags: string[] } }[]): string[] {
+  const tagSet = new Set<string>();
+  entries.forEach((e) => e.data.tags.forEach((t) => tagSet.add(t)));
+  const isYear = (t: string) => /^\d{4}$/.test(t);
+  const yearTags = [...tagSet].filter(isYear).sort((a, b) => Number(b) - Number(a));
+  const otherTags = [...tagSet].filter((t) => !isYear(t)).sort();
+  return [...otherTags, ...yearTags];
+}
