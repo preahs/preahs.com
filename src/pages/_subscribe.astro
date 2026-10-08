@@ -1,45 +1,30 @@
 ---
-import '../styles/global.css';
 import Subscribe from '../components/Subscribe.astro';
-import BaseHead from '../components/BaseHead.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Subscribe"
-      description="Subscribe to Preah's blog by email and get new posts in your inbox — or grab the RSS feed."
-      rss
+<BaseLayout
+  title="Subscribe"
+  description="Subscribe to Preah's blog by email and get new posts in your inbox — or grab the RSS feed."
+  rss
+>
+  <!-- ---------- hero ---------- -->
+  <section class="hero">
+    <h1>Subscribe</h1>
+    <p class="hero-sub">
+      I write about infosec, my homelab, tea, and whatever else I'm thinking about.
+      Get new posts by email, RSS, or both.
+    </p>
+  </section>
+
+  <!-- ---------- email signup ---------- -->
+  <section class="sub-page-form">
+    <Subscribe
+      title="By email"
+      blurb="Put in your address below and I'll email you when I publish something new. You'll get a confirmation link first, so no spam, and you can unsubscribe from any message."
     />
-  </head>
-  <body>
-    <div class="wrap">
-      <SiteHeader />
-
-      <!-- ---------- hero ---------- -->
-      <section class="hero">
-        <h1>Subscribe</h1>
-        <p class="hero-sub">
-          I write about infosec, my homelab, tea, and whatever else I'm thinking about.
-          Get new posts by email, RSS, or both.
-        </p>
-      </section>
-
-      <!-- ---------- email signup ---------- -->
-      <section class="sub-page-form">
-        <Subscribe
-          title="By email"
-          blurb="Put in your address below and I'll email you when I publish something new. You'll get a confirmation link first, so no spam, and you can unsubscribe from any message."
-        />
-      </section>
-
-      <SiteFooter />
-    </div>
-  </body>
-</html>
+  </section>
+</BaseLayout>
 
 <style>
   .sub-page-form {

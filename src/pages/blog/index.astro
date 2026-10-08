@@ -1,11 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import { formatDate, readingTime, collectTags } from '../../lib/blog';
-import BaseHead from '../../components/BaseHead.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import TagFeed from '../../components/TagFeed.astro';
-import '../../styles/global.css';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -20,28 +17,17 @@ const entries = allPosts.map((p) => ({
 }));
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Blog"
-      description="Notes, writeups, essays, and rambling."
-      rss
-    />
-  </head>
-  <body>
-    <div class="wrap">
-      <SiteHeader active="blog" />
-
-      <TagFeed
-        entries={entries}
-        tags={collectTags(allPosts)}
-        intro="Notes, writeups, essays, and rambling."
-        noun="post"
-        nounPlural="posts"
-      />
-
-      <SiteFooter />
-    </div>
-  </body>
-</html>
+<BaseLayout
+  title="Blog"
+  description="Notes, writeups, essays, and rambling."
+  rss
+  active="blog"
+>
+  <TagFeed
+    entries={entries}
+    tags={collectTags(allPosts)}
+    intro="Notes, writeups, essays, and rambling."
+    noun="post"
+    nounPlural="posts"
+  />
+</BaseLayout>

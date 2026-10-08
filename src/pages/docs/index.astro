@@ -1,11 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import { formatDate, readingTime, collectTags } from '../../lib/blog';
-import BaseHead from '../../components/BaseHead.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import TagFeed from '../../components/TagFeed.astro';
-import '../../styles/global.css';
 
 const allDocs = (await getCollection('docs', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -20,27 +17,16 @@ const entries = allDocs.map((d) => ({
 }));
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Docs"
-      description="Labs, runbooks, and reference material."
-    />
-  </head>
-  <body>
-    <div class="wrap">
-      <SiteHeader active="docs" />
-
-      <TagFeed
-        entries={entries}
-        tags={collectTags(allDocs)}
-        intro="Labs, runbooks, and reference material. Things I write down so I can find them again, and what makes up the bulk of my time writing."
-        noun="doc"
-        nounPlural="docs"
-      />
-
-      <SiteFooter />
-    </div>
-  </body>
-</html>
+<BaseLayout
+  title="Docs"
+  description="Labs, runbooks, and reference material."
+  active="docs"
+>
+  <TagFeed
+    entries={entries}
+    tags={collectTags(allDocs)}
+    intro="Labs, runbooks, and reference material. Things I write down so I can find them again, and what makes up the bulk of my time writing."
+    noun="doc"
+    nounPlural="docs"
+  />
+</BaseLayout>

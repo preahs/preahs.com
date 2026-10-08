@@ -1,234 +1,220 @@
 ---
-import "../styles/global.css";
-import BaseHead from '../components/BaseHead.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Portfolio"
-      description="Preah Smith's professional portfolio — aiming for cloud security, with a background in technical support, Linux administration, and self-hosted infrastructure in Central Texas."
-    />
-  </head>
-  <body>
-    <div class="wrap">
-      <SiteHeader active="portfolio" />
+<BaseLayout
+  title="Portfolio"
+  description="Preah Smith's professional portfolio — aiming for cloud security, with a background in technical support, Linux administration, and self-hosted infrastructure in Central Texas."
+  active="portfolio"
+>
+  <!-- ---------- page header ---------- -->
+  <section class="hero">
+    <h1>Portfolio</h1>
+    <p class="hero-sub">
+      A summary of my professional background. Support work, security projects,
+      and the infrastructure I build and maintain. For the full story, see my
+      <a href="/files/preah_smith_resume.pdf" target="_blank" rel="noopener noreferrer"> resume </a>
+      or get in touch at <a href="mailto:contact@preahs.com">contact@preahs.com</a>.
+    </p>
+  </section>
 
-      <!-- ---------- page header ---------- -->
-      <section class="hero">
-        <h1>Portfolio</h1>
-        <p class="hero-sub">
-          A summary of my professional background. Support work, security projects,
-          and the infrastructure I build and maintain. For the full story, see my
-          <a href="/files/preah_smith_resume.pdf" target="_blank" rel="noopener noreferrer"> resume </a>
-          or get in touch at <a href="mailto:contact@preahs.com">contact@preahs.com</a>.
-        </p>
-      </section>
+  <!-- ---------- docs callout ---------- -->
+  <a href="/docs" class="btn docs-callout">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Labs and project documentation
+  </a>
 
-      <!-- ---------- docs callout ---------- -->
-      <a href="/docs" class="btn docs-callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        Labs and project documentation
-      </a>
-
-      <!-- ---------- summary ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Summary</h2>
-        </div>
-        <div class="prose">
-          <p class="lead">
-            I'm aiming for a role in cloud security and am building the platform, defensive, and
-            infrastructure skills to get there.
-          </p>
-          <p>
-            I hold a B.B.A. in Cybersecurity and have hands-on experience delivering technical support at
-            scale, administering Linux systems, and building self-hosted infrastructure. I can resolve
-            complex hardware, software, and networking issues across multiple platforms, and I bring strong
-            documentation habits, a security-minded approach to troubleshooting, and a genuine drive to keep
-            learning.
-          </p>
-        </div>
-      </section>
-
-      <!-- ---------- now ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Now</h2>
-        </div>
-        <div class="prose">
-          <p>What I'm building and studying this quarter:</p>
-          <ul class="now-list">
-            <li>Standing up an Active Directory fundamentals lab at ad.snowberry.social — domain setup first, then common attack and detection techniques.</li>
-            <li>Studying for the <strong>AWS Solutions Architect – Associate</strong> exam.</li>
-            <li>Hardening my Forgejo Actions security pipeline and expanding homelab monitoring coverage.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ---------- skills ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Technical skills</h2>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h3>Systems</h3>
-            <p>Windows, macOS, Linux (Ubuntu, Debian), iOS, Docker, Proxmox, Git</p>
-          </div>
-          <div class="skill-card">
-            <h3>Networking</h3>
-            <p>TCP/IP, DNS, DHCP, VLANs &amp; subnetting, OPNsense firewalls, WireGuard, Tailscale, Cloudflare, LAN/WAN troubleshooting</p>
-          </div>
-          <div class="skill-card">
-            <h3>Security</h3>
-            <p>MITRE ATT&amp;CK, Nmap, Wireshark, Gitleaks, Trivy</p>
-          </div>
-          <div class="skill-card">
-            <h3>Observability &amp; CI/CD</h3>
-            <p>Prometheus, Grafana, Alertmanager, ntfy, Forgejo Actions</p>
-          </div>
-          <div class="skill-card">
-            <h3>Programming</h3>
-            <p>Python, Bash, HTML/CSS</p>
-          </div>
-          <div class="skill-card">
-            <h3>Tools</h3>
-            <p>IT ticketing systems, CRM platforms, Remote Desktop</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- experience ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Experience</h2>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-head">
-              <h3>Technical Support Advisor <span class="org">— Apple (Remote)</span></h3>
-              <span class="dates">Jan 2024 – Jul 2025</span>
-            </div>
-            <ul>
-              <li>Served as first point of contact for customers, delivering remote technical support across Mac, iPhone, iPad, and Apple Watch, resolving 150+ cases weekly across hardware, software, and account issues</li>
-              <li>Maintained a 97% customer satisfaction rating by providing empathetic, efficient, and accurate solutions in a high-volume environment</li>
-              <li>Diagnosed and resolved complex OS-level, network connectivity, and account security issues, applying systematic troubleshooting methodology</li>
-              <li>Leveraged IT ticketing and CRM platforms to manage cases, track resolutions, and ensure accurate documentation and timely follow-up</li>
-            </ul>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-head">
-              <h3>Head Cashier <span class="org">— The Home Depot, Boerne, TX</span></h3>
-              <span class="dates">Jan 2021 – Present</span>
-            </div>
-            <ul>
-              <li>Supervised cashier team and oversaw thousands of weekly transactions in a high-volume retail environment</li>
-              <li>Trained new employees on POS systems, compliance procedures, and customer engagement, reducing onboarding errors and improving team efficiency</li>
-              <li>Served as primary point of escalation for customer issues and POS technical failures, consistently resolving problems under time pressure</li>
-              <li>Maintained composure and accuracy managing competing priorities across a fast-paced, customer-facing environment</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- education & certs ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Education &amp; certifications</h2>
-        </div>
-        <div class="ed-grid">
-          <div class="ed-card">
-            <h3>B.B.A. in Cybersecurity</h3>
-            <p class="org">University of Texas at San Antonio <span class="dates">— Graduated Aug 2026</span></p>
-            <p>GPA: 3.75 · Coursework: Network Security, Information Assurance, Linux &amp; SQL, Cybersecurity Fundamentals</p>
-          </div>
-          <div class="ed-card">
-            <h3>Certifications &amp; training</h3>
-            <ul>
-              <li>CompTIA A+ (220-1201 &amp; 220-1202) — January 2026</li>
-              <li>CompTIA Security+ (SY0-701) — June 2026</li>
-              <li>DoD 8140 IAT Level II eligible (via A+ and Security+)</li>
-              <li>AWS Solutions Architect – Associate <span class="badge">in progress</span></li>
-              <li>Tools of the Trade: Linux and SQL — February 2024</li>
-              <li>Connect and Protect: Networks and Network Security — April 2024</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- projects ---------- -->
-      <section class="block">
-        <div class="block-head">
-          <h2>Projects</h2>
-        </div>
-        <div class="project-list">
-          <div class="project-card">
-            <h3>Security Lab <span class="badge">in progress</span></h3>
-            <p class="project-stack">Proxmox · Docker · Traefik · Active Directory</p>
-            <ul>
-              <li>Built and maintain a multi-VM home lab on Proxmox, running containerized services via Docker behind a Traefik reverse proxy with Cloudflare Tunnel for secure external access</li>
-              <li>Currently building an Active Directory fundamentals lab at <a href="https://ad.snowberry.social" class="card-link" target="_blank" rel="noopener noreferrer">ad.snowberry.social</a> — starting with domain setup, then working toward simulating and detecting common AD attacks (Kerberoasting, Pass-the-Hash, DCSync, Golden Ticket) using MITRE ATT&amp;CK as a framework</li>
-            </ul>
-          </div>
-
-          <div class="project-card">
-            <h3>CI Security Pipeline</h3>
-            <p class="project-stack">Forgejo Actions · Gitleaks · Trivy</p>
-            <ul>
-              <li>Built a security pipeline from scratch in Forgejo Actions: secret scanning with Gitleaks and vulnerability/misconfiguration scanning with Trivy on every push</li>
-              <li>Gates builds on scan results so problems surface in CI rather than in production</li>
-            </ul>
-          </div>
-
-          <div class="project-card">
-            <h3>Full-Stack Monitoring &amp; Alerting</h3>
-            <p class="project-stack">Prometheus · Grafana · Alertmanager · ntfy</p>
-            <ul>
-              <li>Stood up an observability stack collecting metrics with Prometheus and visualizing them in Grafana dashboards across lab hosts and services</li>
-              <li>Routed Alertmanager notifications through self-hosted ntfy for push alerts on my own infrastructure, no third-party services in the loop</li>
-            </ul>
-          </div>
-
-          <div class="project-card">
-            <h3>Home Network &amp; Segmentation</h3>
-            <p class="project-stack">OPNsense · VLANs · WireGuard · Tailscale</p>
-            <ul>
-              <li>Configured VLAN segmentation and subnetting on managed hardware to separate lab, trusted, and untrusted traffic</li>
-              <li>Wrote and maintain firewall rules on OPNsense, with WireGuard and Tailscale for secure remote access into the network</li>
-            </ul>
-          </div>
-
-          <div class="project-card">
-            <h3>Matrix Homeserver</h3>
-            <p class="project-stack">Matrix · Synapse · mautrix-discord</p>
-            <ul>
-              <li>Run a personal Matrix homeserver at snowberry.social, including a mautrix-discord bridge to keep existing conversations reachable while migrating off Discord</li>
-              <li>Documented the setup, reasoning, and trade-offs — <a href="/blog/homelab/starting-my-personal-matrix-homeserver" class="card-link">Starting My Personal Matrix Homeserver</a></li>
-            </ul>
-          </div>
-
-          <div class="project-card">
-            <h3>Self-Hosted Infrastructure Stack</h3>
-            <p class="project-stack">Linux · Docker · Nextcloud · Jellyfin</p>
-            <ul>
-              <li>Designed and deployed a home server stack including, but not limited to, Nextcloud for file sync, Jellyfin for media, and ntfy for push notifications, all managed via Docker Compose</li>
-              <li>Managed storage migrations and permissions issues, captured as runbooks — <a href="/docs/runbooks/nextcloud-403-ownership" class="card-link">Nextcloud 403 on upload after a bulk import</a> and <a href="/docs/runbooks/unprivileged-lxc-shared-storage" class="card-link">sharing an ext4 drive with an unprivileged LXC</a></li>
-              <li>Configured Bash scripts and system-level tooling for automated media organization, user account management, and backup routines</li>
-              <li>Wider context on the setup — <a href="/blog/homelab/overview-of-my-homelab" class="card-link">Overview of My Homelab</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <SiteFooter />
+  <!-- ---------- summary ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Summary</h2>
     </div>
-  </body>
-</html>
+    <div class="prose">
+      <p class="lead">
+        I'm aiming for a role in cloud security and am building the platform, defensive, and
+        infrastructure skills to get there.
+      </p>
+      <p>
+        I hold a B.B.A. in Cybersecurity and have hands-on experience delivering technical support at
+        scale, administering Linux systems, and building self-hosted infrastructure. I can resolve
+        complex hardware, software, and networking issues across multiple platforms, and I bring strong
+        documentation habits, a security-minded approach to troubleshooting, and a genuine drive to keep
+        learning.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- now ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Now</h2>
+    </div>
+    <div class="prose">
+      <p>What I'm building and studying this quarter:</p>
+      <ul class="now-list">
+        <li>Standing up an Active Directory fundamentals lab at ad.snowberry.social — domain setup first, then common attack and detection techniques.</li>
+        <li>Studying for the <strong>AWS Solutions Architect – Associate</strong> exam.</li>
+        <li>Hardening my Forgejo Actions security pipeline and expanding homelab monitoring coverage.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ---------- skills ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Technical skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Systems</h3>
+        <p>Windows, macOS, Linux (Ubuntu, Debian), iOS, Docker, Proxmox, Git</p>
+      </div>
+      <div class="skill-card">
+        <h3>Networking</h3>
+        <p>TCP/IP, DNS, DHCP, VLANs &amp; subnetting, OPNsense firewalls, WireGuard, Tailscale, Cloudflare, LAN/WAN troubleshooting</p>
+      </div>
+      <div class="skill-card">
+        <h3>Security</h3>
+        <p>MITRE ATT&amp;CK, Nmap, Wireshark, Gitleaks, Trivy</p>
+      </div>
+      <div class="skill-card">
+        <h3>Observability &amp; CI/CD</h3>
+        <p>Prometheus, Grafana, Alertmanager, ntfy, Forgejo Actions</p>
+      </div>
+      <div class="skill-card">
+        <h3>Programming</h3>
+        <p>Python, Bash, HTML/CSS</p>
+      </div>
+      <div class="skill-card">
+        <h3>Tools</h3>
+        <p>IT ticketing systems, CRM platforms, Remote Desktop</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- experience ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <h3>Technical Support Advisor <span class="org">— Apple (Remote)</span></h3>
+          <span class="dates">Jan 2024 – Jul 2025</span>
+        </div>
+        <ul>
+          <li>Served as first point of contact for customers, delivering remote technical support across Mac, iPhone, iPad, and Apple Watch, resolving 150+ cases weekly across hardware, software, and account issues</li>
+          <li>Maintained a 97% customer satisfaction rating by providing empathetic, efficient, and accurate solutions in a high-volume environment</li>
+          <li>Diagnosed and resolved complex OS-level, network connectivity, and account security issues, applying systematic troubleshooting methodology</li>
+          <li>Leveraged IT ticketing and CRM platforms to manage cases, track resolutions, and ensure accurate documentation and timely follow-up</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <h3>Head Cashier <span class="org">— The Home Depot, Boerne, TX</span></h3>
+          <span class="dates">Jan 2021 – Present</span>
+        </div>
+        <ul>
+          <li>Supervised cashier team and oversaw thousands of weekly transactions in a high-volume retail environment</li>
+          <li>Trained new employees on POS systems, compliance procedures, and customer engagement, reducing onboarding errors and improving team efficiency</li>
+          <li>Served as primary point of escalation for customer issues and POS technical failures, consistently resolving problems under time pressure</li>
+          <li>Maintained composure and accuracy managing competing priorities across a fast-paced, customer-facing environment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- education & certs ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Education &amp; certifications</h2>
+    </div>
+    <div class="ed-grid">
+      <div class="ed-card">
+        <h3>B.B.A. in Cybersecurity</h3>
+        <p class="org">University of Texas at San Antonio <span class="dates">— Graduated Aug 2026</span></p>
+        <p>GPA: 3.75 · Coursework: Network Security, Information Assurance, Linux &amp; SQL, Cybersecurity Fundamentals</p>
+      </div>
+      <div class="ed-card">
+        <h3>Certifications &amp; training</h3>
+        <ul>
+          <li>CompTIA A+ (220-1201 &amp; 220-1202) — January 2026</li>
+          <li>CompTIA Security+ (SY0-701) — June 2026</li>
+          <li>DoD 8140 IAT Level II eligible (via A+ and Security+)</li>
+          <li>AWS Solutions Architect – Associate <span class="badge">in progress</span></li>
+          <li>Tools of the Trade: Linux and SQL — February 2024</li>
+          <li>Connect and Protect: Networks and Network Security — April 2024</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- projects ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Projects</h2>
+    </div>
+    <div class="project-list">
+      <div class="project-card">
+        <h3>Security Lab <span class="badge">in progress</span></h3>
+        <p class="project-stack">Proxmox · Docker · Traefik · Active Directory</p>
+        <ul>
+          <li>Built and maintain a multi-VM home lab on Proxmox, running containerized services via Docker behind a Traefik reverse proxy with Cloudflare Tunnel for secure external access</li>
+          <li>Currently building an Active Directory fundamentals lab at <a href="https://ad.snowberry.social" class="card-link" target="_blank" rel="noopener noreferrer">ad.snowberry.social</a> — starting with domain setup, then working toward simulating and detecting common AD attacks (Kerberoasting, Pass-the-Hash, DCSync, Golden Ticket) using MITRE ATT&amp;CK as a framework</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <h3>CI Security Pipeline</h3>
+        <p class="project-stack">Forgejo Actions · Gitleaks · Trivy</p>
+        <ul>
+          <li>Built a security pipeline from scratch in Forgejo Actions: secret scanning with Gitleaks and vulnerability/misconfiguration scanning with Trivy on every push</li>
+          <li>Gates builds on scan results so problems surface in CI rather than in production</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <h3>Full-Stack Monitoring &amp; Alerting</h3>
+        <p class="project-stack">Prometheus · Grafana · Alertmanager · ntfy</p>
+        <ul>
+          <li>Stood up an observability stack collecting metrics with Prometheus and visualizing them in Grafana dashboards across lab hosts and services</li>
+          <li>Routed Alertmanager notifications through self-hosted ntfy for push alerts on my own infrastructure, no third-party services in the loop</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <h3>Home Network &amp; Segmentation</h3>
+        <p class="project-stack">OPNsense · VLANs · WireGuard · Tailscale</p>
+        <ul>
+          <li>Configured VLAN segmentation and subnetting on managed hardware to separate lab, trusted, and untrusted traffic</li>
+          <li>Wrote and maintain firewall rules on OPNsense, with WireGuard and Tailscale for secure remote access into the network</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <h3>Matrix Homeserver</h3>
+        <p class="project-stack">Matrix · Synapse · mautrix-discord</p>
+        <ul>
+          <li>Run a personal Matrix homeserver at snowberry.social, including a mautrix-discord bridge to keep existing conversations reachable while migrating off Discord</li>
+          <li>Documented the setup, reasoning, and trade-offs — <a href="/blog/homelab/starting-my-personal-matrix-homeserver" class="card-link">Starting My Personal Matrix Homeserver</a></li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <h3>Self-Hosted Infrastructure Stack</h3>
+        <p class="project-stack">Linux · Docker · Nextcloud · Jellyfin</p>
+        <ul>
+          <li>Designed and deployed a home server stack including, but not limited to, Nextcloud for file sync, Jellyfin for media, and ntfy for push notifications, all managed via Docker Compose</li>
+          <li>Managed storage migrations and permissions issues, captured as runbooks — <a href="/docs/runbooks/nextcloud-403-ownership" class="card-link">Nextcloud 403 on upload after a bulk import</a> and <a href="/docs/runbooks/unprivileged-lxc-shared-storage" class="card-link">sharing an ext4 drive with an unprivileged LXC</a></li>
+          <li>Configured Bash scripts and system-level tooling for automated media organization, user account management, and backup routines</li>
+          <li>Wider context on the setup — <a href="/blog/homelab/overview-of-my-homelab" class="card-link">Overview of My Homelab</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
 
 <style>
   .docs-callout {

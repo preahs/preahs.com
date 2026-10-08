@@ -1,0 +1,40 @@
+---
+// ============================================================
+//  BaseLayout — the page shell every page on the site shares:
+//  <html>, the BaseHead <head>, the .wrap column, and the site
+//  header/footer. Pages pass BaseHead's props straight through;
+//  page-specific <head> tags go in the "head" slot.
+// ============================================================
+
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+type HeadProps = Parameters<typeof BaseHead>[0];
+
+interface Props extends HeadProps {
+  /** Which nav link to mark as current, e.g. "blog". */
+  active?: string;
+  /** Narrow reading column used by blog posts and docs. */
+  narrow?: boolean;
+}
+
+const { active, narrow = false, ...headProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead {...headProps}>
+      <slot name="head" />
+    </BaseHead>
+  </head>
+  <body>
+    <div class="wrap" style={narrow ? 'max-width: 720px;' : undefined}>
+      <SiteHeader active={active} />
+      <slot />
+      <SiteFooter />
+    </div>
+  </body>
+</html>
