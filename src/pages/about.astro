@@ -3,6 +3,14 @@ import "../styles/global.css";
 import BaseHead from '../components/BaseHead.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { Image } from 'astro:assets';
+import ireland from '../assets/images/ireland.webp';
+import beachside from '../assets/images/beachside.webp';
+import renfaire from '../assets/images/renfaire.webp';
+import tower from '../assets/images/tower.webp';
+import beachdrink from '../assets/images/beachdrink.webp';
+import tikiparty from '../assets/images/tikiparty.webp';
+import birdwatching from '../assets/images/birdwatching.webp';
 ---
 
 <!doctype html>
@@ -25,11 +33,11 @@ import SiteFooter from '../components/SiteFooter.astro';
       <!-- ---------- photo + intro ---------- -->
       <section class="about-intro">
         <div class="about-photo-wrap">
-          <img
-            src="/images/ireland.webp"
+          <Image
+            src={ireland}
             alt="Preah in Ireland"
-            width="160"
-            height="160"
+            widths={[220, 440]}
+            sizes="220px"
             class="about-photo"
           />
         </div>
@@ -155,14 +163,14 @@ import SiteFooter from '../components/SiteFooter.astro';
         </div>
         <div class="gallery">
           <div class="gallery-row gallery-row--landscape">
-            <img class="gallery-img" src="/images/beachside.webp" alt="Beachside view" width="400" height="300" loading="lazy" />
-            <img class="gallery-img" src="/images/renfaire.webp" alt="Renaissance faire" width="400" height="300" loading="lazy" />
-            <img class="gallery-img" src="/images/tower.webp" alt="Tower" width="400" height="300" loading="lazy" />
+            <Image class="gallery-img" src={beachside} alt="Beachside view" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
+            <Image class="gallery-img" src={renfaire} alt="Renaissance faire" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
+            <Image class="gallery-img" src={tower} alt="Tower" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
           </div>
           <div class="gallery-row gallery-row--landscape">
-            <img class="gallery-img" src="/images/beachdrink.webp" alt="Drink at the beach" width="400" height="300" loading="lazy" />
-            <img class="gallery-img" src="/images/tikiparty.webp" alt="Tiki party" width="400" height="300" loading="lazy" />
-            <img class="gallery-img" src="/images/birdwatching.webp" alt="Birdwatching" width="400" height="300" loading="lazy" />
+            <Image class="gallery-img" src={beachdrink} alt="Drink at the beach" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
+            <Image class="gallery-img" src={tikiparty} alt="Tiki party" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
+            <Image class="gallery-img" src={birdwatching} alt="Birdwatching" widths={[320, 640]} sizes="(min-width: 760px) 320px, 45vw" loading="lazy" />
           </div>
         </div>
       </section>
@@ -319,6 +327,9 @@ import SiteFooter from '../components/SiteFooter.astro';
 
   .gallery-img {
     width: 100%;
+    /* Let the row's aspect-ratio drive height rather than the intrinsic
+       height attribute Astro adds. */
+    height: auto;
     object-fit: cover;
     border-radius: var(--radius);
     border: 1.5px solid var(--rule);

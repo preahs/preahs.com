@@ -539,6 +539,9 @@ const {
   /* ---------- images ---------- */
   .prose :global(img) {
     max-width: 100%;
+    /* Astro emits intrinsic width/height on optimised images; without this the
+       height attribute wins and wide images render stretched in the column. */
+    height: auto;
     border-radius: var(--radius);
     display: block;
     margin: 1.35rem auto;

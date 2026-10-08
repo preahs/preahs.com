@@ -10,6 +10,7 @@ import remarkSupersub from 'remark-supersub';
 import remarkFlexibleMarkers from 'remark-flexible-markers';
 import rehypeKatex from 'rehype-katex';
 import rehypeExternalLinks from 'rehype-external-links';
+import { remarkLocalImages } from './src/lib/remark-local-images.mjs';
 
 // SVG icon appended after external link text
 const externalLinkIcon = {
@@ -38,6 +39,13 @@ const externalLinkIcon = {
 export default defineConfig({
   site: 'https://preahs.com',
   integrations: [sitemap()],
+  image: {
+    // The post column is 720px, so the largest useful variant is 1440
+    // (720 at 2x). Astro emits a srcset across these and the browser
+    // picks one; it never generates a width larger than the source.
+    layout: 'constrained',
+    breakpoints: [360, 480, 720, 1080, 1440],
+  },
   markdown: {
     // Exclude 'math' (handled by rehype-katex) and 'mermaid' (rendered client-side)
     // from Shiki so those code blocks stay as plain <code class="language-*"> for
@@ -50,6 +58,7 @@ export default defineConfig({
     // which prevents ~text~ from being consumed as strikethrough before remark-supersub sees it.
     gfm: false,
     remarkPlugins: [
+      remarkLocalImages,
       [remarkGfm, { singleTilde: false }],
       remarkGithubAlerts,
       remarkMath,
