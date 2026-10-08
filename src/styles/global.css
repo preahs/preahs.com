@@ -2,8 +2,8 @@
    PAPER / SKETCHBOOK — light theme (shared with blog)
    ============================================================ */
 :root {
-  --paper:        oklch(97.5% 0.012 90);
-  --paper-card:   oklch(99% 0.008 90);
+  --paper:        oklch(98.2% 0.005 90);
+  --paper-card:   oklch(99.4% 0.003 90);
   --ink:          oklch(28% 0.02 80);
   --ink-soft:     oklch(45% 0.02 80);
   --ink-faint:    oklch(60% 0.015 80);
@@ -25,8 +25,6 @@
 html { scroll-behavior: smooth; }
 body {
   background-color: var(--paper);
-  background-image: radial-gradient(oklch(0% 0 0 / 0.015) 1px, transparent 1px);
-  background-size: 4px 4px;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.06rem;

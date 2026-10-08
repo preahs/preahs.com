@@ -40,6 +40,7 @@ const {
       title={title}
       description={description}
       rss
+      ogType="article"
     >
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
     </BaseHead>
@@ -296,7 +297,7 @@ const {
     padding: 0.15em 0.6em;
     border: 1px solid var(--rule-strong);
     border-radius: 999px;
-    background: #FEFCF6;
+    background: var(--paper-card);
     transition: border-color 0.15s, background 0.15s;
   }
   .tag-pill:hover { border-color: var(--accent); background: var(--accent-soft); }
