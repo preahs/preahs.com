@@ -1,60 +1,141 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Bump these by hand when the page content changes.
+const updated = new Date('2026-10-08');
+const sideLearningMonth = 'October 2026';
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
 
 <BaseLayout
   title="Portfolio"
-  description="Preah Smith's professional portfolio — aiming for cloud security, with a background in technical support, Linux administration, and self-hosted infrastructure in Central Texas."
+  description="Preah Smith's professional portfolio — Security+ certified cybersecurity graduate with Apple technical support experience and a self-hosted Proxmox homelab, working toward cloud security."
   active="portfolio"
 >
-  <!-- ---------- page header ---------- -->
+  <!-- ---------- intro ---------- -->
   <section class="hero">
     <h1>Portfolio</h1>
     <p class="hero-sub">
-      A summary of my professional background. Support work, security projects,
-      and the infrastructure I build and maintain. For the full story, see my
-      <a href="/files/preah_smith_resume.pdf" target="_blank" rel="noopener noreferrer"> resume </a>
-      or get in touch at <a href="mailto:contact@preahs.com">contact@preahs.com</a>.
+      Cybersecurity graduate (B.B.A., UTSA) with CompTIA Security+ and A+, which makes me
+      DoD 8140 IAT Level II eligible. I bring Apple technical support experience and run a
+      Proxmox homelab with CI security scanning, monitoring, and SSO. I'm looking for IT support
+      and security roles on the path to cloud security.
     </p>
-  </section>
-
-  <!-- ---------- docs callout ---------- -->
-  <a href="/docs" class="btn docs-callout">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    Labs and project documentation
-  </a>
-
-  <!-- ---------- summary ---------- -->
-  <section class="block">
-    <div class="block-head">
-      <h2>Summary</h2>
-    </div>
-    <div class="prose">
-      <p class="lead">
-        I'm aiming for a role in cloud security and am building the platform, defensive, and
-        infrastructure skills to get there.
-      </p>
-      <p>
-        I hold a B.B.A. in Cybersecurity and have hands-on experience delivering technical support at
-        scale, administering Linux systems, and building self-hosted infrastructure. I can resolve
-        complex hardware, software, and networking issues across multiple platforms, and I bring strong
-        documentation habits, a security-minded approach to troubleshooting, and a genuine drive to keep
-        learning.
-      </p>
+    <div class="hero-cta">
+      <a href="/files/preah_smith_resume.pdf" class="btn" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
+      <a href="mailto:contact@preahs.com" class="btn">contact@preahs.com</a>
+      <a href="/docs" class="btn">Labs &amp; runbooks</a>
     </div>
   </section>
 
-  <!-- ---------- now ---------- -->
+  <!-- ---------- featured projects ---------- -->
   <section class="block">
     <div class="block-head">
-      <h2>Now</h2>
+      <h2>Featured projects</h2>
     </div>
-    <div class="prose">
-      <p>What I'm building and studying this quarter:</p>
-      <ul class="now-list">
-        <li>Standing up an Active Directory fundamentals lab at ad.snowberry.social — domain setup first, then common attack and detection techniques.</li>
-        <li>Studying for the <strong>AWS Solutions Architect – Associate</strong> exam.</li>
-        <li>Hardening my Forgejo Actions security pipeline and expanding homelab monitoring coverage.</li>
+    <div class="case-list">
+      <article class="case">
+        <h3>Recovering an offline Proxmox host remotely</h3>
+        <p class="case-summary">A dead NIC port took my hypervisor off the network. I diagnosed and fixed it out-of-band.</p>
+        <dl>
+          <dt>Problem</dt>
+          <dd>The Proxmox host on my PowerEdge R730 dropped off the network, and every service on it went down with it.</dd>
+          <dt>What I did</dt>
+          <dd>I got in through iDRAC out-of-band access instead of the dead network path. I traced the outage to a failed NIC port, likely damaged by a flood-related power surge, then repointed the Proxmox bridge to a working port.</dd>
+          <dt>Outcome</dt>
+          <dd>I brought the host and its services back online without replacing hardware, and documented the recovery as a runbook.</dd>
+        </dl>
+        <ul class="tags"><li>Proxmox</li><li>iDRAC</li><li>Linux networking</li><li>PowerEdge R730</li></ul>
+        <!-- TODO: write this runbook before deploying; slug must match the link below -->
+        <a href="/docs/runbooks/proxmox-nic-failure" class="case-link">Read the runbook →</a>
+      </article>
+
+      <article class="case">
+        <h3>Security scanning in CI</h3>
+        <p class="case-summary">I built a Forgejo Actions pipeline that scans every push for leaked secrets and vulnerable dependencies.</p>
+        <dl>
+          <dt>Why</dt>
+          <dd>I self-host my Git forge, so there's no GitHub-provided scanning. If a secret or a vulnerable dependency slipped in, nothing would catch it.</dd>
+          <dt>What I built</dt>
+          <dd>I wrote the workflows from scratch: Gitleaks for secret scanning and Trivy for vulnerability and misconfiguration scanning. Both run on a self-hosted runner in an LXC container.</dd>
+          <dt>Result</dt>
+          <dd>Builds are gated on scan results, so problems show up in CI before anything deploys.</dd>
+        </dl>
+        <ul class="tags"><li>Forgejo Actions</li><li>Gitleaks</li><li>Trivy</li><li>Docker</li></ul>
+        <!-- TODO: write this runbook before deploying; slug must match the link below -->
+        <a href="/docs/runbooks/ci-security-scanning" class="case-link">Read the runbook →</a>
+      </article>
+
+      <article class="case">
+        <h3>Monitoring and alerting</h3>
+        <p class="case-summary">Metrics, dashboards, and push alerts across the lab, plus a watchdog outside it.</p>
+        <dl>
+          <dt>Why</dt>
+          <dd>I wanted to find out about failures before I noticed a service was down, including failures that take out the monitoring itself.</dd>
+          <dt>What I built</dt>
+          <dd>Prometheus collects metrics, Grafana shows them, and Alertmanager routes alerts to my self-hosted ntfy. An external VPS watchdog checks the site from outside, so I still get alerted if the whole homelab goes dark.</dd>
+          <dt>Result</dt>
+          <dd>Alerts reach my phone with no third-party services involved, and a full outage doesn't go unnoticed.</dd>
+        </dl>
+        <ul class="tags"><li>Prometheus</li><li>Grafana</li><li>Alertmanager</li><li>ntfy</li></ul>
+        <!-- TODO: write this runbook before deploying; slug must match the link below -->
+        <a href="/docs/runbooks/monitoring-and-alerting" class="case-link">Read the runbook →</a>
+      </article>
+
+      <article class="case">
+        <h3>Nextcloud 403s after a bulk import</h3>
+        <p class="case-summary">Writes failed everywhere while reads worked. The cause was Unix file ownership, not the app.</p>
+        <dl>
+          <dt>Problem</dt>
+          <dd>After I copied files straight into the data directory, every upload, save, and new folder returned HTTP 403 from both web and iOS clients.</dd>
+          <dt>What I did</dt>
+          <dd>Because reads still worked, I ruled out the app's permission model and checked the filesystem. The import had run as root, so the web server user couldn't write to its own data directory.</dd>
+          <dt>Outcome</dt>
+          <dd>Correcting ownership and rescanning fixed writes. I wrote it up as a runbook with the diagnostic pattern to reuse.</dd>
+        </dl>
+        <ul class="tags"><li>Linux permissions</li><li>Nextcloud</li><li>occ</li></ul>
+        <a href="/docs/runbooks/nextcloud-403-ownership" class="case-link">Read the runbook →</a>
+      </article>
+    </div>
+
+    <h3 class="subhead">More projects</h3>
+    <ul class="more-list">
+      <li><strong>authentik SSO.</strong> Single sign-on in front of my self-hosted services.</li>
+      <li><strong>LVM storage consolidation.</strong> Combined the homelab's storage into LVM volumes.</li>
+      <li><strong>Matrix homeserver.</strong> Runs on a VPS at snowberry.social with a Discord bridge. <a href="/blog/homelab/starting-my-personal-matrix-homeserver" class="card-link">Write-up</a></li>
+      <li><strong>The lab as a whole.</strong> <a href="/blog/homelab/overview-of-my-homelab" class="card-link">Overview of my homelab</a></li>
+    </ul>
+  </section>
+
+  <!-- ---------- currently building ---------- -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Currently building</h2>
+    </div>
+    <div class="now-grid">
+      <div class="now-card">
+        <span class="status">in progress</span>
+        <h3>AWS Solutions Architect – Associate</h3>
+        <p>My main focus right now: studying for the exam as the next step toward cloud security.</p>
+      </div>
+      <div class="now-card">
+        <span class="status">in progress</span>
+        <h3>Active Directory lab</h3>
+        <p>
+          A domain controller and a joined Windows 11 client at{' '}
+          <a href="https://ad.snowberry.cloud" class="card-link" target="_blank" rel="noopener noreferrer">ad.snowberry.cloud</a>.
+          Domain fundamentals come first, then simulating and detecting common attacks (Kerberoasting,
+          Pass-the-Hash, DCSync) mapped to MITRE ATT&amp;CK.
+        </p>
+      </div>
+    </div>
+
+    <div class="side-learning">
+      <h3 class="subhead">Side learning <span class="dates">— {sideLearningMonth}</span></h3>
+      <ul>
+        <li>Experimenting with k3s on a spare Dell machine to learn Kubernetes basics</li>
       </ul>
     </div>
   </section>
@@ -62,40 +143,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ---------- skills ---------- -->
   <section class="block">
     <div class="block-head">
-      <h2>Technical skills</h2>
+      <h2>Skills</h2>
     </div>
     <div class="skills-grid">
       <div class="skill-card">
-        <h3>Systems</h3>
-        <p>Windows, macOS, Linux (Ubuntu, Debian), iOS, Docker, Proxmox, Git</p>
+        <div class="skill-head"><h3>Systems &amp; virtualization</h3><span class="depth">hands-on</span></div>
+        <p>Proxmox, LXC, Docker &amp; Compose, Linux (Debian, Ubuntu), Windows, macOS, iOS</p>
       </div>
       <div class="skill-card">
-        <h3>Networking</h3>
-        <p>TCP/IP, DNS, DHCP, VLANs &amp; subnetting, OPNsense firewalls, WireGuard, Tailscale, Cloudflare, LAN/WAN troubleshooting</p>
+        <div class="skill-head"><h3>Networking</h3><span class="depth">hands-on</span></div>
+        <p>TCP/IP, DNS, DHCP, WireGuard, Tailscale, Cloudflare Tunnels</p>
       </div>
       <div class="skill-card">
-        <h3>Security</h3>
-        <p>MITRE ATT&amp;CK, Nmap, Wireshark, Gitleaks, Trivy</p>
+        <div class="skill-head"><h3>Security</h3><span class="depth">hands-on</span></div>
+        <p>Gitleaks, Trivy, authentik SSO, Nmap, Wireshark, MITRE ATT&amp;CK</p>
       </div>
       <div class="skill-card">
-        <h3>Observability &amp; CI/CD</h3>
-        <p>Prometheus, Grafana, Alertmanager, ntfy, Forgejo Actions</p>
+        <div class="skill-head"><h3>Monitoring &amp; CI/CD</h3><span class="depth">hands-on</span></div>
+        <p>Prometheus, Grafana, Alertmanager, ntfy, Forgejo Actions, Git</p>
       </div>
       <div class="skill-card">
-        <h3>Programming</h3>
-        <p>Python, Bash, HTML/CSS</p>
+        <div class="skill-head"><h3>Scripting</h3><span class="depth">hands-on</span></div>
+        <p>Bash, Python, YAML, HTML/CSS</p>
       </div>
-      <div class="skill-card">
-        <h3>Tools</h3>
-        <p>IT ticketing systems, CRM platforms, Remote Desktop</p>
+      <div class="skill-card learning">
+        <div class="skill-head"><h3>Learning</h3><span class="depth">in progress</span></div>
+        <p>AWS, Active Directory, Kubernetes (k3s)</p>
       </div>
     </div>
   </section>
 
-  <!-- ---------- experience ---------- -->
+  <!-- ---------- experience, certs, education ---------- -->
   <section class="block">
     <div class="block-head">
-      <h2>Experience</h2>
+      <h2>Experience &amp; credentials</h2>
     </div>
     <div class="timeline">
       <div class="timeline-item">
@@ -104,10 +185,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="dates">Jan 2024 – Jul 2025</span>
         </div>
         <ul>
-          <li>Served as first point of contact for customers, delivering remote technical support across Mac, iPhone, iPad, and Apple Watch, resolving 150+ cases weekly across hardware, software, and account issues</li>
-          <li>Maintained a 97% customer satisfaction rating by providing empathetic, efficient, and accurate solutions in a high-volume environment</li>
-          <li>Diagnosed and resolved complex OS-level, network connectivity, and account security issues, applying systematic troubleshooting methodology</li>
-          <li>Leveraged IT ticketing and CRM platforms to manage cases, track resolutions, and ensure accurate documentation and timely follow-up</li>
+          <li>Resolved 150+ cases a week across Mac, iPhone, iPad, and Apple Watch, covering hardware, OS, network connectivity, and account security issues</li>
+          <li>Kept a 97% customer satisfaction rating in a high-volume environment, documenting every case in ticketing and CRM systems</li>
         </ul>
       </div>
 
@@ -117,181 +196,219 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="dates">Jan 2021 – Present</span>
         </div>
         <ul>
-          <li>Supervised cashier team and oversaw thousands of weekly transactions in a high-volume retail environment</li>
-          <li>Trained new employees on POS systems, compliance procedures, and customer engagement, reducing onboarding errors and improving team efficiency</li>
-          <li>Served as primary point of escalation for customer issues and POS technical failures, consistently resolving problems under time pressure</li>
-          <li>Maintained composure and accuracy managing competing priorities across a fast-paced, customer-facing environment</li>
+          <li>Lead the cashier team and handle escalations for customer issues and POS failures, overseeing thousands of transactions a week</li>
+          <li>Train new hires on POS systems, cash handling, and compliance procedures</li>
         </ul>
       </div>
     </div>
-  </section>
 
-  <!-- ---------- education & certs ---------- -->
-  <section class="block">
-    <div class="block-head">
-      <h2>Education &amp; certifications</h2>
-    </div>
     <div class="ed-grid">
       <div class="ed-card">
         <h3>B.B.A. in Cybersecurity</h3>
-        <p class="org">University of Texas at San Antonio <span class="dates">— Graduated Aug 2026</span></p>
-        <p>GPA: 3.75 · Coursework: Network Security, Information Assurance, Linux &amp; SQL, Cybersecurity Fundamentals</p>
+        <p class="org">University of Texas at San Antonio <span class="dates">— Aug 2026</span></p>
+        <p>GPA 3.75 · Network Security, Information Assurance, Linux &amp; SQL</p>
       </div>
       <div class="ed-card">
-        <h3>Certifications &amp; training</h3>
+        <h3>Certifications</h3>
         <ul>
-          <li>CompTIA A+ (220-1201 &amp; 220-1202) — January 2026</li>
-          <li>CompTIA Security+ (SY0-701) — June 2026</li>
-          <li>DoD 8140 IAT Level II eligible (via A+ and Security+)</li>
-          <li>AWS Solutions Architect – Associate <span class="badge">in progress</span></li>
-          <li>Tools of the Trade: Linux and SQL — February 2024</li>
-          <li>Connect and Protect: Networks and Network Security — April 2024</li>
+          <li>CompTIA Security+ (SY0-701) <span class="dates">— Jun 2026</span></li>
+          <li>CompTIA A+ (220-1201 &amp; 220-1202) <span class="dates">— Jan 2026</span></li>
+          <li>DoD 8140 IAT Level II eligible</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ---------- projects ---------- -->
-  <section class="block">
-    <div class="block-head">
-      <h2>Projects</h2>
-    </div>
-    <div class="project-list">
-      <div class="project-card">
-        <h3>Security Lab <span class="badge">in progress</span></h3>
-        <p class="project-stack">Proxmox · Docker · Traefik · Active Directory</p>
-        <ul>
-          <li>Built and maintain a multi-VM home lab on Proxmox, running containerized services via Docker behind a Traefik reverse proxy with Cloudflare Tunnel for secure external access</li>
-          <li>Currently building an Active Directory fundamentals lab at <a href="https://ad.snowberry.social" class="card-link" target="_blank" rel="noopener noreferrer">ad.snowberry.social</a> — starting with domain setup, then working toward simulating and detecting common AD attacks (Kerberoasting, Pass-the-Hash, DCSync, Golden Ticket) using MITRE ATT&amp;CK as a framework</li>
-        </ul>
-      </div>
-
-      <div class="project-card">
-        <h3>CI Security Pipeline</h3>
-        <p class="project-stack">Forgejo Actions · Gitleaks · Trivy</p>
-        <ul>
-          <li>Built a security pipeline from scratch in Forgejo Actions: secret scanning with Gitleaks and vulnerability/misconfiguration scanning with Trivy on every push</li>
-          <li>Gates builds on scan results so problems surface in CI rather than in production</li>
-        </ul>
-      </div>
-
-      <div class="project-card">
-        <h3>Full-Stack Monitoring &amp; Alerting</h3>
-        <p class="project-stack">Prometheus · Grafana · Alertmanager · ntfy</p>
-        <ul>
-          <li>Stood up an observability stack collecting metrics with Prometheus and visualizing them in Grafana dashboards across lab hosts and services</li>
-          <li>Routed Alertmanager notifications through self-hosted ntfy for push alerts on my own infrastructure, no third-party services in the loop</li>
-        </ul>
-      </div>
-
-      <div class="project-card">
-        <h3>Home Network &amp; Segmentation</h3>
-        <p class="project-stack">OPNsense · VLANs · WireGuard · Tailscale</p>
-        <ul>
-          <li>Configured VLAN segmentation and subnetting on managed hardware to separate lab, trusted, and untrusted traffic</li>
-          <li>Wrote and maintain firewall rules on OPNsense, with WireGuard and Tailscale for secure remote access into the network</li>
-        </ul>
-      </div>
-
-      <div class="project-card">
-        <h3>Matrix Homeserver</h3>
-        <p class="project-stack">Matrix · Synapse · mautrix-discord</p>
-        <ul>
-          <li>Run a personal Matrix homeserver at snowberry.social, including a mautrix-discord bridge to keep existing conversations reachable while migrating off Discord</li>
-          <li>Documented the setup, reasoning, and trade-offs — <a href="/blog/homelab/starting-my-personal-matrix-homeserver" class="card-link">Starting My Personal Matrix Homeserver</a></li>
-        </ul>
-      </div>
-
-      <div class="project-card">
-        <h3>Self-Hosted Infrastructure Stack</h3>
-        <p class="project-stack">Linux · Docker · Nextcloud · Jellyfin</p>
-        <ul>
-          <li>Designed and deployed a home server stack including, but not limited to, Nextcloud for file sync, Jellyfin for media, and ntfy for push notifications, all managed via Docker Compose</li>
-          <li>Managed storage migrations and permissions issues, captured as runbooks — <a href="/docs/runbooks/nextcloud-403-ownership" class="card-link">Nextcloud 403 on upload after a bulk import</a> and <a href="/docs/runbooks/unprivileged-lxc-shared-storage" class="card-link">sharing an ext4 drive with an unprivileged LXC</a></li>
-          <li>Configured Bash scripts and system-level tooling for automated media organization, user account management, and backup routines</li>
-          <li>Wider context on the setup — <a href="/blog/homelab/overview-of-my-homelab" class="card-link">Overview of My Homelab</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <p class="updated">Last updated <time datetime={updated.toISOString().slice(0, 10)}>{fmt(updated)}</time></p>
 </BaseLayout>
 
 <style>
-  .docs-callout {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .docs-callout svg {
-    width: 1.05rem;
-    height: 1.05rem;
-    flex: none;
-  }
-
-  .hero-sub a {
+  .card-link,
+  .case-link {
     color: var(--accent);
     text-decoration: none;
     border-bottom: 1.5px dashed var(--rule-strong);
+    transition: border-color 0.15s;
   }
 
-  .hero-sub a:hover {
+  .card-link:hover,
+  .case-link:hover {
     border-bottom-color: var(--accent);
   }
 
-  .prose {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    max-width: 680px;
-  }
-
-  .prose p {
-    font-size: 1.08rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-  }
-
-  .prose p.lead {
-    font-size: 1.18rem;
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
     color: var(--ink);
-    line-height: 1.6;
   }
 
-  .now-list {
+  .dates {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .org {
+    color: var(--ink-soft);
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+
+  .subhead {
+    font-size: 1.15rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  /* ---------- featured case studies ---------- */
+  .case-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 1.25rem;
+  }
+
+  .case {
+    background: var(--paper-card);
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding-left: 1.1rem;
-    max-width: 680px;
+    gap: 0.7rem;
   }
 
-  .now-list li {
+  .case h3 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .case-summary {
     font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .case dl {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .case dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-top: 0.45rem;
+  }
+
+  .case dd {
+    font-size: 0.97rem;
     color: var(--ink-soft);
     line-height: 1.6;
   }
 
-  .badge {
+  .tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+
+  .tags li {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.74rem;
+    color: var(--accent);
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.08em 0.5em;
+  }
+
+  .case-link {
+    align-self: flex-start;
+    margin-top: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .more-list,
+  .side-learning ul,
+  .timeline-item ul,
+  .ed-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-left: 1.1rem;
+    max-width: 760px;
+  }
+
+  .more-list li,
+  .side-learning li,
+  .timeline-item li,
+  .ed-card li {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .more-list strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- currently building ---------- */
+  .now-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+  }
+
+  .now-card {
+    background: var(--paper-card);
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .now-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .now-card p {
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .status,
+  .depth {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    padding: 0.12em 0.55em;
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    vertical-align: middle;
-    margin-left: 0.4rem;
+    letter-spacing: 0.06em;
     white-space: nowrap;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 0.1em 0.6em;
+  }
+
+  .status {
+    color: var(--folder);
   }
 
   /* ---------- skills ---------- */
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
     gap: 1rem;
   }
 
@@ -302,15 +419,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 1rem 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
+  }
+
+  .skill-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   .skill-card h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
     font-size: 1rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
   }
 
   .skill-card p {
@@ -319,7 +439,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     line-height: 1.55;
   }
 
-  /* ---------- timeline / experience ---------- */
+  .depth {
+    color: var(--ink-faint);
+  }
+
+  .skill-card.learning .depth {
+    color: var(--folder);
+  }
+
+  /* ---------- experience & credentials ---------- */
   .timeline {
     display: flex;
     flex-direction: column;
@@ -341,90 +469,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .timeline-head h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
     font-size: 1.15rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
   }
 
-  .org {
-    color: var(--ink-soft);
-    font-weight: 400;
-    font-size: 0.95rem;
-  }
-
-  .dates {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    white-space: nowrap;
-  }
-
-  .timeline-item ul,
-  .project-card ul,
-  .ed-card ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    padding-left: 1.1rem;
-  }
-
-  .timeline-item li,
-  .project-card li,
-  .ed-card li {
-    font-size: 0.98rem;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-
-  /* ---------- projects ---------- */
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .project-card {
-    background: var(--paper-card);
-    border: 1.5px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 1.2rem 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .project-card h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.1rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-  }
-
-  .project-stack {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--accent);
-  }
-
-  .card-link {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1.5px dashed var(--rule-strong);
-    transition: border-color 0.15s;
-  }
-
-  .card-link:hover {
-    border-bottom-color: var(--accent);
-  }
-
-  /* ---------- education ---------- */
   .ed-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 1rem;
+    margin-top: 2rem;
   }
 
   .ed-card {
@@ -438,16 +490,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .ed-card h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
     font-size: 1.05rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
   }
 
   .ed-card > p {
     font-size: 0.92rem;
     color: var(--ink-soft);
     line-height: 1.55;
+  }
+
+  /* ---------- footer stamp ---------- */
+  .updated {
+    margin-top: 3rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
   }
 </style>
