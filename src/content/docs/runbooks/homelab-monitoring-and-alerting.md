@@ -6,7 +6,7 @@ severity: medium
 tags: ["labs", "tech", "linux", "proxmox", "monitoring", "prometheus", "grafana", "alerting"]
 ---
 
-## Why this exists
+## Context
 
 In August my Proxmox host dropped off the network. Tailscale, the Cloudflare Tunnels, and the web GUI all went dark at once, while iDRAC stayed reachable on its dedicated management port. The cause turned out to be a dead onboard NIC port (`eno1` reporting `NO-CARRIER`), most likely from a power surge during the Texas flooding. The fix was simple: repoint the `vmbr0` bridge to `eno2`, and fix `eno1` at a later date.
 
