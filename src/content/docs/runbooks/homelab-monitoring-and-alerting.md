@@ -1,7 +1,7 @@
 ---
 title: "Homelab Monitoring and Alerting with Prometheus, Grafana, Alertmanager, and ntfy"
 description: "How my Proxmox homelab is monitored: what gets scraped and probed, which alerts fire and why, how alerts reach my phone through ntfy, and how a dead man's switch catches the stack going dead."
-date: 2026-10-13
+date: 2026-10-15
 severity: medium
 tags: ["labs", "tech", "linux", "proxmox", "monitoring", "prometheus", "grafana", "alerting"]
 ---
