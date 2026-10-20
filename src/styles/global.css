@@ -144,6 +144,9 @@ body {
   white-space: nowrap;
 }
 
+/* ---------- recently cooked ---------- */
+.recipes { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+
 /* ---------- currently playing ---------- */
 .games {
   list-style: none;
@@ -235,16 +238,47 @@ a.ext .arr svg { width: 100%; height: 100%; display: block; }
 
 /* ---------- footer ---------- */
 .site-foot {
-  display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;
-  margin-top: 3rem; padding: 1.5rem 0 3rem;
+  margin-top: 3rem; padding: 2rem 0 2.5rem;
   border-top: 1.5px solid var(--rule);
   font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint);
 }
-.site-foot .foot-brand { color: var(--ink-soft); }
+.site-foot .foot-grid {
+  display: grid; gap: 1.75rem 2rem;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+}
+.site-foot .foot-about { max-width: 34ch; }
+.site-foot .foot-brand {
+  display: block; margin-bottom: 0.4rem;
+  font-family: var(--font-display); font-size: 1.25rem; color: var(--ink);
+}
+.site-foot .foot-about p {
+  font-family: var(--font-body); font-size: 0.9rem; line-height: 1.55;
+  color: var(--ink-soft);
+}
+.site-foot h2 {
+  margin-bottom: 0.6rem;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.site-foot ul { list-style: none; display: grid; gap: 0.6rem; }
+.site-foot li { display: flex; flex-direction: column; gap: 0.1rem; }
+.site-foot .foot-hint { overflow-wrap: break-word; }
+.site-foot .foot-base {
+  display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;
+  margin-top: 2rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
 .site-foot .foot-dot { color: var(--rule-strong); }
-.site-foot .foot-spacer { flex: 1; }
 .site-foot a {
+  align-self: flex-start;
   color: var(--accent); text-decoration: none;
   border-bottom: 1.5px dashed var(--rule-strong); transition: 0.15s;
 }
 .site-foot a:hover { border-bottom-color: var(--accent); }
+@media (max-width: 860px) {
+  .site-foot .foot-grid { grid-template-columns: repeat(3, 1fr); }
+  .site-foot .foot-about { grid-column: 1 / -1; max-width: 52ch; }
+}
+@media (max-width: 520px) {
+  .site-foot .foot-grid { grid-template-columns: 1fr; }
+}

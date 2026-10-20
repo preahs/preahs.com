@@ -1,0 +1,36 @@
+# ============================================================
+#  Recipes I've made — powers the homepage "Recently cooked"
+#  block and the full history at /recipes.
+#
+#  Add one entry per time you cook something. The key is the
+#  entry's id (any unique slug). Order here doesn't matter;
+#  entries are sorted by `made`, newest first (same day: A-Z).
+#
+#    some-recipe-slug:
+#      title: Recipe Name
+#      url: https://example.com/recipe/
+#      made: 2026-10-19            # date you cooked it
+#      kind: main                  # main | soup | salad | drink | dessert (picks the icon)
+#      note: Optional one-liner    # shown on /recipes
+#
+#  Made it again? Add another entry with a new key and date,
+#  e.g. vegan-hot-chocolate-2.
+# ============================================================
+
+cauliflower-steaks:
+  title: Cauliflower Steaks with Caramelized Shallots
+  url: https://rainbowplantlife.com/cauliflower-steaks-with-caramelized-shallots/
+  made: 2026-10-14
+  kind: main
+
+vegan-hot-chocolate:
+  title: Vegan Hot Chocolate
+  url: https://rainbowplantlife.com/vegan-hot-chocolate/
+  made: 2026-10-14
+  kind: drink
+
+butternut-squash-curry:
+  title: Butternut Squash Curry with Chickpeas
+  url: https://rainbowplantlife.com/thai-butternut-squash-chickpea-curry/
+  made: 2026-10-07
+  kind: soup

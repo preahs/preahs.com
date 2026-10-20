@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeLink from '../components/RecipeLink.astro';
+import { getRecipes, formatMadeShort, formatMonth, type Recipe } from '../lib/recipes';
+
+const recipes = await getRecipes();
+
+// Year -> month -> recipes, preserving newest-first order.
+const years: { year: number; months: { label: string; items: Recipe[] }[] }[] = [];
+for (const r of recipes) {
+  const year = r.made.getUTCFullYear();
+  let y = years.at(-1);
+  if (y?.year !== year) years.push((y = { year, months: [] }));
+  const label = formatMonth(r.made);
+  let m = y.months.at(-1);
+  if (m?.label !== label) y.months.push((m = { label, items: [] }));
+  m.items.push(r);
+}
+
+const oldest = recipes.at(-1);
+---
+
+<BaseLayout
+  title="Recipes"
+  description="A running history of the recipes I've been cooking, with links to the originals."
+  active="recipes"
+>
+  <section class="hero">
+    <h1>Recipes</h1>
+    <p class="hero-sub">
+      A running log of what I've been cooking, linked straight to the
+      original recipes. Sharing and keeping a diary at once.
+      {oldest && <> {recipes.length} {recipes.length === 1 ? 'dish' : 'dishes'} since {formatMonth(oldest.made)}.</>}
+    </p>
+  </section>
+
+  {years.map(({ year, months }) => (
+    <section class="block">
+      <div class="block-head">
+        <h2>{year}</h2>
+        <span class="more-static">{months.reduce((n, m) => n + m.items.length, 0)} cooked</span>
+      </div>
+
+      {months.map(({ label, items }) => (
+        <div class="month">
+          <h3 class="month-label">{label.split(' ')[0]}</h3>
+          <ul class="history">
+            {items.map((r) => (
+              <li>
+                <RecipeLink
+                  title={r.title}
+                  url={r.url}
+                  kind={r.kind}
+                  sub={`${formatMadeShort(r.made)} · ${r.source}`}
+                />
+                {r.note && <p class="extra">{r.note}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .month + .month { margin-top: 1.75rem; }
+  .month-label {
+    font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 0.8rem;
+  }
+  .history {
+    list-style: none; display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .history li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  .extra {
+    margin-left: 1.1rem; font-size: 0.98rem; line-height: 1.5; color: var(--ink-soft);
+  }
+</style>

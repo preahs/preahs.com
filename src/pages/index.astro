@@ -2,6 +2,10 @@
 import { getCollection } from "astro:content";
 import { formatDate, readingTime } from "../lib/blog";
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeLink from '../components/RecipeLink.astro';
+import { getRecipes } from "../lib/recipes";
+
+const recentRecipes = (await getRecipes()).slice(0, 4);
 
 const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -135,6 +139,22 @@ const games = [
       ))}
     </div>
   </section>
+
+  <!-- ---------- recently cooked ---------- -->
+  {recentRecipes.length > 0 && (
+    <section class="block">
+      <div class="block-head">
+        <h2>Recently cooked</h2>
+        <a class="more" href="/recipes">all recipes &#8594;</a>
+      </div>
+
+      <div class="recipes">
+        {recentRecipes.map((r) => (
+          <RecipeLink title={r.title} url={r.url} kind={r.kind} sub={r.source} />
+        ))}
+      </div>
+    </section>
+  )}
 
   <!-- ---------- currently playing ---------- -->
   <section class="block">
