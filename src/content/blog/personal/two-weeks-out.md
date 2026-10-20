@@ -19,13 +19,6 @@ I'm considering buying a small notebook from Walmart and jotting down ideas at w
 
 I have been focused exclusively on my wedding coming up in only two weeks. I'll post pictures once everything has settled. I did a trial run of makeup and hair yesterday with my bridal party, testing different makeup styles, and was pretty pleased with the results, minus some frizz since my hair hadn't been washed beforehand. I'm so lucky to have such supportive sisters.
 
-![Side profile showing curly short hair with a white floral hair vine](/images/makeup_trial_1.webp)
-![Close-up of the trial makeup with a pearl necklace and lace neckline](/images/makeup_trial_2.webp)
-![Seated in a full lace wedding dress by a lamp and a monstera plant](/images/makeup_trial_3.webp)
-![Smiling in the lace wedding dress in front of a window and monstera](/images/makeup_trial_4.webp)
-![Seated in the wedding dress with hands folded, lamp glowing behind](/images/makeup_trial_5.webp)
-![Final makeup look in the lace wedding dress by the window](/images/makeup_trial_6.webp)
-
 I am planning on using [Memtly (formerly WeddingShare)](https://memtly.com/) for the reception. Basically, it's a self-hostable application where guests can scan a QR code I put on their tables, and they upload any pictures they take to a centralized site for me to download and compile later. Easy pictures from every guest!
 
 For our honeymoon, we'll be in the Poconos in Pennsylvania for a week, and then I have another week off to relax and do whatever I want to do. After this year... finally 🏖️. We wanted a cozy cabin experience with a hot tub, sauna, and a town nearby to get food at rather than a common tropical destination. I hope to get so much reading done! I am currently reading [Mountain of Silence.](https://store.ancientfaith.com/the-mountain-of-silence-a-search-for-orthodox-spirituality/) And we'll have our [annual Over The Garden Wall watch time.](https://preahs.com/blog/personal/butternut-squash-soup-and-otgw/)
