@@ -7,9 +7,11 @@ tags: [personal, life-update, "2026"]
 
 ## How do I write more?
 
-I showed my coworkers my website recently. Among the niche techies of the internet and a small handful of friends I know in real life, talking about my blog, site design, RSS, and web development concepts flows smoothly and as expected; among coworkers, just a regular individual who operates on Google Chrome with no adblocker (utterly perplexing) and no motivation to explore the technology of the web and what they use every day, it might as well be Greek.
+I showed my coworkers my website recently. When discussing my blog, the niche techies of the internet and a small handful of friends I know in real life understand my interest in site design, RSS, and web development concepts; among coworkers, usually everday individuals with no motivation to explore the technology of the web and what they use every day on their devices, this talk might as well be Greek.
 
-However, I was surprised that my coworkers genuinely did what they said they would do. They read my website when they got home, and *gave me feedback on it.* Rob told me today that he likes the site, but he showed it to his wife and they agreed I need to post more. Harassed me on it, really. One post from two months ago doesn't cut it, and y'know, I have to agree. Additionally, I have to accept that subscribing by email is more effective to a general audience than RSS alone.
+However, I was surprised that my coworkers genuinely did find the site interesting, and were ready to investigate it and give feedback. They read my website when they got home, and my coworkers Rob told me today that he likes the site, but he showed it to his wife and they agreed I need to post more. Harassed me on it, really. One post from two months ago doesn't cut it, and y'know, I have to agree.
+
+Additionally, I have to accept that an option to subscribe by email is more effective to a general audience than RSS alone. Bummer, that seems a tad complicated. But I think I'll have that out soon.
 
 **How do I write more?**
 
@@ -18,6 +20,8 @@ I'm considering buying a small notebook from Walmart and jotting down ideas at w
 ## In other news
 
 I have been focused exclusively on my wedding coming up in only two weeks. I'll post pictures once everything has settled. I did a trial run of makeup and hair yesterday with my bridal party, testing different makeup styles, and was pretty pleased with the results, minus some frizz since my hair hadn't been washed beforehand. I'm so lucky to have such supportive sisters.
+
+![Picture of Preah with partially done makeup, hair, a wedding dress and jewelry](/images/makeup_trial_2.webp)
 
 I am planning on using [Memtly (formerly WeddingShare)](https://memtly.com/) for the reception. Basically, it's a self-hostable application where guests can scan a QR code I put on their tables, and they upload any pictures they take to a centralized site for me to download and compile later. Easy pictures from every guest!
 
@@ -32,6 +36,8 @@ I've been prepping a spare mini PC of mine to test kubernetes out on, both for l
 I have also been busy setting up Authentik for SSO across all of my homelab services to prepare for sharing it with others. It's been quite tedious and slow-going for the initial setup on existing infrastructure, but I've enjoyed it! My brother also showed me a neat setup he did with his TV, where he uses a laptop basically as a smart TV with his self-hosted services and Steam in a console-like interface. I thought it was very cool.
 
 ### Recipes I've made recently
+
+My site now has a dedicated [Recipes](/recipes) page, with a short preview on the home page as well! I love cooking, and this will be a way to document it over time. Here are some recent ones.
 
 - [Cauliflower Steaks with Caramelized Shallots](https://rainbowplantlife.com/cauliflower-steaks-with-caramelized-shallots/#wprm-recipe-container-19550)
 - [Vegan Hot Chocolate](https://rainbowplantlife.com/vegan-hot-chocolate/#wprm-recipe-container-28569)
