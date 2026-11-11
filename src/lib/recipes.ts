@@ -4,7 +4,7 @@
 
 import { getCollection } from 'astro:content';
 
-export type RecipeKind = 'main' | 'soup' | 'salad' | 'drink' | 'dessert';
+export type RecipeKind = 'main' | 'soup' | 'salad' | 'drink' | 'dessert' | 'bread';
 
 export interface Recipe {
   id: string;

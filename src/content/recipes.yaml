@@ -10,7 +10,7 @@
 #      title: Recipe Name
 #      url: https://example.com/recipe/
 #      made: 2026-10-19            # date you cooked it
-#      kind: main                  # main | soup | salad | drink | dessert (picks the icon)
+#      kind: main                  # main | soup | salad | drink | dessert | bread (picks the icon)
 #      note: Optional one-liner    # shown on /recipes
 #
 #  Made it again? Add another entry with a new key and date,
@@ -34,3 +34,21 @@ butternut-squash-curry:
   url: https://rainbowplantlife.com/thai-butternut-squash-chickpea-curry/
   made: 2026-10-07
   kind: soup
+
+cabbage-soup:
+  title: Cabbage Soup
+  url: https://rainbowplantlife.com/cabbage-soup/
+  made: 2026-11-10
+  kind: soup
+
+big-and-bubbly-focaccia:
+  title: Big and Bubbly Focaccia
+  url: https://www.kingarthurbaking.com/recipes/big-and-bubbly-focaccia-recipe
+  made: 2026-11-10
+  kind: bread
+
+crusty-old-world-sesame-braid:
+  title: Crusty Old-World Sesame Braid
+  url: https://www.kingarthurbaking.com/recipes/crusty-old-world-sesame-braid-recipe
+  made: 2026-11-11
+  kind: bread

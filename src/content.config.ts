@@ -35,7 +35,7 @@ const recipes = defineCollection({
     title: z.string(),
     url: z.string().url(),
     made: z.date(),
-    kind: z.enum(['main', 'soup', 'salad', 'drink', 'dessert']).default('main'),
+    kind: z.enum(['main', 'soup', 'salad', 'drink', 'dessert', 'bread']).default('main'),
     note: z.string().optional(),
   }),
 });
